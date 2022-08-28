@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="http://www.seuzjy.cn/2022/08/14/图床加速/"/>
+  <link rel="canonical" href="http://www.seuzjy.cn/2022/08/28/02-net-rpc/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -32,23 +32,23 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>6.myBlog-图床加速 - Tiam's Blog</title>
-  <meta name="keywords" content="jsdelivr cdn,null">
+  <title>02-net/rpc - Tiam's Blog</title>
+  <meta name="keywords" content="RPC,null">
   <meta desc name="description" content="
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
  - Jiyuan Zhang - Tiam's Blog">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.myBlog-图床加速">
-<meta property="og:url" content="http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/index.html">
+<meta property="og:title" content="02-net&#x2F;rpc">
+<meta property="og:url" content="http://www.seuzjy.cn/2022/08/28/02-net-rpc/index.html">
 <meta property="og:site_name" content="Tiam&#39;s Blog">
-<meta property="og:description" content="前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。">
+<meta property="og:description" content="Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2022-08-14T12:37:16.000Z">
+<meta property="article:published_time" content="2022-08-28T12:36:46.000Z">
 <meta property="article:modified_time" content="2022-08-28T12:42:55.629Z">
 <meta property="article:author" content="Jiyuan Zhang">
-<meta property="article:tag" content="jsdelivr cdn">
+<meta property="article:tag" content="RPC">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2631,7 +2631,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="http://www.seuzjy.cn/2022/08/14/图床加速/">
+  <link itemprop="mainEntityOfPage" href="http://www.seuzjy.cn/2022/08/28/02-net-rpc/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="Tiam's Blog">
   </span>
@@ -2652,7 +2652,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        6.myBlog-图床加速
+        02-net/rpc
       </h1>
       <div class='new-meta-box'>
         
@@ -2671,10 +2671,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
   <div class='new-meta-item category'>
     <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
-    <a class="category-link" href="/categories/myBlog/">myBlog</a>
+    <a class="category-link" href="/categories/RPC/">RPC</a>
     
       <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/myBlog/" itemprop="url"><span itemprop="name">myBlog</span></a>
+        <a href="/categories/RPC/" itemprop="url"><span itemprop="name">RPC</span></a>
       </span>
     
   </div>
@@ -2683,10 +2683,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2022-08-14T20:37:16+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2022-08-28T20:36:46+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2022年8月14日</p>
+    <p>发布于：2022年8月28日</p>
   </a>
 </div>
 
@@ -2701,7 +2701,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>
       <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="lc-pv" data-title="6.myBlog-图床加速" data-path="/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/">
+      <span id="lc-pv" data-title="02-net/rpc" data-path="/2022/08/28/02-net-rpc/">
         <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
       </span>
       
@@ -2718,13 +2718,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：183 字</p>
+      <p>字数：1.6k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：7 分钟</p>
     </a>
   </div>
 
@@ -2742,25 +2742,117 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
     <blockquote>
-<p><strong>前言：</strong>为什么会做图床加速呢？其实之前已经建立了<code>PicGo+阿里云OSS</code>的图床了，但是受限于流量，选择建立基于<code>GitHub</code>的图床，但是又因为<code>GitHub</code>访问速度略慢…，于是打算采用<code>GitHub+jsdelivr cdn</code>的方式构建用于Blog的图床。</p>
+<p>Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。</p>
 </blockquote>
 <span id="more"></span>
 
 
 
-<p>这个很简单，随便建个GitHub仓库即可。</p>
-<blockquote>
-<ul>
-<li><p>新建仓库<code>image</code></p>
-</li>
-<li><p>新建一个<code>Personal access token</code>并记录</p>
-</li>
-<li><p>填写<code>PicGo</code>，仓库填写<code>用户名/仓库名</code>，分支填写<code>main</code>，路径<code>选填</code>，自定义域名填写<code> https://gcore.jsdelivr.net/gh/+用户名/仓库名</code>，<strong>如图所示：</strong></p>
-</li>
-</ul>
-<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220814205007775.png" class="lazyload" data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220814205007775.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20220814205007775" style="zoom: 50%;" />
+<h2 id="net-x2F-rpc"><a href="#net-x2F-rpc" class="headerlink" title="net&#x2F;rpc"></a>net&#x2F;rpc</h2><blockquote>
+<h2 id="Go-原生Rpc"><a href="#Go-原生Rpc" class="headerlink" title="Go-原生Rpc"></a>Go-原生Rpc</h2><p>Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。</p>
 </blockquote>
-<p>通过<code>PicGo</code>将图片上传至<code>GitHub</code>，再将图片路径<code>https://gcore.jsdelivr.net/gh/chuyuJY/image/blog/xxx.xxx</code>放到Blog设置中即可。</p>
+<h3 id="基础rpc示例"><a href="#基础rpc示例" class="headerlink" title="基础rpc示例"></a>基础rpc示例</h3><ol>
+<li><code>service</code></li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> service</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;errors&quot;</span></span><br><span class="line">	<span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> StrMaxSize = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> StringRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">	A <span class="type">string</span></span><br><span class="line">	B <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Service <span class="keyword">interface</span> &#123;</span><br><span class="line">	Concat(req StringRequest, ret *<span class="type">string</span>) <span class="type">error</span></span><br><span class="line">	Diff(req StringRequest, ret *<span class="type">string</span>) <span class="type">error</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> StringService <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s StringService)</span></span> Concat(req StringRequest, ret *<span class="type">string</span>) <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(req.A)+<span class="built_in">len</span>(req.B) &gt; StrMaxSize &#123;</span><br><span class="line">		*ret = <span class="string">&quot;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> errors.New(<span class="string">&quot;MaxSize error&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	*ret = req.A + req.B</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s StringService)</span></span> Diff(req StringRequest, ret *<span class="type">string</span>) <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(req.A) &lt; <span class="number">1</span> || <span class="built_in">len</span>(req.B) &lt; <span class="number">1</span> &#123;</span><br><span class="line">		*ret = <span class="string">&quot;&quot;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	res := <span class="string">&quot;&quot;</span></span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(req.A) &lt; <span class="built_in">len</span>(req.B) &#123;</span><br><span class="line">		req.A, req.B = req.B, req.A</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> _, char := <span class="keyword">range</span> req.B &#123;</span><br><span class="line">		<span class="keyword">if</span> strings.Contains(req.A, <span class="type">string</span>(char)) &#123;</span><br><span class="line">			res += <span class="type">string</span>(char)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	*ret = res</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>server</code></li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	stringService := <span class="built_in">new</span>(service.StringService)</span><br><span class="line">    <span class="comment">// 1. 注册接口</span></span><br><span class="line">	rpc.Register(stringService)</span><br><span class="line">    <span class="comment">// 2. 网络调用</span></span><br><span class="line">	rpc.HandleHTTP()</span><br><span class="line">	l, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, <span class="string">&quot;127.0.0.1:9091&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalln(err)</span><br><span class="line">	&#125;</span><br><span class="line">	http.Serve(l, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>client</code></li>
+</ol>
+<blockquote>
+<p>Go原生Rpc支持<code>同步</code>和<code>异步</code>两种调用方式，分别为<code>Call</code>和<code>Go</code>。</p>
+<ul>
+<li><code>Call</code>：直接返回响应值；</li>
+<li><code>Go</code>：返回此次调用的<code>Call</code>结构体，然后等待<code>Call</code>结构体中<code>Done</code>管道返回调用结果。</li>
+</ul>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	client, err := rpc.DialHTTP(<span class="string">&quot;tcp&quot;</span>, <span class="string">&quot;127.0.0.1:9091&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalln(err)</span><br><span class="line">	&#125;</span><br><span class="line">	stringReq := &amp;service.StringRequest&#123;</span><br><span class="line">		A: <span class="string">&quot;A&quot;</span>,</span><br><span class="line">		B: <span class="string">&quot;B&quot;</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> reply <span class="type">string</span></span><br><span class="line">	<span class="comment">// 1. 同步调用</span></span><br><span class="line">	err = client.Call(<span class="string">&quot;StringService.Concat&quot;</span>, stringReq, &amp;reply)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatalln(err)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;StringService.Concat: %s concat %s = %s\n&quot;</span>, stringReq.A, stringReq.B, reply)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 2. 异步调用</span></span><br><span class="line">	stringReq = &amp;service.StringRequest&#123;</span><br><span class="line">		A: <span class="string">&quot;ACD&quot;</span>,</span><br><span class="line">		B: <span class="string">&quot;BDF&quot;</span>,</span><br><span class="line">	&#125;</span><br><span class="line">	call := client.Go(<span class="string">&quot;StringService.Diff&quot;</span>, stringReq, &amp;reply, <span class="literal">nil</span>)</span><br><span class="line">	_ = &lt;-call.Done</span><br><span class="line">	fmt.Printf(<span class="string">&quot;StringService Diff: %s diff %s = %s&quot;</span>, stringReq.A, stringReq.B, reply)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><h4 id="服务端注册实现原理"><a href="#服务端注册实现原理" class="headerlink" title="服务端注册实现原理"></a>服务端注册实现原理</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph</span><br><span class="line">调用Register --&gt; 反射处理 --&gt; 存根保存</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>调用Register</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Register</span><span class="params">(rcvr any)</span></span> <span class="type">error</span> &#123; <span class="keyword">return</span> DefaultServer.Register(rcvr) &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>反射处理</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> register(rcvr any, name <span class="type">string</span>, useName <span class="type">bool</span>) <span class="type">error</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>存根保存</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">suitableMethods</span><span class="params">(typ reflect.Type, logErr <span class="type">bool</span>)</span></span> <span class="keyword">map</span>[<span class="type">string</span>]*methodType</span><br></pre></td></tr></table></figure>
+
+<h4 id="服务端处理Rpc请求"><a href="#服务端处理Rpc请求" class="headerlink" title="服务端处理Rpc请求"></a>服务端处理Rpc请求</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph</span><br><span class="line">begin(收到客户端Rpc请求) --&gt; ReadRequestHeader --&gt; 从map中取得要调用的方法的反射 --&gt; 解码出请求的参数 --&gt; 通过反射进行函数调用 --&gt; 编码调用结果并写回给客户端 --循环处理--&gt;  begin</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>接收请求</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> Accept(lis net.Listener)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>读取并解析请求数据</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> ServeRequest(codec ServerCodec) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> readRequestHeader(codec ServerCodec) (svc *service, mtype *methodType, req *Request, keepReading <span class="type">bool</span>, err <span class="type">error</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>执行远程方法并返回响应</strong></li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *service)</span></span> call(server *Server, sending *sync.Mutex, wg *sync.WaitGroup, mtype *methodType, req *Request, argv, replyv reflect.Value, codec ServerCodec)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> sendResponse(sending *sync.Mutex, req *Request, reply any, codec ServerCodec, errmsg <span class="type">string</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="客户端发送Rpc请求"><a href="#客户端发送Rpc请求" class="headerlink" title="客户端发送Rpc请求"></a>客户端发送Rpc请求</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph</span><br><span class="line">begin(Call/Go) --&gt; 生成Call对象 --&gt; 存储到Call哈希表</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>同步调用<code>Call</code>和异步调用<code>Go</code></strong></li>
+</ul>
+<blockquote>
+<p>Call方法直接调用了Go方法，Go方法则是先创建并初始化了Call对象，记录此次调用的方法、参数、返回值，生成DoneChannel；然后调用Client的<code>send方法</code>进行真正的请求发送。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span></span> Call(serviceMethod <span class="type">string</span>, args any, reply any) <span class="type">error</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span></span> Go(serviceMethod <span class="type">string</span>, args any, reply any, done <span class="keyword">chan</span> *Call) *Call</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>请求参数编码</strong></li>
+</ul>
+<blockquote>
+<p><code>send方法</code>首先会判断客户端实例的状态，如果出于关闭状态，会直接返回结果；否则生成唯一的seq值，将Call保存到客户端的哈希表pending中，然后调用客户端编码器的<code>WriteRequest</code>来编码请求并发送。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span></span> send(call *Call) </span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>客户端默认的编解码器是<code>gobClientCodec</code>，使用<code>gob</code>的<code>Decoder</code>作为编码器。</p>
+<p><code>WriteRequest</code>首先使用编码器依次对请求和请求体进行编码，编码后的数据将写入到<code>encBuf</code>中，最后调用<code>Flush()</code>将请求发送到网络数据流。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> gobClientCodec <span class="keyword">struct</span> &#123;</span><br><span class="line">	rwc    io.ReadWriteCloser</span><br><span class="line">	dec    *gob.Decoder</span><br><span class="line">	enc    *gob.Encoder</span><br><span class="line">	encBuf *bufio.Writer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *gobClientCodec)</span></span> WriteRequest(r *Request, body any) (err <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span> err = c.enc.Encode(r); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err = c.enc.Encode(body); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> c.encBuf.Flush()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>接收服务器响应</strong></li>
+</ul>
+<blockquote>
+<p>客户端通过<code>input()</code>接收并处理服务端的<code>response</code>。</p>
+<p>进入for循环，不断调用<code>ReadResponseHeader</code>获取<code>response</code>，通过其中的<code>seq</code>获取对应的<code>Call</code>对象，并从<code>pending</code>哈希表中删除；然后调用<code>ReadResponseBody</code>返回<code>Reply</code>对象。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span></span> input()</span><br></pre></td></tr></table></figure>
+
+<h4 id="资源重用"><a href="#资源重用" class="headerlink" title="资源重用"></a>资源重用</h4><blockquote>
+<p>为了减少频繁发送Rpc请求时不断创建Request和Response结构体导致的GC压力，Server对Request和Response进行了复用。</p>
+<p>构建了一个对象池，可以从池中获取对应的Request和Response对象，使用完毕后用free函数归还到池中。</p>
+</blockquote>
+<blockquote>
+<p>首先从本地缓存中的freeReq链表队列中获取已存在的Resquest结构体，如不存在再进行结构体的初始化；freeRequest则是将归还的Request保存到freeReq队列末尾，供后续使用。Response类似。</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> getRequest() *Request &#123;</span><br><span class="line">	server.reqLock.Lock()</span><br><span class="line">    <span class="comment">// 获得一个request</span></span><br><span class="line">	req := server.freeReq	<span class="comment">// freeReq相当于一个指针, 指向当前空闲的request</span></span><br><span class="line">	<span class="keyword">if</span> req == <span class="literal">nil</span> &#123;</span><br><span class="line">		req = <span class="built_in">new</span>(Request)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		server.freeReq = req.next</span><br><span class="line">        <span class="comment">// 置空</span></span><br><span class="line">		*req = Request&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	server.reqLock.Unlock()</span><br><span class="line">	<span class="keyword">return</span> req</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> freeRequest(req *Request) &#123;</span><br><span class="line">	server.reqLock.Lock()</span><br><span class="line">	req.next = server.freeReq</span><br><span class="line">	server.freeReq = req</span><br><span class="line">	server.reqLock.Unlock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> getResponse() *Response &#123;</span><br><span class="line">	server.respLock.Lock()</span><br><span class="line">	resp := server.freeResp</span><br><span class="line">	<span class="keyword">if</span> resp == <span class="literal">nil</span> &#123;</span><br><span class="line">		resp = <span class="built_in">new</span>(Response)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		server.freeResp = resp.next</span><br><span class="line">		*resp = Response&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	server.respLock.Unlock()</span><br><span class="line">	<span class="keyword">return</span> resp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(server *Server)</span></span> freeResponse(resp *Response) &#123;</span><br><span class="line">	server.respLock.Lock()</span><br><span class="line">	resp.next = server.freeResp</span><br><span class="line">	server.freeResp = resp</span><br><span class="line">	server.respLock.Unlock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h1 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a><strong>写在最后：</strong></h1><p>Go原生Rpc只能算是一个基础的Rpc框架，无法达到生产环境使用的水准，官方已不再更新Rpc，并<strong>推荐使用gRpc</strong>。</p>
+</blockquote>
 
   </div>
   
@@ -2778,7 +2870,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <blockquote>
               
                 
-                  <p>本文永久链接是：<a href="http://www.seuzjy.cn/2022/08/14/图床加速/">http://www.seuzjy.cn/2022/08/14/图床加速/</a></p>
+                  <p>本文永久链接是：<a href="http://www.seuzjy.cn/2022/08/28/02-net-rpc/">http://www.seuzjy.cn/2022/08/28/02-net-rpc/</a></p>
                 
               
             </blockquote>
@@ -2809,8 +2901,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/jsdelivr-cdn/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>jsdelivr cdn</p></a></div>
-  <span hidden itemprop="keywords">jsdelivr cdn</span>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/RPC/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>RPC</p></a></div>
+  <span hidden itemprop="keywords">RPC</span>
 
 
         
@@ -2823,8 +2915,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
+Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2837,8 +2929,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
+Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2851,8 +2943,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
+Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2878,13 +2970,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：183 字</p>
+      <p>字数：1.6k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：7 分钟</p>
     </a>
   </div>
 
@@ -2904,21 +2996,11 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2022/08/15/Docker%E9%83%A8%E7%BD%B2-Win11/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>Docker部署-Win11</p>
-          <p class='content'>前言：Docker一般需要部署在Linux系统上，在Windows11上部署Docker，同样需要Linux环境。
-
-
-
-
-一、开启hyper-v在启用或关闭Windows功能内，寻找hyper...</p>
-        </a>
       
-      
-        <a class='next' href='/2022/08/13/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/'>
-          <p class='title'>5.myBlog-自动化部署<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+        <a class='next' href='/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/'>
+          <p class='title'>01-RPC机制<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>
-前言：起因是感觉每次更新Blog都非常之麻烦，需要hexo繁琐的命令。后来思考：如果我换了个电脑，那总不能重新配置叭？那我多电脑怎么协同更新Blog呢？然后就开始baidu，最终采用githu...</p>
+前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频...</p>
         </a>
       
     </div>
@@ -2934,7 +3016,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2022/08/28/02-net-rpc/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2966,9 +3048,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#net-x2F-rpc"><span class="toc-text">net&#x2F;rpc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-%E5%8E%9F%E7%94%9FRpc"><span class="toc-text">Go-原生Rpc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80rpc%E7%A4%BA%E4%BE%8B"><span class="toc-text">基础rpc示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-text">源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B3%A8%E5%86%8C%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">服务端注册实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86Rpc%E8%AF%B7%E6%B1%82"><span class="toc-text">服务端处理Rpc请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81Rpc%E8%AF%B7%E6%B1%82"><span class="toc-text">客户端发送Rpc请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%87%8D%E7%94%A8"><span class="toc-text">资源重用</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
 
   
 
@@ -4243,7 +4335,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/myBlog/","name":"myBlog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/14/图床加速/","name":"6.myBlog-图床加速"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"6.myBlog-图床加速","description":"\n前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/","wordCount":125,"datePublished":"2022-08-14T12:37:16.000Z","dateModified":"2022-08-28T12:42:55.629Z","articleSection":"myBlog","keywords":"jsdelivr cdn","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/RPC/","name":"RPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","name":"02-net/rpc"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"02-net/rpc","description":"\nGo语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","wordCount":138,"datePublished":"2022-08-28T12:36:46.000Z","dateModified":"2022-08-28T12:42:55.629Z","articleSection":"RPC","keywords":"RPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="http://www.seuzjy.cn/2022/08/14/图床加速/"/>
+  <link rel="canonical" href="http://www.seuzjy.cn/2022/08/28/01-rpc机制/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -32,23 +32,22 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>6.myBlog-图床加速 - Tiam's Blog</title>
-  <meta name="keywords" content="jsdelivr cdn,null">
+  <title>01-RPC机制 - Tiam's Blog</title>
+  <meta name="keywords" content="RPC,null">
   <meta desc name="description" content="
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
- - Jiyuan Zhang - Tiam's Blog">
+前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般... - Jiyuan Zhang - Tiam's Blog">
   
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.myBlog-图床加速">
-<meta property="og:url" content="http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/index.html">
+<meta property="og:title" content="01-RPC机制">
+<meta property="og:url" content="http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Tiam&#39;s Blog">
-<meta property="og:description" content="前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。">
+<meta property="og:description" content="前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般来说，微服务之间往往使用Rpc进行远程过程调用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
-<meta property="article:published_time" content="2022-08-14T12:37:16.000Z">
+<meta property="article:published_time" content="2022-08-28T12:36:25.000Z">
 <meta property="article:modified_time" content="2022-08-28T12:42:55.629Z">
 <meta property="article:author" content="Jiyuan Zhang">
-<meta property="article:tag" content="jsdelivr cdn">
+<meta property="article:tag" content="RPC">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2631,7 +2630,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="http://www.seuzjy.cn/2022/08/14/图床加速/">
+  <link itemprop="mainEntityOfPage" href="http://www.seuzjy.cn/2022/08/28/01-RPC机制/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="Tiam's Blog">
   </span>
@@ -2652,7 +2651,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        6.myBlog-图床加速
+        01-RPC机制
       </h1>
       <div class='new-meta-box'>
         
@@ -2671,10 +2670,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             
   <div class='new-meta-item category'>
     <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
-    <a class="category-link" href="/categories/myBlog/">myBlog</a>
+    <a class="category-link" href="/categories/RPC/">RPC</a>
     
       <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-        <a href="/categories/myBlog/" itemprop="url"><span itemprop="name">myBlog</span></a>
+        <a href="/categories/RPC/" itemprop="url"><span itemprop="name">RPC</span></a>
       </span>
     
   </div>
@@ -2683,10 +2682,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2022-08-14T20:37:16+08:00">
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2022-08-28T20:36:25+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2022年8月14日</p>
+    <p>发布于：2022年8月28日</p>
   </a>
 </div>
 
@@ -2701,7 +2700,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>
       <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="lc-pv" data-title="6.myBlog-图床加速" data-path="/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/">
+      <span id="lc-pv" data-title="01-RPC机制" data-path="/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/">
         <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
       </span>
       
@@ -2718,13 +2717,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：183 字</p>
+      <p>字数：647 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：2 分钟</p>
     </a>
   </div>
 
@@ -2742,25 +2741,58 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="layoutHelper-page-plugins"></div>
   <div id="post-body" itemprop="articleBody">
     <blockquote>
-<p><strong>前言：</strong>为什么会做图床加速呢？其实之前已经建立了<code>PicGo+阿里云OSS</code>的图床了，但是受限于流量，选择建立基于<code>GitHub</code>的图床，但是又因为<code>GitHub</code>访问速度略慢…，于是打算采用<code>GitHub+jsdelivr cdn</code>的方式构建用于Blog的图床。</p>
+<p><strong>前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。</strong>在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。<strong>一般来说，微服务之间往往使用Rpc进行远程过程调用。</strong></p>
 </blockquote>
 <span id="more"></span>
 
 
 
-<p>这个很简单，随便建个GitHub仓库即可。</p>
-<blockquote>
-<ul>
-<li><p>新建仓库<code>image</code></p>
-</li>
-<li><p>新建一个<code>Personal access token</code>并记录</p>
-</li>
-<li><p>填写<code>PicGo</code>，仓库填写<code>用户名/仓库名</code>，分支填写<code>main</code>，路径<code>选填</code>，自定义域名填写<code> https://gcore.jsdelivr.net/gh/+用户名/仓库名</code>，<strong>如图所示：</strong></p>
-</li>
-</ul>
-<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220814205007775.png" class="lazyload" data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220814205007775.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20220814205007775" style="zoom: 50%;" />
+<h2 id="RPC机制"><a href="#RPC机制" class="headerlink" title="RPC机制"></a>RPC机制</h2><blockquote>
+<p><strong>广义来讲，</strong>可以将所有C&#x2F;S交互方式都纳为Rpc范畴。</p>
+<p><strong>狭义来讲，</strong>Rpc是指基于底层协议二进制流，并提供类似于本地方法调用形式的C&#x2F;S交互方式。<strong>之后默认为狭义Rpc。</strong></p>
 </blockquote>
-<p>通过<code>PicGo</code>将图片上传至<code>GitHub</code>，再将图片路径<code>https://gcore.jsdelivr.net/gh/chuyuJY/image/blog/xxx.xxx</code>放到Blog设置中即可。</p>
+<p><strong>Rpc远程过程调用步骤如下：</strong></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220827223029760.png" class="lazyload" data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220827223029760.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20220827223029760" style="zoom: 50%;" />
+
+<ol>
+<li>客户端进程正常调用客户存根；</li>
+<li>客户存根生成能够进行网络传输的消息；</li>
+<li>调用本地操作系统网络通信模块发送消息 -&gt; 客户存根进入阻塞状态；</li>
+<li>远程操作系统接收客户端操作系统发送的网络消息；</li>
+<li>远程操作系统将消息交给服务端存根；</li>
+<li>服务端存根提取消息参数 -&gt; 调用服务端程序；</li>
+<li>服务端程序执行操作 -&gt; 将结果返回给服务端存根；</li>
+<li>服务端存根将结果打包成网络消息 -&gt; 交给本地操作系统；</li>
+<li>服务端操作系统将消息发送给客户端操作系统；</li>
+<li>客户端操作系统将消息交给客户存根 -&gt; 客户存根从阻塞状态恢复，进入运行态；</li>
+<li>客户存根从消息中提取结果；</li>
+<li>交给调用它的客户端程序。</li>
+</ol>
+<p><strong>中间的细节均被隐藏</strong>，不需要管Socket啊、端口啊什么的，<strong>只需要实现客户存根，然后调用即可。</strong></p>
+<hr>
+<blockquote>
+<p><strong>要实现一个Rpc，需要考虑以下几个问题：</strong></p>
+<ul>
+<li>参数传递</li>
+<li>通信协议制定</li>
+<li>出错</li>
+<li>超时处理</li>
+</ul>
+</blockquote>
+<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><blockquote>
+<p>首先要考虑的就是参数传递问题，即<strong>将参数从调用方进程传递到远程被调用方进程。</strong></p>
+</blockquote>
+<h4 id="传递值参数"><a href="#传递值参数" class="headerlink" title="传递值参数"></a>传递值参数</h4><blockquote>
+<p>值传递很简单，传入到网络消息的参数中即可。</p>
+</blockquote>
+<h4 id="传递引用参数"><a href="#传递引用参数" class="headerlink" title="传递引用参数"></a>传递引用参数</h4><blockquote>
+<p>Rpc一般不支持hhh。</p>
+</blockquote>
+<h4 id="数据格式统一"><a href="#数据格式统一" class="headerlink" title="数据格式统一"></a>数据格式统一</h4><blockquote>
+<p><strong>分布式系统，需要统一数据格式。</strong>如Rpc使用Google ProtoBuf格式。</p>
+</blockquote>
+<h3 id="通信协议制定"><a href="#通信协议制定" class="headerlink" title="通信协议制定"></a>通信协议制定</h3><p><strong>协议栈的组成：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph </span><br><span class="line">p(Protocol) --&gt; Encoder</span><br><span class="line">p --&gt; Decoder</span><br><span class="line">p --&gt; Heartbeat</span><br><span class="line">p --&gt; Command</span><br><span class="line">p --&gt; ch(Command Handler)</span><br></pre></td></tr></table></figure>
 
   </div>
   
@@ -2778,7 +2810,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
             <blockquote>
               
                 
-                  <p>本文永久链接是：<a href="http://www.seuzjy.cn/2022/08/14/图床加速/">http://www.seuzjy.cn/2022/08/14/图床加速/</a></p>
+                  <p>本文永久链接是：<a href="http://www.seuzjy.cn/2022/08/28/01-RPC机制/">http://www.seuzjy.cn/2022/08/28/01-RPC机制/</a></p>
                 
               
             </blockquote>
@@ -2809,8 +2841,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/jsdelivr-cdn/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>jsdelivr cdn</p></a></div>
-  <span hidden itemprop="keywords">jsdelivr cdn</span>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/RPC/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>RPC</p></a></div>
+  <span hidden itemprop="keywords">RPC</span>
 
 
         
@@ -2823,8 +2855,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/&title=01-RPC机制 - Tiam's Blog&summary=
+前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般来说，微服务之间往往使用Rpc进行远程过程调用。
 "
           
           >
@@ -2837,8 +2869,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/&title=01-RPC机制 - Tiam's Blog&summary=
+前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般来说，微服务之间往往使用Rpc进行远程过程调用。
 "
           
           >
@@ -2851,8 +2883,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/&title=6.myBlog-图床加速 - Tiam's Blog&summary=
-前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/&title=01-RPC机制 - Tiam's Blog&summary=
+前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般来说，微服务之间往往使用Rpc进行远程过程调用。
 "
           
           >
@@ -2878,13 +2910,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：183 字</p>
+      <p>字数：647 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：2 分钟</p>
     </a>
   </div>
 
@@ -2904,21 +2936,16 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class="prev-next">
       
-        <a class='prev' href='/2022/08/15/Docker%E9%83%A8%E7%BD%B2-Win11/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>Docker部署-Win11</p>
-          <p class='content'>前言：Docker一般需要部署在Linux系统上，在Windows11上部署Docker，同样需要Linux环境。
-
-
-
-
-一、开启hyper-v在启用或关闭Windows功能内，寻找hyper...</p>
+        <a class='prev' href='/2022/08/28/02-net-rpc/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>02-net/rpc</p>
+          <p class='content'>
+Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问...</p>
         </a>
       
       
-        <a class='next' href='/2022/08/13/%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/'>
-          <p class='title'>5.myBlog-自动化部署<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>
-前言：起因是感觉每次更新Blog都非常之麻烦，需要hexo繁琐的命令。后来思考：如果我换了个电脑，那总不能重新配置叭？那我多电脑怎么协同更新Blog呢？然后就开始baidu，最终采用githu...</p>
+        <a class='next' href='/2022/08/19/Docker%E4%BD%BF%E7%94%A8-goweb/'>
+          <p class='title'>Docker使用-goweb<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>前言：当你在本机开发完go_web应用，如果希望将应用程序部署到web服务器，可能你需要重新部署很多环境。这时，Docker就可以发挥作用。对于运行我们应用程序的主机，不管是笔记本电脑还是web...</p>
         </a>
       
     </div>
@@ -2934,7 +2961,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2966,9 +2993,19 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
 
 
-  <div class="">
-    <!-- pjax占位 -->
-  </div>
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RPC%E6%9C%BA%E5%88%B6"><span class="toc-text">RPC机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-text">传递参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%80%BC%E5%8F%82%E6%95%B0"><span class="toc-text">传递值参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%BC%95%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-text">传递引用参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E7%BB%9F%E4%B8%80"><span class="toc-text">数据格式统一</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E5%88%B6%E5%AE%9A"><span class="toc-text">通信协议制定</span></a></li></ol></li></ol>
+    </div>
+  </section>
 
   
 
@@ -4243,7 +4280,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/myBlog/","name":"myBlog"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/14/图床加速/","name":"6.myBlog-图床加速"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"6.myBlog-图床加速","description":"\n前言：为什么会做图床加速呢？其实之前已经建立了PicGo+阿里云OSS的图床了，但是受限于流量，选择建立基于GitHub的图床，但是又因为GitHub访问速度略慢…，于是打算采用GitHub+jsdelivr cdn的方式构建用于Blog的图床。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/14/%E5%9B%BE%E5%BA%8A%E5%8A%A0%E9%80%9F/","wordCount":125,"datePublished":"2022-08-14T12:37:16.000Z","dateModified":"2022-08-28T12:42:55.629Z","articleSection":"myBlog","keywords":"jsdelivr cdn","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/RPC/","name":"RPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/28/01-RPC机制/","name":"01-RPC机制"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"01-RPC机制","description":"\n前言：RPC（Remote Procedure Call），即远程过程调用。它允许像调用本地服务一样调用远程服务。在微服务架构中，每个服务实例负责某单一领域的业务实现，因此各服务实例之间需要频繁的交互，比如使用Http和Rpc。其中，Http是应用层协议，而Rpc提供更加贴近本地方法调用的远程方法调用形式。一般来说，微服务之间往往使用Rpc进行远程过程调用。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/28/01-RPC%E6%9C%BA%E5%88%B6/","wordCount":182,"datePublished":"2022-08-28T12:36:25.000Z","dateModified":"2022-08-28T12:42:55.629Z","articleSection":"RPC","keywords":"RPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
