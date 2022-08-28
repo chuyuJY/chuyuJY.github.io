@@ -36,17 +36,19 @@
   <meta name="keywords" content="RPC,null">
   <meta desc name="description" content="
 Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
- - Jiyuan Zhang - Tiam's Blog">
+
+
+**前言:**go语言的 rpc ... - Jiyuan Zhang - Tiam's Blog">
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="02-net&#x2F;rpc">
 <meta property="og:url" content="http://www.seuzjy.cn/2022/08/28/02-net-rpc/index.html">
 <meta property="og:site_name" content="Tiam&#39;s Blog">
-<meta property="og:description" content="Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。">
+<meta property="og:description" content="Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。   **前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2022-08-28T12:36:46.000Z">
-<meta property="article:modified_time" content="2022-08-28T12:42:55.629Z">
+<meta property="article:modified_time" content="2022-08-28T13:02:44.262Z">
 <meta property="article:author" content="Jiyuan Zhang">
 <meta property="article:tag" content="RPC">
 <meta name="twitter:card" content="summary">
@@ -1883,9 +1885,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.GLOBAL_CONFIG ={
     debug: false,
-    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1661690662308","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1661690662308","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1661690662308","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1661690662308","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1661690662308","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1661690662308","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1661690662308"},"css":{"style":"/css/style.1a6dbcba.css"}},
+    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1661691842764","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1661691842764","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1661691842764","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1661691842764","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1661691842764","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1661691842764","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1661691842764"},"css":{"style":"/css/style.1a6dbcba.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1661690662308),
+    lastupdate: new Date(1661691842764),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo"],
       for_post: ["toc"],
@@ -2718,7 +2720,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.6k 字</p>
+      <p>字数：1.7k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2743,6 +2745,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div id="post-body" itemprop="articleBody">
     <blockquote>
 <p>Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。</p>
+</blockquote>
+<blockquote>
+<p>**前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。</p>
 </blockquote>
 <span id="more"></span>
 
@@ -2889,7 +2894,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-08-28T20:42:55+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-08-28T21:02:44+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年8月28日</p>
@@ -2917,6 +2922,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
           target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
 Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
+
+
+**前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2931,6 +2939,9 @@ Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象
           
           target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
 Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
+
+
+**前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2945,6 +2956,9 @@ Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象
           
           target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.seuzjy.cn/2022/08/28/02-net-rpc/&title=02-net/rpc - Tiam's Blog&summary=
 Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
+
+
+**前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。
 "
           
           >
@@ -2970,7 +2984,7 @@ Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.6k 字</p>
+      <p>字数：1.7k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3401,7 +3415,7 @@ Go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象
 
   </ul>
 </div>
-<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1661690662308"></script>
+<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1661691842764"></script>
 <script>
   const RightMenusFunction = {};
   
@@ -3624,7 +3638,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1661690662308")
+        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1661691842764")
       }
     
     
@@ -3775,7 +3789,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1661690662308");
+    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1661691842764");
   }
 
   function loadSearchService() {
@@ -4130,7 +4144,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var runningOnBrowser = typeof window !== "undefined";
   var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
   if (!isBot) {
-    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1661690662308').then(()=>{
+    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1661691842764').then(()=>{
       parallax()
     })
     volantis.pjax.send(()=>{
@@ -4335,7 +4349,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/RPC/","name":"RPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","name":"02-net/rpc"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"02-net/rpc","description":"\nGo语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","wordCount":138,"datePublished":"2022-08-28T12:36:46.000Z","dateModified":"2022-08-28T12:42:55.629Z","articleSection":"RPC","keywords":"RPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/RPC/","name":"RPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","name":"02-net/rpc"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"02-net/rpc","description":"\nGo语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。\n\n\n**前言:**go语言的 rpc 包提供对通过网络或其他 i&#x2F;o 连接导出的对象方法的访问，服务器注册一个对象，并把它作为服务对外可见（服务名称就是类型名称）。注册后，对象的导出方法将支持远程访问。服务器可以注册不同类型的多个对象(服务) ，但是不支持注册同一类型的多个对象。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/08/28/02-net-rpc/","wordCount":284,"datePublished":"2022-08-28T12:36:46.000Z","dateModified":"2022-08-28T13:02:44.262Z","articleSection":"RPC","keywords":"RPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
