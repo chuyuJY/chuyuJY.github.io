@@ -46,7 +46,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2022-09-09T13:23:37.000Z">
-<meta property="article:modified_time" content="2022-09-09T13:52:44.291Z">
+<meta property="article:modified_time" content="2022-09-09T13:55:20.171Z">
 <meta property="article:author" content="Jiyuan Zhang">
 <meta property="article:tag" content="bash">
 <meta property="article:tag" content="alias">
@@ -1884,9 +1884,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.GLOBAL_CONFIG ={
     debug: false,
-    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1662731662971","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1662731662971","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1662731662971","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1662731662971","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1662731662971","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1662731662971","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1662731662971"},"css":{"style":"/css/style.1a6dbcba.css"}},
+    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1662731820163","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1662731820163","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1662731820163","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1662731820163","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1662731820163","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1662731820163","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1662731820163"},"css":{"style":"/css/style.1a6dbcba.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1662731662971),
+    lastupdate: new Date(1662731820163),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo"],
       for_post: ["toc"],
@@ -2723,7 +2723,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：331 字</p>
+      <p>字数：340 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2766,7 +2766,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ol start="3">
 <li>添加如下内容</li>
 </ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alias </span></span><br><span class="line"><span class="built_in">alias</span> docker=<span class="string">&#x27;winpty docker&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> apigen=<span class="string">&#x27;goctl api go -api *.api -dir ../  -style=goZero&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> docgen=<span class="string">&#x27;goctl api doc --dir ./&#x27;</span></span><br><span class="line"><span class="comment"># 带颜色设置</span></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">ls</span>=<span class="string">&#x27;ls -F --color=auto --show-control-chars&#x27;</span></span><br><span class="line"><span class="comment"># 长格式输出</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">&#x27;ls -l --color=auto&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> g=<span class="string">&#x27;git&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gr=<span class="string">&#x27;git rm -rf&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gs=<span class="string">&#x27;git status&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> ga=<span class="string">&#x27;g add&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gc=<span class="string">&#x27;git commit -m&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gp=<span class="string">&#x27;git push origin master&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gl=<span class="string">&#x27;git pull origin master&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Alias </span></span><br><span class="line"><span class="built_in">alias</span> docker=<span class="string">&#x27;winpty docker&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> apigen=<span class="string">&#x27;goctl api go -api *.api -dir ../  -style=goZero&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> docgen=<span class="string">&#x27;goctl api doc --dir ./&#x27;</span></span><br><span class="line"><span class="comment"># 带颜色设置</span></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">ls</span>=<span class="string">&#x27;ls -F --color=auto --show-control-chars&#x27;</span></span><br><span class="line"><span class="comment"># 长格式输出</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">&#x27;ls -l --color=auto&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> g=<span class="string">&#x27;git&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gr=<span class="string">&#x27;git rm -rf&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gs=<span class="string">&#x27;git status&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> ga=<span class="string">&#x27;g add&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gc=<span class="string">&#x27;git commit -m&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> gp=<span class="string">&#x27;git push origin main&#x27;</span>	<span class="comment"># 此处要注意 也可能是master</span></span><br><span class="line"><span class="built_in">alias</span> gl=<span class="string">&#x27;git pull origin main&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>生效</li>
@@ -2826,7 +2826,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-09-09T21:52:44+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-09-09T21:55:20+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年9月9日</p>
@@ -2907,7 +2907,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：331 字</p>
+      <p>字数：340 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3338,7 +3338,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   </ul>
 </div>
-<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1662731662971"></script>
+<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1662731820163"></script>
 <script>
   const RightMenusFunction = {};
   
@@ -3561,7 +3561,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1662731662971")
+        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1662731820163")
       }
     
     
@@ -3712,7 +3712,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1662731662971");
+    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1662731820163");
   }
 
   function loadSearchService() {
@@ -4067,7 +4067,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var runningOnBrowser = typeof window !== "undefined";
   var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
   if (!isBot) {
-    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1662731662971').then(()=>{
+    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1662731820163').then(()=>{
       parallax()
     })
     volantis.pjax.send(()=>{
@@ -4272,7 +4272,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/tools/","name":"tools"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/tools/bash/","name":"bash"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/09/Bash-配置Alias/","name":"Bash-配置Alias"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Bash-配置Alias","description":"\n前言：起因是学习Go-zero框架时，利用.api生成代码的指令确实难记，因此采用Alias简化指令。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/09/Bash-%E9%85%8D%E7%BD%AEAlias/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/09/Bash-%E9%85%8D%E7%BD%AEAlias/","wordCount":53,"datePublished":"2022-09-09T13:23:37.000Z","dateModified":"2022-09-09T13:52:44.291Z","articleSection":"tools","keywords":"bash,alias","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/tools/","name":"tools"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/tools/bash/","name":"bash"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/09/Bash-配置Alias/","name":"Bash-配置Alias"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"Bash-配置Alias","description":"\n前言：起因是学习Go-zero框架时，利用.api生成代码的指令确实难记，因此采用Alias简化指令。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/09/Bash-%E9%85%8D%E7%BD%AEAlias/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/09/Bash-%E9%85%8D%E7%BD%AEAlias/","wordCount":53,"datePublished":"2022-09-09T13:23:37.000Z","dateModified":"2022-09-09T13:55:20.171Z","articleSection":"tools","keywords":"bash,alias","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
