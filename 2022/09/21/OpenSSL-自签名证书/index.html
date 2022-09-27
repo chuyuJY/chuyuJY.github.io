@@ -33,7 +33,7 @@
   <!-- feed -->
   <!-- 页面元数据 -->
   <title>OpenSSL-自签名证书 - Tiam's Blog</title>
-  <meta name="keywords" content="OpenSSL,null">
+  <meta name="keywords" content="OpenSSL,SSL/TLS,null">
   <meta desc name="description" content="
 前言：OpenSSL 是 SSL 和 TLS 协议的开放式源代码实现。它在标准通信层上提供了传输层安全性，允许其与诸多网络应用程序和服务相结合。在使用TLS等加密通信协议时，需要首先使用openssl生成证书。
  - Jiyuan Zhang - Tiam's Blog">
@@ -46,9 +46,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2022-09-21T14:31:46.000Z">
-<meta property="article:modified_time" content="2022-09-21T15:17:29.954Z">
+<meta property="article:modified_time" content="2022-09-27T10:41:26.725Z">
 <meta property="article:author" content="Jiyuan Zhang">
 <meta property="article:tag" content="OpenSSL">
+<meta property="article:tag" content="SSL&#x2F;TLS">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -1883,9 +1884,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.GLOBAL_CONFIG ={
     debug: false,
-    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1663773524447","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1663773524447","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1663773524447","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1663773524447","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1663773524447","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1663773524447","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1663773524447"},"css":{"style":"/css/style.1a6dbcba.css"}},
+    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1664275341641","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1664275341641","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1664275341641","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1664275341641","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1664275341641","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1664275341641","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1664275341641"},"css":{"style":"/css/style.1a6dbcba.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1663773524447),
+    lastupdate: new Date(1664275341641),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo"],
       for_post: ["toc"],
@@ -2722,13 +2723,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.1k 字</p>
+      <p>字数：1.9k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：4 分钟</p>
+      <p>时长：7 分钟</p>
     </a>
   </div>
 
@@ -2752,25 +2753,27 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
 
-<h2 id="OpenSSL-自签名证书"><a href="#OpenSSL-自签名证书" class="headerlink" title="OpenSSL-自签名证书"></a>OpenSSL-自签名证书</h2><h4 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h4><h5 id="生成私钥-1"><a href="#生成私钥-1" class="headerlink" title="生成私钥"></a>生成私钥</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成.key  2048位 RSA私钥文件</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"><span class="comment"># 2. 生成.key  ECC私钥文件</span></span><br><span class="line">openssl ecparam -genkey -name secp384r1 -out server.key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成2048位带加密的私钥(交互方式输入密码)，保存到server_passphrase.key文件中</span></span><br><span class="line">openssl genrsa -out server_passphrase.key -des3 2048</span><br></pre></td></tr></table></figure>
+<h2 id="OpenSSL-证书分发"><a href="#OpenSSL-证书分发" class="headerlink" title="OpenSSL-证书分发"></a>OpenSSL-证书分发</h2><p>证书分发共两种：<strong>CA分发</strong>，<strong>自签名证书</strong>。差别就是，对<code>.csr</code>文件签名的主体不同，一个是CA，一个是自己。</p>
+<p>在开发环境中，可以先自己生成CA的私钥、证书等用来模拟CA。然后用CA签发服务端和客户端的证书，用于模拟真实环境。</p>
+<h4 id="生成私钥"><a href="#生成私钥" class="headerlink" title="生成私钥"></a>生成私钥</h4><h5 id="生成私钥-1"><a href="#生成私钥-1" class="headerlink" title="生成私钥"></a>生成私钥</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 生成.key  2048位 RSA私钥文件</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"><span class="comment"># 2. 生成.key  ECC私钥文件</span></span><br><span class="line">openssl ecparam -genkey -name secp384r1 -out ca.key</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成2048位带加密的私钥(交互方式输入密码)，保存到ca.key文件中</span></span><br><span class="line">openssl genrsa -out ca.key -des3 2048</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>-out</code>: 将私钥输出到指定文件，如不加则输出到控制台</li>
 <li><code>2048</code>: 生成2048位的私钥</li>
 <li><code>-des3</code>: 生成加密私钥</li>
 </ul>
-<h5 id="使用RSA私钥生成公钥"><a href="#使用RSA私钥生成公钥" class="headerlink" title="使用RSA私钥生成公钥"></a>使用RSA私钥生成公钥</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果是加密私钥，需要交互输入私钥密码</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server.key -pubout -out server_public.key</span><br></pre></td></tr></table></figure>
+<h5 id="使用RSA私钥生成公钥"><a href="#使用RSA私钥生成公钥" class="headerlink" title="使用RSA私钥生成公钥"></a>使用RSA私钥生成公钥</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果是加密私钥，需要交互输入私钥密码</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> ca.key -pubout -out ca_public.key</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>-in</code>: 导入私钥文件</li>
 <li><code>-pubout</code>: 输出公钥</li>
 <li><code>-out</code>: 将输出公钥保存到指定文件里</li>
 </ul>
-<h5 id="查看公私钥"><a href="#查看公私钥" class="headerlink" title="查看公私钥"></a>查看公私钥</h5><h6 id="查看私钥"><a href="#查看私钥" class="headerlink" title="查看私钥"></a>查看私钥</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> server.key -text</span><br></pre></td></tr></table></figure>
+<h5 id="查看公私钥"><a href="#查看公私钥" class="headerlink" title="查看公私钥"></a>查看公私钥</h5><h6 id="查看私钥"><a href="#查看私钥" class="headerlink" title="查看私钥"></a>查看私钥</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> ca.key -text</span><br></pre></td></tr></table></figure>
 
-<h6 id="查看公钥"><a href="#查看公钥" class="headerlink" title="查看公钥"></a>查看公钥</h6><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubin -<span class="keyword">in</span> server_public.<span class="keyword">key</span> -<span class="keyword">text</span> -noout</span><br></pre></td></tr></table></figure>
+<h6 id="查看公钥"><a href="#查看公钥" class="headerlink" title="查看公钥"></a>查看公钥</h6><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubin -<span class="keyword">in</span> ca_public.<span class="keyword">key</span> -<span class="keyword">text</span> -noout</span><br></pre></td></tr></table></figure>
 
-<h4 id="生成-csr-证书请求文件"><a href="#生成-csr-证书请求文件" class="headerlink" title="生成.csr(证书请求文件)"></a>生成<code>.csr</code>(证书请求文件)</h4><h5 id="使用交互模式"><a href="#使用交互模式" class="headerlink" title="使用交互模式"></a>使用交互模式</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用私钥server.key以交互模式生成csr，</span></span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br></pre></td></tr></table></figure>
+<h4 id="生成-csr-证书请求文件"><a href="#生成-csr-证书请求文件" class="headerlink" title="生成.csr(证书请求文件)"></a>生成<code>.csr</code>(证书请求文件)</h4><h5 id="使用交互模式"><a href="#使用交互模式" class="headerlink" title="使用交互模式"></a>使用交互模式</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用私钥server.key以交互模式生成csr，</span></span><br><span class="line">openssl req -new -key ca.key -out ca.csr</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>一般来说，交互时直接敲<code>enter</code>就行，表示使用默认值；如果想某些字段为空，可以输入<code>.</code>再敲<code>enter</code></li>
@@ -2779,20 +2782,24 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><code>-out</code>: 将生成的csr保存到指定文件中</li>
 </ul>
 <p><strong>或者：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 openssl req -new -key ca.key -out ca.csr  -subj <span class="string">&quot;/C=GB/L=China/O=seuzjy/CN=www.seuzjy.cn&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSYS_NO_PATHCONV=1 openssl req -new -key ca.key -out ca.csr -subj <span class="string">&quot;/C=GB/L=China/O=seuzjy/CN=www.seuzjy.cn&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="star-使用配置"><a href="#star-使用配置" class="headerlink" title=":star:使用配置"></a>:star:<strong>使用配置</strong></h5><p><strong>1. 新建<code>server.cnf</code>:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[req]</span><br><span class="line">prompt = no</span><br><span class="line">default_bits    = 4096</span><br><span class="line">default_md		= sha256</span><br><span class="line">distinguished_name = dn</span><br><span class="line">req_extensions = ext</span><br><span class="line">input_password = tiam   # 加密私钥的密码</span><br><span class="line">[dn]</span><br><span class="line">CN = www.seuzjy.com # Common Name 公用名称</span><br><span class="line">emailAddress = 1205667742@qq.com</span><br><span class="line">O = seuzjy     # Organization 组织</span><br><span class="line">L = NanJing              # Locality 所在地</span><br><span class="line">C = CN                  # Country 国家，如中国：CN</span><br><span class="line">[ext]</span><br><span class="line">subjectAltName = DNS:www.seuzjy.cn,DNS:seuzjy.cn,DNS:localhost</span><br></pre></td></tr></table></figure>
+<p><strong>此处<code>.cnf</code>如下：</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line"># prompt             = no</span><br><span class="line">default_bits       = <span class="number">2048</span></span><br><span class="line">default_md		   = sha256</span><br><span class="line">distinguished_name = req_distinguished_name</span><br><span class="line">req_extensions     = req_ext</span><br><span class="line"></span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line">countryName                 = Country Name (<span class="number">2</span> letter code)</span><br><span class="line">countryName_default         = CN</span><br><span class="line">stateOrProvinceName         = State or Province Name (full name)</span><br><span class="line">stateOrProvinceName_default = JiangSu</span><br><span class="line">localityName                = Locality Name (eg, city)</span><br><span class="line">localityName_default        = NanJing</span><br><span class="line">organizationName            = Organization Name (eg, company)</span><br><span class="line">organizationName_default    = DEV</span><br><span class="line">commonName                  = Common Name (e.g. server FQDN or YOUR name)</span><br><span class="line">commonName_max              = <span class="number">64</span></span><br><span class="line">commonName_default          = seuzjy.com</span><br><span class="line"></span><br><span class="line">[ req_ext ]</span><br><span class="line">subjectAltName = @alt_names     # 支持SAN</span><br><span class="line"></span><br><span class="line">[alt_names]</span><br><span class="line">DNS<span class="number">.1</span>   = localhost</span><br><span class="line">DNS<span class="number">.2</span>   = seuzjy.cn</span><br><span class="line">DNS<span class="number">.3</span>   = *.seuzjy.cn</span><br><span class="line">IP      = <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>补充：</strong></p>
 <ul>
 <li><code>http://www.sina.com.cn/</code>为例，<code>http</code>是通信使用的协议，<code>sina.com.cn</code>是域名，<code>www</code>是提供服务的机器的名字（服务器名），服务器名+域名才是主机名，即<code>www.sina.com.cn</code>是主机名</li>
 <li><code>subjectAltName</code>(X.509拓展之<code>SAN</code>)，如果只使用CN，那么一个证书通常只对应一个主机名，如果要使用多主机名的证书，通过<code>subjectAltName</code>进行配置。一般来说，主机名最少包含两种，一个带<code>www.</code>的，一个不带；也可以使用通配符的方式，比如<code>seuzjy.cn</code>和<code>*.seuzjy.cn</code></li>
 </ul>
-<p><strong>2. 生成<code>.csr</code>文件</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -config server.cnf -key server.key -out server.csr</span><br></pre></td></tr></table></figure>
+<p><strong>注：</strong><code>.cnf</code>各字段详细说明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line">default_bits    = <span class="number">2048</span>     <span class="comment">/* 生成证书请求时用到的私钥的密钥长度 */</span></span><br><span class="line">default_md      = sha1     <span class="comment">/* 证书请求签名时的单向加密算法 */</span></span><br><span class="line">default_keyfile = privkey.pem  <span class="comment">/* 默认新创建的私钥存放位置， */</span></span><br><span class="line">                               <span class="comment">/* 如-new选项没指定-key时会自动创建私钥 */</span></span><br><span class="line">                               <span class="comment">/* -newkey选项也会自动创建私钥 */</span></span><br><span class="line">distinguished_name  = req_distinguished_name <span class="comment">/* 可识别的字段名(常被简称为DN) */</span></span><br><span class="line">                                             <span class="comment">/* 引用req_distinguished_name段的设置 */</span></span><br><span class="line">x509_extensions = v3_ca       <span class="comment">/* 加入到自签证书中的扩展项 */</span></span><br><span class="line"># req_extensions = v3_req     <span class="comment">/* 加入到证书请求中的扩展项 */</span></span><br><span class="line">attributes  = req_attributes  <span class="comment">/* 证书请求的属性，引用req_attributes段的设置，可以不设置它 */</span></span><br><span class="line"></span><br><span class="line"># encrypt_key = yes | no <span class="comment">/* 自动生成的私钥文件要加密否？一般设置no，和-nodes选项等价 */</span></span><br><span class="line"><span class="comment">/* 输入和输出私钥文件的密码，如果该私钥文件有密码，不写该设置则会提示输入 */</span></span><br><span class="line"><span class="comment">/* input_password = secret */</span></span><br><span class="line"><span class="comment">/* output_password = secret */</span></span><br><span class="line"></span><br><span class="line"># prompt = yes | no <span class="comment">/* 设置为no将不提示输入DN field，而是直接从配置文件中读取，需要同时设置DN默认值，否则创建证书请求时将出错。 */</span></span><br><span class="line">string_mask = utf8only</span><br><span class="line"></span><br><span class="line">[ req_distinguished_name ]</span><br><span class="line"><span class="comment">/* 以下项均可指定可不指定，但ca段的policy中指定为match和supplied一定要指定。 */</span></span><br><span class="line"><span class="comment">/* 以下选项都可以自定义，如countryName = C，commonName = CN */</span></span><br><span class="line"></span><br><span class="line">countryName             = Country Name (<span class="number">2</span> letter code) <span class="comment">/* 国家名(C) */</span></span><br><span class="line">countryName_default     = XX <span class="comment">/* 默认的国家名 */</span></span><br><span class="line">countryName_min         = <span class="number">2</span>  <span class="comment">/* 填写的国家名的最小字符长度 */</span></span><br><span class="line">countryName_max         = <span class="number">2</span>  <span class="comment">/* 填写的国家名的最大字符长度 */</span></span><br><span class="line">stateOrProvinceName = State or Province Name (full name) <span class="comment">/* 省份(S) */</span></span><br><span class="line"><span class="comment">/* stateOrProvinceName_default = Default Province */</span></span><br><span class="line">localityName = Locality Name (eg, city) <span class="comment">/* 城市(LT) */</span></span><br><span class="line">localityName_default = Default City</span><br><span class="line"><span class="number">0.</span>organizationName  = Organization Name (eg, company) <span class="comment">/* 公司(ON) */</span></span><br><span class="line"><span class="number">0.</span>organizationName_default  = Default Company Ltd</span><br><span class="line">organizationalUnitName      = Organizational Unit Name (eg, section) <span class="comment">/* 部门(OU) */</span></span><br><span class="line"><span class="comment">/* organizationalUnitName_default = */</span></span><br><span class="line"><span class="comment">/* 以下的commonName(CN)一般必须给,如果作为CA，那么需要在ca的policy中定义CN = supplied */</span></span><br><span class="line"><span class="comment">/* CN定义的是将要申请SSL证书的域名或子域名或主机名。 */</span></span><br><span class="line"><span class="comment">/* 例如要为zhonghua.com申请ssl证书则填写zhonghua.com，而不能填写www.zhonghua.com */</span></span><br><span class="line"><span class="comment">/* 要为www.zhonghua.com申请SSL则填写www.zhonghua.com */</span></span><br><span class="line"><span class="comment">/* CN必须和将要访问的网站地址一样，否则访问时就会给出警告 */</span></span><br><span class="line"><span class="comment">/* 该项要填写正确，否则该请求被签名后证书中的CN与实际环境中的CN不对应，将无法提供证书服务 */</span></span><br><span class="line">commonName  = Common Name (eg, your name or your server\<span class="string">&#x27;s hostname) /* 主机名(CN) */</span></span><br><span class="line"><span class="string">commonName_max  = 64</span></span><br><span class="line"><span class="string">emailAddress            = Email Address /* Email地址，很多时候不需要该项的 */</span></span><br><span class="line"><span class="string">emailAddress_max        = 64</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ req_attributes ] /* 该段是为了某些特定软件的运行需要而设定的， */</span></span><br><span class="line"><span class="string">                   /* 现在一般都不需要提供challengepassword */</span></span><br><span class="line"><span class="string">                   /* 所以该段几乎用不上 */</span></span><br><span class="line"><span class="string">                   /* 所以不用管这段 */</span></span><br><span class="line"><span class="string">challengePassword       = A challenge password</span></span><br><span class="line"><span class="string">challengePassword_min   = 4</span></span><br><span class="line"><span class="string">challengePassword_max   = 20</span></span><br><span class="line"><span class="string">unstructuredName        = An optional company name</span></span><br><span class="line"><span class="string">[ v3_req ]</span></span><br><span class="line"><span class="string">/* Extensions to add to a certificate request */</span></span><br><span class="line"><span class="string">basicConstraints = CA:FALSE</span></span><br><span class="line"><span class="string">keyUsage = nonRepudiation, digitalSignature, keyEncipherment</span></span><br><span class="line"><span class="string">[ v3_ca ]</span></span><br><span class="line"><span class="string">/* Extensions for a typical CA */</span></span><br><span class="line"><span class="string">subjectKeyIdentifier=hash</span></span><br><span class="line"><span class="string">authorityKeyIdentifier=keyid:always,issuer</span></span><br><span class="line"><span class="string">basicConstraints = CA:true</span></span><br><span class="line"><span class="string"># keyUsage = cRLSign, keyCertSign  /* 典型的CA证书的使用方法设置，由于测试使用所以注释了 */</span></span><br><span class="line"><span class="string">/* 如果真的需要申请为CA/*么该设置可以如此配置 */</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="查看-csr文件"><a href="#查看-csr文件" class="headerlink" title="查看.csr文件"></a>查看<code>.csr</code>文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -<span class="keyword">in</span> server.csr -text -noout</span><br></pre></td></tr></table></figure>
+<p><strong>2. 生成<code>.csr</code>文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -config server.cnf -extensions <span class="string">&#x27;req_ext&#x27;</span> -key ca.key -out ca.csr</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看-csr文件"><a href="#查看-csr文件" class="headerlink" title="查看.csr文件"></a>查看<code>.csr</code>文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -<span class="keyword">in</span> ca.csr -text -noout</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>csr中包含公钥，签名以及之前交互时输入值为非空的字段等</li>
@@ -2800,16 +2807,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><code>-text</code>: 输出csr的文本形式</li>
 <li><code>-noout</code>: 不输出<code>-----BEGIN CERTIFICATE REQUEST-----...-----END CERTIFICATE REQUEST-----</code>之间的内容</li>
 </ul>
-<h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><h5 id="生成证书-1"><a href="#生成证书-1" class="headerlink" title="生成证书"></a>生成证书</h5><p>共有两种生成证书的方式，大多数开发中，先使用<strong>自签名证书</strong>即可：</p>
+<h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><h5 id="生成证书-1"><a href="#生成证书-1" class="headerlink" title="生成证书"></a>生成证书</h5><p>共有两种生成证书的方式：</p>
 <ul>
-<li>向CA申请证书</li>
+<li>CA签名证书</li>
 <li>自签名证书</li>
 </ul>
+<p><strong>注：</strong>以下方式均需要配置<code>.cnf</code>。</p>
 <ol>
-<li>使用**<code>.csr</code>文件<strong>生成</strong>自签名证书**</li>
+<li>使用<strong>私钥</strong>直接生成<strong>自签名证书</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 使用配置.cnf生成</span></span><br><span class="line">openssl req -new -x509 -sha256 -days 365 -config server.cnf -extensions <span class="string">&#x27;req_ext&#x27;</span> -key ca.key -out ca.crt</span><br><span class="line"><span class="comment"># 2. 使用-subj选项指定国家，组织，所在地等一些字段值，如果是加密私钥，还要输入私钥密码</span></span><br><span class="line">openssl req -new -x509 -days 365 -key server.key -out server.crt  -subj <span class="string">&quot;/C=GB/L=China/O=seuzjy/CN=www.seuzjy.cn&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>使用**<code>.csr</code>文件<strong>生成</strong>CA签名证书**</li>
 </ol>
 <p>使用<code>openssl x509</code>命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果签名用的是加密私钥需要交互输入私钥密码</span></span><br><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> server.csr -signkey server.key -out server.crt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果签名用的是加密私钥需要交互输入私钥密码</span></span><br><span class="line">openssl x509 -req -days 365 \</span><br><span class="line"> -<span class="keyword">in</span> server.csr -out server.crt \</span><br><span class="line"> -CA ca.crt -CAkey ca.key -CAcreateserial \</span><br><span class="line"> -extensions <span class="string">&#x27;req_ext&#x27;</span> \</span><br><span class="line"> -extfile server.cnf</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>x509</code>: X.509 是密码学里公钥证书的格式标准</li>
@@ -2818,16 +2831,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li><code>-in</code>: 输入的文件</li>
 <li><code>-signkey</code>: 等同于<code>-key</code>，指明签名用的私钥</li>
 </ul>
-<ol start="2">
-<li>使用<strong>私钥</strong>直接生成<strong>自签名证书</strong></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 使用配置.cnf生成</span></span><br><span class="line">openssl req -nodes -new -x509 -sha256 -days 365 -config server.cnf -key server.key -out server.crt</span><br><span class="line"><span class="comment"># 2. 使用-subj选项指定国家，组织，所在地等一些字段值，如果是加密私钥，还要输入私钥密码</span></span><br><span class="line">openssl req -new -x509 -days 365 -key ca.key -out ca.crt  -subj <span class="string">&quot;/C=GB/L=China/O=seuzjy/CN=www.seuzjy.cn&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>生成多主机名证书(SAN证书)</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -days 365 -<span class="keyword">in</span> server.csr -key server.key -out server.crt -extfile server.ext</span><br></pre></td></tr></table></figure>
-
 <h5 id="查看证书"><a href="#查看证书" class="headerlink" title="查看证书"></a>查看证书</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -text -<span class="keyword">in</span> server.crt -noout</span><br></pre></td></tr></table></figure>
 
 <h5 id="检查证书"><a href="#检查证书" class="headerlink" title="检查证书"></a>检查证书</h5><p>使用<code>openssl s_server</code>创建一个server，默认端口是<code>4433</code>，导入证书和私钥：</p>
@@ -2872,10 +2875,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-09-21T23:17:29+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-09-27T18:41:26+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年9月21日</p>
+    <p>更新于：2022年9月27日</p>
   </a>
 </div>
 
@@ -2884,8 +2887,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenSSL/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>OpenSSL</p></a></div>
-  <span hidden itemprop="keywords">OpenSSL</span>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/OpenSSL/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>OpenSSL</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/SSL-TLS/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>SSL/TLS</p></a></div>
+  <span hidden itemprop="keywords">OpenSSL SSL/TLS</span>
 
 
         
@@ -2953,13 +2956,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.1k 字</p>
+      <p>字数：1.9k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fa-solid fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：4 分钟</p>
+      <p>时长：7 分钟</p>
     </a>
   </div>
 
@@ -2978,6 +2981,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   
     <div class="prev-next">
+      
+        <a class='prev' href='/2022/09/27/gRPC-01-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>gRPC-01-简介与安装</p>
+          <p class='content'>
+前言：gRPC是一种现代化开源的高性能RPC框架，能够运行于任意环境之中，最初由谷歌进行开发。它使用HTTP/2作为传输协议，默认采用Protocol Buffers数据序列化协议，自持多种语...</p>
+        </a>
       
       
         <a class='next' href='/2022/09/09/Bash-%E9%85%8D%E7%BD%AEAlias/'>
@@ -3047,7 +3056,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenSSL-%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6"><span class="toc-text">OpenSSL-自签名证书</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%A7%81%E9%92%A5"><span class="toc-text">生成私钥</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%A7%81%E9%92%A5-1"><span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8RSA%E7%A7%81%E9%92%A5%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5"><span class="toc-text">使用RSA私钥生成公钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%85%AC%E7%A7%81%E9%92%A5"><span class="toc-text">查看公私钥</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90-csr-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6"><span class="toc-text">生成.csr(证书请求文件)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F"><span class="toc-text">使用交互模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#star-%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">:star:使用配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-csr%E6%96%87%E4%BB%B6"><span class="toc-text">查看.csr文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6-1"><span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%81%E4%B9%A6"><span class="toc-text">查看证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6"><span class="toc-text">检查证书</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenSSL-%E8%AF%81%E4%B9%A6%E5%88%86%E5%8F%91"><span class="toc-text">OpenSSL-证书分发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%A7%81%E9%92%A5"><span class="toc-text">生成私钥</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%A7%81%E9%92%A5-1"><span class="toc-text">生成私钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8RSA%E7%A7%81%E9%92%A5%E7%94%9F%E6%88%90%E5%85%AC%E9%92%A5"><span class="toc-text">使用RSA私钥生成公钥</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%85%AC%E7%A7%81%E9%92%A5"><span class="toc-text">查看公私钥</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90-csr-%E8%AF%81%E4%B9%A6%E8%AF%B7%E6%B1%82%E6%96%87%E4%BB%B6"><span class="toc-text">生成.csr(证书请求文件)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BA%A4%E4%BA%92%E6%A8%A1%E5%BC%8F"><span class="toc-text">使用交互模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#star-%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">:star:使用配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B-csr%E6%96%87%E4%BB%B6"><span class="toc-text">查看.csr文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6"><span class="toc-text">生成证书</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6-1"><span class="toc-text">生成证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%AF%81%E4%B9%A6"><span class="toc-text">查看证书</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6"><span class="toc-text">检查证书</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -3390,7 +3399,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   </ul>
 </div>
-<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1663773524447"></script>
+<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1664275341641"></script>
 <script>
   const RightMenusFunction = {};
   
@@ -3613,7 +3622,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1663773524447")
+        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1664275341641")
       }
     
     
@@ -3764,7 +3773,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1663773524447");
+    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1664275341641");
   }
 
   function loadSearchService() {
@@ -4119,7 +4128,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var runningOnBrowser = typeof window !== "undefined";
   var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
   if (!isBot) {
-    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1663773524447').then(()=>{
+    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1664275341641').then(()=>{
       parallax()
     })
     volantis.pjax.send(()=>{
@@ -4305,7 +4314,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/Tools/","name":"Tools"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/Tools/密码学/","name":"密码学"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/21/OpenSSL-自签名证书/","name":"OpenSSL-自签名证书"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"OpenSSL-自签名证书","description":"\n前言：OpenSSL 是 SSL 和 TLS 协议的开放式源代码实现。它在标准通信层上提供了传输层安全性，允许其与诸多网络应用程序和服务相结合。在使用TLS等加密通信协议时，需要首先使用openssl生成证书。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/21/OpenSSL-%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/21/OpenSSL-%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6/","wordCount":107,"datePublished":"2022-09-21T14:31:46.000Z","dateModified":"2022-09-21T15:17:29.954Z","articleSection":"Tools","keywords":"OpenSSL","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/Tools/","name":"Tools"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/Tools/密码学/","name":"密码学"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/21/OpenSSL-自签名证书/","name":"OpenSSL-自签名证书"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"OpenSSL-自签名证书","description":"\n前言：OpenSSL 是 SSL 和 TLS 协议的开放式源代码实现。它在标准通信层上提供了传输层安全性，允许其与诸多网络应用程序和服务相结合。在使用TLS等加密通信协议时，需要首先使用openssl生成证书。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/21/OpenSSL-%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/21/OpenSSL-%E8%87%AA%E7%AD%BE%E5%90%8D%E8%AF%81%E4%B9%A6/","wordCount":107,"datePublished":"2022-09-21T14:31:46.000Z","dateModified":"2022-09-27T10:41:26.725Z","articleSection":"Tools","keywords":"OpenSSL,SSL/TLS","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
