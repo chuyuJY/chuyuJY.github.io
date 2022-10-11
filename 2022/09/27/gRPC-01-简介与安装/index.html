@@ -46,7 +46,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2022-09-27T10:14:05.000Z">
-<meta property="article:modified_time" content="2022-09-27T10:48:14.321Z">
+<meta property="article:modified_time" content="2022-10-11T15:30:58.036Z">
 <meta property="article:author" content="Jiyuan Zhang">
 <meta property="article:tag" content="gRPC">
 <meta name="twitter:card" content="summary">
@@ -1883,9 +1883,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   volantis.GLOBAL_CONFIG ={
     debug: false,
-    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1664275754135","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1664275754135","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1664275754135","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1664275754135","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1664275754135","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1664275754135","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1664275754135"},"css":{"style":"/css/style.1a6dbcba.css"}},
+    cdn: {"js":{"app":"/js/app.af2d54c8.js","parallax":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1665502330997","rightMenu":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenu.js?time=1665502330997","rightMenus":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1665502330997","sites":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1665502330997","friends":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/friends.js?time=1665502330997","contributors":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/contributors.js?time=1665502330997","search":"https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1665502330997"},"css":{"style":"/css/style.1a6dbcba.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1664275754135),
+    lastupdate: new Date(1665502330997),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo"],
       for_post: ["toc"],
@@ -2718,7 +2718,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：545 字</p>
+      <p>字数：601 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2787,6 +2787,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/gotutorial">protocol-buffers 官方Go教程</a></p>
 <h4 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看是否安装protoc</span></span><br><span class="line">protoc --version</span><br><span class="line"><span class="comment"># 测试是否安装成功protoc-gen-go</span></span><br><span class="line">protoc-gen-go --version</span><br><span class="line"><span class="comment"># 确认 protoc-gen-go-grpc 安装完成</span></span><br><span class="line">protoc-gen-go-grpc --version</span><br></pre></td></tr></table></figure>
 
+<h3 id="3-添加Google-proto"><a href="#3-添加Google-proto" class="headerlink" title="3. 添加Google proto"></a>3. 添加<code>Google proto</code></h3><p>在下载下来的<code>protoc</code>文件夹下的<code>include</code>中有<code>google</code>文件夹，里边有许多经常被调用的<code>.proto</code>文件。</p>
+<ul>
+<li>将<code>google</code>文件夹拷贝至<code>$GOPATH/src</code>文件夹下；</li>
+<li>在goland中添加路径：</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220930185858831.png" class="lazyload" data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20220930185858831.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="image-20220930185858831" style="zoom:33%;" />
+
+
   </div>
   
   
@@ -2822,10 +2830,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-09-27T18:48:14+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2022-10-11T23:30:58+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年9月27日</p>
+    <p>更新于：2022年10月11日</p>
   </a>
 </div>
 
@@ -2903,7 +2911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fa-solid fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：545 字</p>
+      <p>字数：601 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3007,7 +3015,7 @@ gRPC开发分为三步：
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gRPC%E7%89%B9%E6%80%A7"><span class="toc-text">1.gRPC特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gRPC%E5%AE%89%E8%A3%85"><span class="toc-text">2. gRPC安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gRPC%E5%AE%89%E8%A3%85"><span class="toc-text">gRPC安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Protocol-Buffers-v3"><span class="toc-text">安装Protocol Buffers v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5"><span class="toc-text">检查</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-gRPC%E7%89%B9%E6%80%A7"><span class="toc-text">1.gRPC特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-gRPC%E5%AE%89%E8%A3%85"><span class="toc-text">2. gRPC安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gRPC%E5%AE%89%E8%A3%85"><span class="toc-text">gRPC安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Protocol-Buffers-v3"><span class="toc-text">安装Protocol Buffers v3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5"><span class="toc-text">检查</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0Google-proto"><span class="toc-text">3. 添加Google proto</span></a></li></ol>
     </div>
   </section>
 
@@ -3350,7 +3358,7 @@ gRPC开发分为三步：
 
   </ul>
 </div>
-<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1664275754135"></script>
+<script src="https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/rightMenus.js?time=1665502330997"></script>
 <script>
   const RightMenusFunction = {};
   
@@ -3573,7 +3581,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     
       const sites_api = document.getElementById('sites-api');
       if (sites_api != undefined && typeof SitesJS === 'undefined') {
-        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1664275754135")
+        volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/tags/sites.js?time=1665502330997")
       }
     
     
@@ -3724,7 +3732,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
   function loadSearchScript() {
     // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
-    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1664275754135");
+    return volantis.js("https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/search/hexo.js?time=1665502330997");
   }
 
   function loadSearchService() {
@@ -4079,7 +4087,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var runningOnBrowser = typeof window !== "undefined";
   var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
   if (!isBot) {
-    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1664275754135').then(()=>{
+    volantis.js('https://unpkg.com/hexo-theme-volantis@5.7.4/source/js/plugins/parallax.js?time=1665502330997').then(()=>{
       parallax()
     })
     volantis.pjax.send(()=>{
@@ -4265,7 +4273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/gRPC/","name":"gRPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/27/gRPC-01-简介与安装/","name":"gRPC-01-简介与安装"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"gRPC-01-简介与安装","description":"\n前言：gRPC是一种现代化开源的高性能RPC框架，能够运行于任意环境之中，最初由谷歌进行开发。它使用HTTP/2作为传输协议，默认采用Protocol Buffers数据序列化协议，自持多种语言开发。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/27/gRPC-01-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/27/gRPC-01-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/","wordCount":102,"datePublished":"2022-09-27T10:14:05.000Z","dateModified":"2022-09-27T10:48:14.321Z","articleSection":"gRPC","keywords":"gRPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","sameAs":["https://github.com/volantis-x"],"description":"The Past & The Current & The Future"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://www.seuzjy.cn/","name":"Tiam's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"http://www.seuzjy.cn/categories/gRPC/","name":"gRPC"}},{"@type":"ListItem","position":3,"item":{"@id":"http://www.seuzjy.cn/2022/09/27/gRPC-01-简介与安装/","name":"gRPC-01-简介与安装"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","keywords":null,"description":"The Past & The Current & The Future","author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/","description":"The Past & The Current & The Future"},"publisher":{"@type":"Organization","name":"Tiam's Blog","url":"http://www.seuzjy.cn/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://www.seuzjy.cn?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"gRPC-01-简介与安装","description":"\n前言：gRPC是一种现代化开源的高性能RPC框架，能够运行于任意环境之中，最初由谷歌进行开发。它使用HTTP/2作为传输协议，默认采用Protocol Buffers数据序列化协议，自持多种语言开发。\n","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.seuzjy.cn/2022/09/27/gRPC-01-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/"},"author":{"@type":"Person","name":"Jiyuan Zhang","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://www.seuzjy.cn/"},"publisher":{"@type":"Organization","name":"Tiam's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://www.seuzjy.cn/2022/09/27/gRPC-01-%E7%AE%80%E4%BB%8B%E4%B8%8E%E5%AE%89%E8%A3%85/","wordCount":102,"datePublished":"2022-09-27T10:14:05.000Z","dateModified":"2022-10-11T15:30:58.036Z","articleSection":"gRPC","keywords":"gRPC","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
