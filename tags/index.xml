@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - Chuyu&#39;s Blog</title>
-        <link>https://blog.seucy.me/tags/</link>
+        <link>http://blog.seucy.me/tags/</link>
         <description>Tags - Tag - Chuyu&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
-            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Thu, 27 Jul 2023 18:30:20 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Thu, 27 Jul 2023 18:30:20 &#43;0800</lastBuildDate><atom:link href="http://blog.seucy.me/tags/" rel="self" type="application/rss+xml" /><item>
     <title>学习</title>
-    <link>https://blog.seucy.me/tags/%E5%AD%A6%E4%B9%A0/</link>
+    <link>http://blog.seucy.me/tags/%E5%AD%A6%E4%B9%A0/</link>
     <pubDate>Thu, 27 Jul 2023 18:30:20 &#43;0800</pubDate>
     <author>Chuyu</author>
-    <guid>https://blog.seucy.me/tags/%E5%AD%A6%E4%B9%A0/</guid>
+    <guid>http://blog.seucy.me/tags/%E5%AD%A6%E4%B9%A0/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>关于</title>
-    <link>https://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</link>
+    <link>http://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</link>
     <pubDate>Thu, 27 Jul 2023 18:21:46 &#43;0800</pubDate>
     <author>Chuyu</author>
-    <guid>https://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</guid>
+    <guid>http://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

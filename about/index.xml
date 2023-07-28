@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Abouts on Chuyu&#39;s Blog</title>
-    <link>https://blog.seucy.me/about/</link>
+    <link>http://blog.seucy.me/about/</link>
     <description>Recent content in Abouts on Chuyu&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
     <webMaster>1205667742@qq.com (Chuyu)</webMaster>
-    <lastBuildDate>Thu, 27 Jul 2023 18:21:46 +0800</lastBuildDate><atom:link href="https://blog.seucy.me/about/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Jul 2023 18:21:46 +0800</lastBuildDate><atom:link href="http://blog.seucy.me/about/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
-      <link>https://blog.seucy.me/about/about/</link>
+      <link>http://blog.seucy.me/about/about/</link>
       <pubDate>Thu, 27 Jul 2023 18:21:46 +0800</pubDate>
       <author>1205667742@qq.com (Chuyu)</author>
-      <guid>https://blog.seucy.me/about/about/</guid>
+      <guid>http://blog.seucy.me/about/about/</guid>
       <description>Name Chuyu Education Southeast University Research Direction Blockchain &amp;amp; Golang QQ 1205667742 Mail jyzhangis12@gmail.com Phone +86 15237174980</description>
     </item>
     
