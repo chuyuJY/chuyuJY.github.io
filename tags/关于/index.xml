@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>关于 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</link>
+        <description>关于 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Thu, 27 Jul 2023 18:21:46 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/" rel="self" type="application/rss+xml" /><item>
+    <title>About Me</title>
+    <link>https://blog.seucy.me/about/about/</link>
+    <pubDate>Thu, 27 Jul 2023 18:21:46 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/about/about/</guid>
+    <description><![CDATA[Name Chuyu Education Southeast University Research Direction Blockchain &amp; Golang QQ 1205667742 Mail jyzhangis12@gmail.com Phone +86 15237174980]]></description>
+</item>
+</channel>
+</rss>
