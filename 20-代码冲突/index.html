@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="" />
+<meta property="og:description" content="[toc] 一、基本流程 拉取最新代码——创建分支——提交分支至云端——分支代码完成后查看状态——将代码添加至暂存区——本地提交代码——推送至云端——切" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="[toc] 一、基本流程 拉取最新代码——创建分支——提交分支至云端——分支代码完成后查看状态——将代码添加至暂存区——本地提交代码——推送至云端——切"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" /><link rel="prev" href="https://blog.seucy.me/%E4%BB%A3%E7%90%86/" /><link rel="next" href="https://blog.seucy.me/19-6.824/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81\/"
+        },"genre": "posts","wordcount":  1269 ,
+        "url": "https:\/\/blog.seucy.me\/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1269 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;<span id="/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基本流程">一、基本流程</a></li>
+    <li><a href="#二执行命令">二、执行命令</a></li>
+    <li><a href="#三常用-git-命令">三、常用 <code>git </code>命令</a></li>
+    <li><a href="#四解决冲突">四、解决冲突</a></li>
+    <li><a href="#五git-的语义化-commit">五、<code>git</code> 的语义化 <code>commit</code></a></li>
+    <li><a href="#六git-merge-和-git-rebase-的区别">六、<code>git merge</code> 和 <code>git rebase</code> 的区别</a>
+      <ul>
+        <li><a href="#merge"><code>merge</code></a></li>
+        <li><a href="#rebase"><code>rebase</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[toc]</p>
+<h2 id="一基本流程">一、基本流程</h2>
+<p>拉取最新代码——创建分支——提交分支至云端——分支代码完成后查看状态——将代码添加至暂存区——本地提交代码——推送至云端——切换为主分支——合并子分支代码——推送至云端——删除分支</p>
+<h2 id="二执行命令">二、执行命令</h2>
+<ol>
+<li>在主分支拉取最新代码：<code>git pull</code></li>
+<li>基于主分支创建并且切换到新的子分支（没有这个分支就会新建）：<code>git checkout -b 分支名</code></li>
+<li>先把新的子分支推送到云端仓库，因为此时云端没有这个分支。如果有则忽略此步骤：<code>git push -u origin 分支名</code></li>
+<li>然后创建对应文件，开始写代码</li>
+<li>将修改过的文件全部添加到暂存区：<code>git add .</code></li>
+<li>将代码保存到本地仓库：<code>git commit -m &quot;完成了分类功能开发&quot;</code></li>
+<li>将本地代码推送到云端：<code>git push</code></li>
+<li>切换到主分支：<code>git checkout master</code></li>
+<li>拉取最新代码：<code>git pull</code></li>
+<li>如果上一步骤存在更新，则进行变基操作即处理冲突（第四步），如果没有，则进行下一步</li>
+<li>切换到主分支，合并代码：<code>git merge 分支名</code></li>
+<li>把主分支推送到云端: <code>git push</code></li>
+<li>删除本地的分支：<code>git branch -d 分支名</code></li>
+<li>删除云端的分支：<code>git push origin --delete 分支名</code></li>
+</ol>
+<h2 id="三常用-git-命令">三、常用 <code>git </code>命令</h2>
+<p>初始化一个 <code>git</code> 仓库：<code>git init</code></p>
+<p>查看状态：<code>git status</code></p>
+<p>添加所有修改：<code>git add -A</code></p>
+<p>提交修改：<code>git commit -m &quot;提交说明&quot;</code></p>
+<p>查看提交历史，按字母 q(uit) 退出：<code>git log</code></p>
+<p>查看没 add 的不同：<code>git diff(erence)</code></p>
+<p>查看本地分支：<code>git branch</code></p>
+<p>查看所有分支：<code>git branch -a</code></p>
+<p>删除未合并代码分支：<code>git branch -D 分支名</code></p>
+<p>拉取本地不存在的远程分支：<code>git checkout -b 本地分支名 origin/远程分支名</code></p>
+<p>与远程仓库关联：<code>git remote add origin 地址</code></p>
+<h2 id="四解决冲突">四、解决冲突</h2>
+<p>pre-1: 在基准分支（主分支）上接取最新的代码 <code>git pull</code></p>
+<p>pre-2: 切换到自己的分支上 <code>git checkout</code> 分支名</p>
+<ol>
+<li><code>git rebase dev</code></li>
+<li>解决冲突（需要和团队之间商量）</li>
+<li><code>git add -A</code></li>
+<li><code>git rebase --continue</code></li>
+<li>重复 2，3，4</li>
+<li>直到 <code>reabase</code> 完成,会出现 <code>applying</code> 字样</li>
+<li>有可能本地自己的分支和远程分支还有冲突，这时候需要 <code>git pull origin qh/home</code> 之后，解决冲突再 <code>push</code> 即可</li>
+</ol>
+<h2 id="五git-的语义化-commit">五、<code>git</code> 的语义化 <code>commit</code></h2>
+<p><code>chore</code>：add Oyster build script（其他修改, 比如构建流程, 依赖管理）</p>
+<p><code>docs</code>：explain hat wobble（更改文档）</p>
+<p><code>feat</code>：add beta sequence（新增了一个功能）</p>
+<p><code>fix</code>：remove broken confirmation message（修复了一个 bug）</p>
+<p><code>refactor</code>：share logic between 4d3d3d3 and flarhgunnstow（代码重构，既不修复错误也不添加功能）</p>
+<p><code>style</code>：convert tabs to spaces（不影响代码含义的变化（空白、格式化、缺少分号等，注意不是 css 修改））</p>
+<p><code>test</code>：ensure Tayne retains clothing（测试用例修改）</p>
+<h2 id="六git-merge-和-git-rebase-的区别">六、<code>git merge</code> 和 <code>git rebase</code> 的区别</h2>
+<h3 id="merge"><code>merge</code></h3>
+<ul>
+<li><code>merge</code> 特点：⾃动创建⼀个新的 <code>commit</code> 如果合并的时候遇到冲突，仅需要修改后重新</li>
+<li><code>commit</code> 优点：记录了真实的 <code>commit</code> 情况，包括每个分⽀的详情</li>
+<li>缺点：因为每次 <code>merge</code> 会⾃动产⽣⼀个 <code>merge commit</code>，所以在使⽤⼀些 <code>git</code> 的 <code>GUI tools</code>，特别是 <code>commit</code> ⽐较频繁时，看到分支很杂乱。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230516155809230.png" alt="image-20230516155809230" style="zoom: 33%;" />
+<h3 id="rebase"><code>rebase</code></h3>
+<ul>
+<li><code>rebase</code> 特点：会合并之前的 <code>commit</code> 历史</li>
+<li>优点：得到更简洁的项目历史，去掉了 <code>merge commit</code></li>
+<li>缺点：如果合并出现代码问题不容易定位，因为 <code>re-write</code> 了 <code>history</code></li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230516155842429.png" alt="image-20230516155842429" style="zoom:33%;" />
+<p>总结：因此，当需要保留详细的合并信息的时候建议使⽤ <code>git merge</code>，特别是需要将分支合并进入 <code>master</code> 分支时；当发现自己修改某个功能时，频繁进⾏了 <code>git commit</code> 提交时，发现其实过多的提交信息没有必要时，可以尝试 <code>git rebase</code>.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BB%A3%E7%90%86/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/19-6.824/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

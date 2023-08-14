@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="" />
+<meta property="og:description" content="[toc] 参考文章： 开源消息引擎系统 Kafka 3 新特性 https://juejin.cn/post/7176576097205616700 https://mp.weixin.qq.com/s/vzvmOXGcsX7rwY4J_--onw 20道经典的Kafka面试题详解 《深入理解Kafka：核心设计与实践原理》 一、消息队列 这里的消息队" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="[toc] 参考文章： 开源消息引擎系统 Kafka 3 新特性 https://juejin.cn/post/7176576097205616700 https://mp.weixin.qq.com/s/vzvmOXGcsX7rwY4J_--onw 20道经典的Kafka面试题详解 《深入理解Kafka：核心设计与实践原理》 一、消息队列 这里的消息队"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" /><link rel="prev" href="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" /><link rel="next" href="https://blog.seucy.me/07-redis/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97\/"
+        },"genre": "posts","wordcount":  13066 ,
+        "url": "https:\/\/blog.seucy.me\/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;13066 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;27 minutes&nbsp;<span id="/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一消息队列">一、消息队列</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#问为啥要使用消息队列消息队列有啥用">问：为啥要使用消息队列？消息队列有啥用？</a></li>
+            <li><a href="#问引入消息队列会带来哪些问题">问：引入消息队列会带来哪些问题？</a></li>
+            <li><a href="#问队列模型是啥存在啥问题">问：队列模型是啥？存在啥问题？</a></li>
+            <li><a href="#问发布-订阅模型是啥">问：发布-订阅模型是啥？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#二kafka">二、Kafka</a>
+      <ul>
+        <li><a href="#21-kafka-应用生态">2.1 Kafka 应用生态</a></li>
+        <li><a href="#22-kafka-core-架构">2.2 Kafka Core 架构</a>
+          <ul>
+            <li><a href="#221-消息模型">2.2.1 消息模型</a></li>
+            <li><a href="#问kafka-使用啥消息模型">问：Kafka 使用啥消息模型？</a></li>
+            <li><a href="#问kafka消息模型中有哪些角色和实体">问：Kafka消息模型中有哪些角色和实体？</a></li>
+            <li><a href="#问kafka-是通过-push-还是-pull">问：Kafka 是通过 Push 还是 Pull？</a></li>
+            <li><a href="#222-集群架构">2.2.2 集群架构</a></li>
+            <li><a href="#223-zookeeper-的作用">2.2.3 Zookeeper 的作用</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-核心机制">2.3 核心机制</a>
+          <ul>
+            <li><a href="#231-水位机制">2.3.1 水位机制</a></li>
+            <li><a href="#问水位机制的作用">问：水位机制的作用？</a></li>
+            <li><a href="#问partition-中的水位机制">问：Partition 中的水位机制？⭐</a></li>
+            <li><a href="#问水位更新">问：水位更新？⭐</a></li>
+            <li><a href="#232-partition-和-replica">2.3.2 Partition 和 Replica</a></li>
+            <li><a href="#问kafka-的多分区partition以及多副本replica机制有什么好处呢">问：Kafka 的多分区(Partition)以及多副本(Replica)机制有什么好处呢？⭐</a></li>
+            <li><a href="#问kafka-分区的分配策略有哪些">问：Kafka 分区的分配策略有哪些？⭐</a></li>
+            <li><a href="#问leader-replica-和-follower-replica-的同步机制">问：Leader Replica 和 Follower Replica 的同步机制？⭐</a></li>
+            <li><a href="#问partition-的并发性">问：Partition 的并发性？</a></li>
+            <li><a href="#问kafka-如何保证消息的消费顺序">问：Kafka 如何保证消息的消费顺序？⭐</a></li>
+            <li><a href="#233-持久化">2.3.3 持久化</a></li>
+            <li><a href="#234-消息丢失与重复消费">2.3.4 消息丢失与重复消费</a>
+              <ul>
+                <li><a href="#消息丢失">消息丢失</a></li>
+              </ul>
+            </li>
+            <li><a href="#问kafka-如何避免消息丢失">问：Kafka 如何避免消息丢失？</a>
+              <ul>
+                <li><a href="#重复消费">重复消费</a></li>
+              </ul>
+            </li>
+            <li><a href="#问kafka-如何保证消息不被重复消费如何实现幂等性设计去重机制">问：Kafka 如何保证消息不被重复消费？/如何实现幂等性，设计去重机制？</a></li>
+            <li><a href="#235-零拷贝">2.3.5 零拷贝</a>
+              <ul>
+                <li><a href="#传统数据文件拷贝">传统数据文件拷贝</a></li>
+                <li><a href="#零拷贝">零拷贝</a></li>
+              </ul>
+            </li>
+            <li><a href="#问零拷贝zero-copy在-kafka-中的应用优点">问：零拷贝(Zero-Copy)在 Kafka 中的应用？优点？⭐</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三常见面试题">三、常见面试题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#问kafka是什么">问：Kafka是什么？</a></li>
+            <li><a href="#问什么是消费者组">问：什么是消费者组？⭐</a></li>
+            <li><a href="#问在-kafka-中zookeeper-的作用是什么">问：在 Kafka 中，ZooKeeper 的作用是什么？🚩⭐</a></li>
+            <li><a href="#问解释下-kafka-中位移offset的作用">问：解释下 Kafka 中位移(offset)的作用？</a></li>
+            <li><a href="#问阐述下-kafka-中的主副本leader-replica和从副本follower-replica的区别">问：阐述下 Kafka 中的主副本(Leader Replica)和从副本(Follower Replica)的区别？</a></li>
+            <li><a href="#问leolsoarisrhw-都表示什么含义">问：LEO、LSO、AR、ISR、HW 都表示什么含义？</a></li>
+            <li><a href="#问leader-partition-的选举策略有几种在哪些场景下需要执行-leader-选举">问：Leader Partition 的选举策略有几种？/在哪些场景下需要执行 Leader 选举？</a></li>
+            <li><a href="#问kafka-的哪些场景中使用了零拷贝zero-copy">问：Kafka 的哪些场景中使用了零拷贝(Zero Copy)？⭐</a></li>
+            <li><a href="#问kafka-为什么不支持读写分离">问：Kafka 为什么不支持读写分离？⭐</a></li>
+            <li><a href="#问controller-发生网络分区network-partitioning时kafka-会怎么样">问：Controller 发生网络分区（Network Partitioning）时，Kafka 会怎么样？</a></li>
+            <li><a href="#问简述-follower-副本消息同步的完整流程">问：简述 Follower 副本消息同步的完整流程？⭐</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[toc]</p>
+<p>参考文章：</p>
+<ul>
+<li>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODYwMjI2MA==&amp;mid=2649770210&amp;idx=1&amp;sn=5fe3cf70e9860583e37e9c93c7c69963&amp;chksm=beccdb9989bb528f49915f3a64dbb1ad824a04718c309116f30af67c4766afa09189d91d725b&amp;scene=126&amp;sessionid=1680509849&amp;subscene=7&amp;key=b163269b5f582364f3e15a545b4ce6cfcb5c44e9f2aadf5f494f7d0fd092019c72b42c8f9926ab1473a00d31c649359aadd5a9a48220e32b9b42c75a092dff47fc2e54d9f23c4cd3e2103e160ea676c903dd458eec46b759bf9d74bc91658285115dcbb458a1956473110e2a8b4d96918534f1407caafd357b71b7071b60d749&amp;ascene=0&amp;uin=MjY0NTQ5ODYwNg%3D%3D&amp;devicetype=Windows&#43;11&#43;x64&amp;version=63090214&amp;lang=zh_CN&amp;countrycode=CN&amp;exportkey=n_ChQIAhIQYil1W%2FOINidN4PqmG9UvrRLgAQIE97dBBAEAAAAAAF%2FII8SfzIMAAAAOpnltbLcz9gKNyK89dVj0%2BvKrP7jXAcVFe99neHAs6KtUSyhV%2FMrrdfAQCY7u4E93DIJ6x75evvfUMzs30266YMeCTCeAdb3sAwicFoanWUEObOTanc%2FuJXFPyt1RmEm0qKzTKnZG6KAK3YV%2BGYFcLUAjVCECi2mJjzqTzn1159vqcD3AvBTDEo9lAHr5cbISXaPUELXK55NaIhYjZLuQSvvopJPeO%2FVBTAppfE2ur1XMbbD5eLf4W9uG%2FSlNzh0lUyeZMhPMugJo&amp;acctmode=0&amp;pass_ticket=k%2FzWru6X4JY95hsUybySkk2FQsPLl2jEUYqy15D2X6d7cOLFDrwJiPuQ%2FaPaAP9mjFnmPKQ8KpXLjMQsDWJAZQ%3D%3D&amp;wx_header=1" target="_blank" rel="noopener noreffer ">开源消息引擎系统 Kafka 3 新特性</a></p>
+</li>
+<li>
+<p><a href="https://juejin.cn/post/7176576097205616700" target="_blank" rel="noopener noreffer ">https://juejin.cn/post/7176576097205616700</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/vzvmOXGcsX7rwY4J_--onw" target="_blank" rel="noopener noreffer ">https://mp.weixin.qq.com/s/vzvmOXGcsX7rwY4J_--onw</a></p>
+</li>
+<li>
+<p><a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/Kafka%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/%E7%89%B9%E5%88%AB%E6%94%BE%E9%80%81%EF%BC%88%E5%9B%9B%EF%BC%8920%E9%81%93%E7%BB%8F%E5%85%B8%E7%9A%84Kafka%E9%9D%A2%E8%AF%95%E9%A2%98%E8%AF%A6%E8%A7%A3.md" target="_blank" rel="noopener noreffer ">20道经典的Kafka面试题详解</a></p>
+</li>
+<li>
+<p><a href="https://book.douban.com/subject/30437872/" target="_blank" rel="noopener noreffer ">《深入理解Kafka：核心设计与实践原理》</a></p>
+</li>
+</ul>
+<h2 id="一消息队列">一、消息队列</h2>
+<p>这里的消息队列指的是各个服务以及系统内部各个组件/模块之前的通信，属于一种中间件。使用消息队列可以降低系统耦合性、实现任务异步、有效地进行流量削峰，是分布式和微服务系统中重要的组件之一。</p>
+<blockquote>
+<h4 id="问为啥要使用消息队列消息队列有啥用">问：为啥要使用消息队列？消息队列有啥用？</h4>
+</blockquote>
+<p>六个字总结：<strong>解耦、异步、削峰</strong></p>
+<ul>
+<li><strong>解耦</strong></li>
+</ul>
+<p><strong>传统模式</strong>下系统间的耦合性太强。举个例子：系统 A 通过接口调用发送数据到 B、C、D 三个系统，如果将来 E 系统接入或者 B 系统不需要接入了，那么系统 A 还需要修改代码，非常麻烦。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/20210303224922.png" alt="img" style="zoom:50%;" />
+<p>如果系统 A 产生了一条比较关键的数据，那么它就要时时刻刻考虑 B、C、D、E 四个系统如果挂了该咋办？这条数据它们是否都收到了？<strong>显然，系统 A 跟其它系统严重耦合。</strong></p>
+<p>**而如果我们将数据（消息）写入消息队列，需要消息的系统直接自己从消息队列中消费。**这样下来，系统 A 就不需要去考虑要给谁发送数据，不需要去维护这个代码，也不需要考虑其他系统是否调用成功、失败超时等情况，反正我只负责生产，别的我不管。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/20210303225222.png" alt="img" style="zoom:50%;" />
+<ul>
+<li><strong>异步</strong></li>
+</ul>
+<p>将用户的请求数据存储到消息队列之后就立即返回结果，消息发送者不需要等待消息接收者的响应，可以继续执行其他任务。随后，系统再对消息进行消费。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/Asynchronous-message-queue.png" alt="通过异步处理提高系统性能" style="zoom: 80%;" />
+<p>因为用户请求数据写入消息队列之后就立即返回给用户了，但是请求数据在后续的业务校验、写数据库等操作中可能失败。因此，<strong>使用消息队列进行异步处理之后，需要适当修改业务流程进行配合</strong>，比如用户在提交订单之后，订单数据写入消息队列，不能立即返回用户订单提交成功，需要在消息队列的订单消费者进程真正处理完该订单之后，甚至出库后，再通过电子邮件或短信通知用户订单成功，以免交易纠纷。这就类似我们平时手机订火车票和电影票。</p>
+<ul>
+<li><strong>削峰</strong></li>
+</ul>
+<p><strong>先</strong>将短时间<strong>高并发产生的事务消息</strong>存储在<strong>消息队列</strong>中，然后<strong>后端服务(mysql)<strong>再</strong>慢慢</strong>根据自己的能力去消费这些消息，这样就避免直接把后端服务打垮掉。</p>
+<blockquote>
+<h4 id="问引入消息队列会带来哪些问题">问：引入消息队列会带来哪些问题？</h4>
+</blockquote>
+<ul>
+<li><strong>系统可用性降低：<strong>在加入 MQ 之前，你</strong>不用考虑消息丢失</strong>或者说 <strong>MQ 挂掉</strong>等等的情况；</li>
+<li><strong>系统复杂性提高：<strong>加入 MQ 之后，你需要</strong>保证消息没有被重复消费</strong>、<strong>处理消息丢失</strong>的情况、<strong>保证消息传递的顺序性</strong>等等问题！</li>
+<li><strong>一致性问题：<strong>消息队列可以实现</strong>异步</strong>，消息队列带来的异步确实可以提高系统响应速度。但是，万一消息的真正消费者<strong>并没有正确消费消息</strong>怎么办？这样就会导致数据不一致的情况了!</li>
+</ul>
+<blockquote>
+<h4 id="问队列模型是啥存在啥问题">问：队列模型是啥？存在啥问题？</h4>
+</blockquote>
+<p>使用队列（Queue）作为消息通信载体，<strong>满足生产者与消费者模式</strong>，<strong>一条消息只能被一个消费者使用</strong>，未被消费的消息在队列中保留直到被消费或超时。</p>
+<p><strong>存在的问题：</strong></p>
+<p>假如我们存在这样一种情况：我们需要将生产者产生的消息分发给多个消费者，并且每个消费者都能接收到完整的消息内容。队列模型就不好解决了。</p>
+<blockquote>
+<h4 id="问发布-订阅模型是啥">问：发布-订阅模型是啥？</h4>
+</blockquote>
+<p><strong>发布-订阅模型</strong>主要是为了解决队列模型存在的问题。</p>
+<p><strong>发布-订阅模型(Pub-Sub)<strong>使用</strong>主题(Topic)<strong>作为消息通信载体，类似于</strong>广播模式</strong>：发布者发布一条消息，该消息通过主题传递给所有的订阅者，<strong>在一条消息广播之后才订阅的用户则是收不到该条消息的</strong>。</p>
+<p>在发布-订阅模型中，<strong>如果只有一个订阅者</strong>，那它和队列模型就基本是一样的了。所以说，发布-订阅模型在功能层面上是可以<strong>兼容队列模型</strong>的。</p>
+<h2 id="二kafka">二、Kafka</h2>
+<p>Kafka 是一个<strong>分布式流处理平台</strong>。</p>
+<h3 id="21-kafka-应用生态">2.1 Kafka 应用生态</h3>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230419144125809.png" alt="image-20230419144125809" style="zoom: 33%;" />
+<p>==<strong>Kafka 应用架构：</strong>==</p>
+<ul>
+<li>这张图中居于核心地位的是 <strong>Kafka Core 的集群</strong>，也就是常用的<strong>消息引擎</strong>的这部分功能，是本篇的重点；</li>
+<li>核心的左右两端分两层，<strong>下层</strong>分别是 Producer 和 Consumer 的基础 API，提供基础事件流消息的<strong>推送和消费</strong>；<strong>上层</strong>提供了更加高级的 Connect API，能够实现 Kafka 和其他数据系统的连接，比如消息数据自动推送到 MySQL 数据库或者将 RPC 请求转换为事件流消息进行推送；</li>
+<li>最上面的是，Kafka 基于消息引擎打造了一个<strong>流式计算平台 Streams</strong>，提供流式的计算和存储一体化的服务。</li>
+</ul>
+<p>==<strong>具有三个关键功能：</strong>==</p>
+<ol>
+<li><strong>消息队列</strong>：<strong>发布和订阅消息流</strong>，这个功能类似于消息队列，这也是 Kafka 也被归类为消息队列的原因。</li>
+<li><strong>存储事件流</strong>：Kafka 会把<strong>消息持久化</strong>到磁盘，有效避免了消息丢失的风险。</li>
+<li><strong>处理事件流</strong>：在消息发布的时候进行处理，Kafka 提供了一个完整的<strong>流式处理类库</strong>。</li>
+</ol>
+<p>==<strong>Kafka 主要有两大应用场景：</strong>==</p>
+<ol>
+<li><strong>数据收集：<strong>可以将</strong>不同来源的数据流</strong>通过Kafka进行<strong>集中收集和处理</strong>；</li>
+<li><strong>消息队列</strong>：建立实时流数据管道，以可靠地在系统或应用程序之间获取数据。</li>
+<li><strong>流式处理</strong>：构建实时的流数据处理程序来转换或处理数据流。</li>
+</ol>
+<h3 id="22-kafka-core-架构">2.2 Kafka Core 架构</h3>
+<h4 id="221-消息模型">2.2.1 消息模型</h4>
+<blockquote>
+<h4 id="问kafka-使用啥消息模型">问：Kafka 使用啥消息模型？</h4>
+</blockquote>
+<p>Kafka 使用<strong>发布-订阅模型</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230419151229088.png" alt="image-20230419151229088" style="zoom:50%;" />
+<ul>
+<li><strong>消费端</strong>：消费者通过消费者组进行划分，一条消息只能由消费者组中的一个消费者消费，消费从队列的头部开始，在 HW 前结束；</li>
+<li><strong>消息队列</strong>：消息存储是队列的数据结构，只允许消息追加写入，此外，Kafka 的队列还设计了高水位机制，避免未被从副本完成同步的消息被消费者感知并消费；</li>
+<li><strong>生产端</strong>：生产端的 Producer 持续发送消息到队列中，消息追加到队列尾部，通过指定分区算法可以决定消息发往 Topic 下的哪个分区。</li>
+</ul>
+<p>Kafka 将生产者发布的消息发送到 **Topic **中，需要这些消息的消费者可以订阅这些 **Topic **，如下图所示：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502175221214.png" alt="image-20230502175221214" style="zoom: 50%;" />
+<blockquote>
+<h4 id="问kafka消息模型中有哪些角色和实体">问：Kafka消息模型中有哪些角色和实体？</h4>
+</blockquote>
+<p>消息模型的图中也为我们引出了，Kafka 比较重要的几个概念：</p>
+<ol>
+<li>
+<p><strong>Producer(生产者)</strong>：将消息<strong>发送</strong>到指定 Topic 的 Partition 中，写入到 LEO 的位置；</p>
+</li>
+<li>
+<p><strong>Consumer(消费者)</strong>：从指定的 Topic 和 Partition 中<strong>拉取或推送</strong>消息，并且可以指定消费组(Consumer Group)和消费位移(Consumer Offset)等参数；</p>
+</li>
+<li>
+<p><strong>Consumer Group(消费者组)</strong>：<strong>消费者组</strong>由一个或者多个<strong>消费者</strong>组成，同一个组中的消费者对于同一条消息只消费一次。每个分区只能由<strong>同一个消费者组内的一个消费者</strong>(consumer)来消费(<strong>避免竞争</strong>)，可以由<strong>不同的消费者组</strong>来消费；</p>
+</li>
+<li>
+<p><strong>Controller(管理者)</strong>：整个 Kafka 集群的管理者角色，任何集群范围内的状态变更都需要通过 Controller 进行，在整个集群中是个单点的服务，可以通过选举协议进行故障转移；</p>
+<ul>
+<li>
+<p>Topic的新建和删除；</p>
+</li>
+<li>
+<p>Partition的新建、重新分配；</p>
+</li>
+<li>
+<p>Broker 的加入、退出；</p>
+</li>
+<li>
+<p>触发分区 Leader 选举。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Broker(代理)</strong>：Broker是Kafka中<strong>负责存储和转发消息</strong>的<strong>服务器节点</strong>，它可以组成一个集群，并且通过Zookeeper进行协调和管理。</p>
+<ul>
+<li>
+<p><strong>Topic(主题)</strong>：一个Topic代表<strong>一类消息</strong>，是消息的逻辑分类。<strong>每个Topic可以被分为多个分区</strong>(Partition)，每个分区可以存储一定数量的消息，并且有一个唯一的ID。Producer 将消息发送到特定的主题，Consumer 通过订阅特定的 Topic(主题)来消费消息；</p>
+</li>
+<li>
+<p><strong>Partition(分区)</strong>：一个Partition是Topic的物理划分，是消息的存储单位。每个Partition中的消息是有序的，并且按照先进先出（FIFO）的顺序消费；</p>
+</li>
+<li>
+<p><strong>Replica(副本)</strong>：每个Partition可以有多个副本，其中一个副本是<strong>Leader</strong>，<strong>负责处理读写请求</strong>，其他副本是<strong>Follower</strong>，<strong>负责同步Leader的数据</strong>。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>​		主题下的每条消息只会保存在某一个分区中，而不会在多个分区中被保存多份。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230321152056228.png" alt="image-20230321152056228" style="zoom: 33%;" />
+<blockquote>
+<h4 id="问kafka-是通过-push-还是-pull">问：Kafka 是通过 Push 还是 Pull？</h4>
+</blockquote>
+<p>Kafka中，消费端是通过主动 pull 消息的方式来消费的。直觉上会觉得本来就应该这样，但其实不是。Kafka 的文档里有讨论这点，<strong>主要围绕</strong>：消息消费的<strong>流控策略</strong>应该放在 <strong>Broker 端</strong>还是 <strong>Consumer 端</strong>。</p>
+<h4 id="222-集群架构">2.2.2 集群架构</h4>
+<p>一个具有代表性的 Kafka 集群通常具备：</p>
+<ul>
+<li>1 个独立的 ZK 集群；</li>
+<li>3 个部署在不同节点的 Broker 实例。</li>
+</ul>
+<p>就以一个这样的典型集群的为例来介绍 Kafka 的整体架构：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230419155026348.png" alt="image-20230419155026348" style="zoom:50%;" />
+<h4 id="223-zookeeper-的作用">2.2.3 Zookeeper 的作用</h4>
+<hr>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%9E%E8%B7%B5%E4%B9%8B%E8%B7%AF%EF%BC%88%E5%AE%8C%EF%BC%89/13%20%E6%B7%B1%E5%85%A5%E8%A7%A3%E8%AF%BB%E5%9F%BA%E4%BA%8E%20Kafka%20%E5%92%8C%20ZooKeeper%20%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%8E%9F%E7%90%86.md" target="_blank" rel="noopener noreffer ">深入解读基于 Kafka 和 ZooKeeper 的分布式消息队列原理</a></li>
+</ul>
+<h3 id="23-核心机制">2.3 核心机制</h3>
+<h4 id="231-水位机制">2.3.1 水位机制</h4>
+<blockquote>
+<h4 id="问水位机制的作用">问：水位机制的作用？</h4>
+</blockquote>
+<p>水位机制共有两个作用：</p>
+<ul>
+<li>辅助从副本完成异步同步；</li>
+<li>定义消息可见性，即标识哪些消息可消费。</li>
+</ul>
+<blockquote>
+<h4 id="问partition-中的水位机制">问：Partition 中的水位机制？⭐</h4>
+</blockquote>
+<p>每个 Partition 是一个独立的消息队列：</p>
+<ul>
+<li>
+<p><strong><code>LSO</code>(Log Stable Offset) 是起点</strong>，此偏移会随着消息过期时间等的影响，逐渐向右移动；</p>
+</li>
+<li>
+<p><strong><code>HW</code> 是已提交消息的可见性的边界</strong>，仅在此偏移之下的消息对外是可见的(注意，不含 <code>HW </code>本身):</p>
+<ul>
+<li><strong><code>Leader HW = min(LEO)</code></strong>；</li>
+<li><strong><code>Follower HW = min(Follower本地 LEO, Leader HW)</code></strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>LEO</code>(Log End Offset) 是消息队列的终点</strong>，下一条消息将在这个地方写入。</p>
+</li>
+</ul>
+<p>其中，<code>[LSO, HW)</code> 就是<strong>消息的可见范围(已提交)</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230419153859379.png" alt="image-20230419153859379" style="zoom: 33%;" />
+<blockquote>
+<h4 id="问水位更新">问：水位更新？⭐</h4>
+</blockquote>
+<p>(这个感觉有点问题。)</p>
+<p>主要是高水位是如何更新的，这里用一个 3 副本的场景描述高水位是如何更新到 5 的：</p>
+<ul>
+<li>阶段1：此时 ISR 中最小 LEO 为 4。副本 1 发出同步请求，获取 Offset = 4 的数据；</li>
+<li>阶段2：同时，HW 更新为 4；</li>
+<li>阶段3：当副本 1 收到 Offset = 4 的数据，更新本地 LEO 为 5。此时 ISR 中最小 LEO 更新为 5，于是 HW 更新到 5。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502200706595.png" alt="image-20230502200706595" style="zoom:50%;" />
+<hr>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://juejin.cn/post/7070319066325450765" target="_blank" rel="noopener noreffer ">https://juejin.cn/post/7070319066325450765</a></li>
+</ul>
+<h4 id="232-partition-和-replica">2.3.2 Partition 和 Replica</h4>
+<p>Kafka 中通过分区的多副本策略解决消息备份问题，有如下概念：</p>
+<ul>
+<li><strong>AR</strong>: **所有副本(replicas)**统称为assigned replicas，即 AR；</li>
+<li><strong>ISR</strong>: <strong>leader 副本</strong> 以及<strong>与 leader 副本保持一定同步的 follower 副本</strong>，叫 In Sync Replica；</li>
+<li><strong>OSR</strong>: 与 leader 副本同步数据有一些延迟的 follower 节点。</li>
+</ul>
+<blockquote>
+<h4 id="问kafka-的多分区partition以及多副本replica机制有什么好处呢">问：Kafka 的多分区(Partition)以及多副本(Replica)机制有什么好处呢？⭐</h4>
+</blockquote>
+<p><strong>多分区(Partition)的好处</strong>：</p>
+<ul>
+<li><strong>解决伸缩性问题，实现负载均衡，提高并发性能：<strong>每个Topic可以被划分为多个Partition，各个Partition可以分布在不同的Broker上，每个Partition可以被不同的Producer和Consumer并行读写，从而实现</strong>负载均衡</strong>。</li>
+</ul>
+<p><strong>多副本(Replica)的好处</strong>：</p>
+<ul>
+<li><strong>提高容错能力：<strong>每个Partition可以有多个Replica，其中一个Replica是Leader，负责处理读写请求，其他Replica是Follower，负责同步Leader的数据。当Leader出现故障时，Zookeeper会自动选举一个Follower作为新的Leader，从而</strong>保证服务可用</strong>。</li>
+</ul>
+<blockquote>
+<h4 id="问kafka-分区的分配策略有哪些">问：Kafka 分区的分配策略有哪些？⭐</h4>
+</blockquote>
+<p><strong>消费者与主题之间的分区分配策略</strong>：用来解决到底由哪个consumer来消费哪个partition的数据。Kafka 提供了默认的分区策略，同时支持自定义分区策略。</p>
+<ul>
+<li><strong>Range(平均)</strong>：将每个主题的分区<strong>平均分配</strong>给消费者。这种策略适合每个主题的分区数相同，且<strong>消费者数量稳定</strong>的场景。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230321153750135.png" alt="image-20230321153750135" style="zoom:33%;" />
+<ul>
+<li><strong>Round Robin(轮询)⭐</strong>：轮流将每个分区分配给消费者。这种策略适合每个主题的分区数不同，且需要实现<strong>负载均衡</strong>的场景。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230321153914615.png" alt="image-20230321153914615" style="zoom: 33%;" />
+<ul>
+<li><strong>Sticky(粘性)</strong>：在保持之前分配结果不变的前提下，<strong>尽量减少再平衡时重新分配的分区数量</strong>。这种策略适合需要<strong>避免频繁再平衡</strong>导致性能下降的场景。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230321154453985.png" alt="image-20230321154453985" style="zoom: 50%;" />
+<blockquote>
+<h4 id="问leader-replica-和-follower-replica-的同步机制">问：Leader Replica 和 Follower Replica 的同步机制？⭐</h4>
+</blockquote>
+<p>==// TODO==</p>
+<blockquote>
+<h4 id="问partition-的并发性">问：Partition 的并发性？</h4>
+</blockquote>
+<p><strong>一句话总结</strong>：同一个 Topic 不同 Partition 之间是支持并发写入消息的，同一个 Partition 不支持并发写入消息。</p>
+<p>这很好理解，<strong>单个 Partition 是临界资源</strong>，需要用<strong>锁</strong>来进行冲突检测保证同一时间只有一批消息在写入避免出现消息乱序或者写入被覆盖的情况。</p>
+<blockquote>
+<h4 id="问kafka-如何保证消息的消费顺序">问：Kafka 如何保证消息的消费顺序？⭐</h4>
+</blockquote>
+<p><strong>Kafka 是不能保证全局消息顺序的，只能保证单个 Partition 下的顺序</strong></p>
+<p>Kafka 中 Partition(分区) 是真正保存消息的地方，每次添加消息到 Partition(分区) 的时候都会采用<strong>尾加法</strong>，即 <strong>Kafka 只能为我们保证 单个Partition(分区) 中的消息有序</strong>。因此，有如下两种做法：</p>
+<ul>
+<li>一个 <code>Topic</code> 只拥有一个 <code>Partition</code>；</li>
+<li>在需要保证顺序的场景可以<strong>使用 Key-Ordering 策略将同一个用户的消息发送到同一分区，即可保证顺序</strong>。例如订单ID或用户ID等，这样同一业务字段的消息会发送到同一分区，并且消费者也按照业务字段进行消费。</li>
+</ul>
+<h4 id="233-持久化">2.3.3 持久化</h4>
+<p>Kafka 通过：</p>
+<ul>
+<li>使用**日志(Log)**来保存数据，一个日志就是磁盘上一个只能追加写(Append-only)消息的物理文件；</li>
+<li>日志越来越大，必然要定期地删除日志以回收磁盘，这是通过<strong>日志段(Log Segment)机制</strong>。</li>
+</ul>
+<p>Kafka 的日志架构：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502204000910.png" alt="image-20230502204000910" style="zoom:50%;" />
+<p>一般情况下，一个 Topic 有很多 Partition，每个 Partition 就对应一个 Log 对象，在物理磁盘上则对应于一个子目录。比如创建了一个双 Partition 的 Topic:test-topic，那么，Kafka 在磁盘上会创建两个子目录：test-topic-0 和 test-topic-1。而在服务器端，这就是两个 Log 对象，<strong>每个子目录下存在多组日志段</strong>，也就是多组.log、.index、.timeindex文件组合，只不过文件名不同，因为每个日志段的起始位移不同。</p>
+<h4 id="234-消息丢失与重复消费">2.3.4 消息丢失与重复消费</h4>
+<h5 id="消息丢失">消息丢失</h5>
+<p><strong>一句话概括，Kafka 只对“已提交”的消息(committed message)做有限度的持久化保证。</strong></p>
+<ul>
+<li>第一个核心要素是<strong>已提交的消息</strong>。</li>
+</ul>
+<p>什么是已提交的消息？当 Kafka 的若干个 Broker 成功地接收到一条消息并写入到日志文件后，它们会告诉生产者程序这条消息<strong>已成功提交</strong>。此时，这条消息在 Kafka 看来就正式变为“已提交”消息了。</p>
+<p>那为什么是若干个 Broker 呢？这取决于你对“已提交”的定义。你可以选择只要有一个 Broker 成功保存该消息就算是已提交，也可以是令所有 Broker 都成功保存该消息才算是已提交。不论哪种情况，Kafka 只对已提交的消息做持久化保证这件事情是不变的。</p>
+<p><strong>==总结：==<strong>当达到设定数量的Broker成功接收消息并写入保存之后，该消息就认为是</strong>已提交的</strong>。</p>
+<ul>
+<li>第二个核心要素就是<strong>有限度的持久化保证</strong>。</li>
+</ul>
+<p>也就是说 Kafka 不可能保证在任何情况下都做到不丢失消息。</p>
+<p>有限度其实就是说 Kafka 不丢消息是有前提条件的。假如你的消息保存在 N 个 Kafka Broker 上，那么这个前提条件就是这 N 个 Broker 中至少有 1 个存活。只要这个条件成立，Kafka 就能保证你的这条消息永远不会丢失。</p>
+<blockquote>
+<h4 id="问kafka-如何避免消息丢失">问：Kafka 如何避免消息丢失？</h4>
+</blockquote>
+<p>在使用 MQ 的时候最大的问题就是消息丢失，常见的丢失情况如下：</p>
+<ul>
+<li>1）Producer 端丢失</li>
+<li>2）Broker 端丢失</li>
+<li>3）Consumer 端丢失</li>
+</ul>
+<p>一条消息从生产到消费一共要经过以下 3 个流程：</p>
+<ul>
+<li>1）Producer 发送到 Broker</li>
+<li>2）Broker 保存消息(持久化)</li>
+<li>3）Consumer 消费消息</li>
+</ul>
+<p>3 个步骤分别对应了上述的 3 种消息丢失场景：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505134539208.png" alt="image-20230505134539208" style="zoom: 25%;" />
+<p><strong>==实际情况分析：==</strong></p>
+<ol>
+<li><strong>Producer 端丢失</strong></li>
+</ol>
+<p>**原因：**由于网络或者Broker异常造成的。</p>
+<p><strong>解决方案</strong>：<strong>消息重传</strong>。</p>
+<p><strong>具体实现</strong>：Producer 不使用<code>fire and forget</code>的发送方式，<strong>永远要使用带有回调通知的发送 API，也就是说不要使用 producer.send(msg)，而要使用 producer.send(msg, callback)</strong>。通过回调，如果Producer发送消息后没有收到Broker的确认回复，就会认为发送失败，进而<strong>重传</strong>。如果重试，可能会导致消息重复；如果放弃，可能会导致消息丢失。</p>
+<ol start="2">
+<li><strong>Broker 端丢失</strong></li>
+</ol>
+<p><strong>原因：<strong>Kafka 为了减少磁盘 I/O，采用</strong>异步批量的刷盘策略</strong>，也就是按照一定的消息量和间隔时间进行刷盘。Kafka 收到消息后会先存储在也缓存中(Page Cache)中，之后由操作系统根据自己的策略进行刷盘或者通过 fsync 命令强制刷盘。<strong>如果系统挂掉，在 PageCache 中的数据就会丢失。</strong></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505135601561.png" alt="image-20230505135601561" style="zoom:25%;" />
+<p><strong>解决方案</strong>：考虑以<strong>集群方式部署 Kafka 服务</strong>，通过部署<strong>多个副本</strong>备份数据，保证消息<strong>尽量</strong>不丢失。</p>
+<p><strong>具体实现</strong>：Kafka 集群中有一个 Leader 负责消息的写入和消费，可以有多个 Follower 负责数据的备份。Follower 中有一个特殊的集合叫做 ISR，当 Leader 故障时，会从 ISR 中新选举出来 Leader。Leader 的数据会异步地复制给 Follower，这样在 Leader 发生掉电或者宕机时，Kafka 会从 Follower 中消费消息，减少消息丢失的可能。</p>
+<p>由于消息是异步地从 Leader 复制到 Follower 的，所以一旦 Leader 宕机，那些还没有来得及复制到 Follower 的消息还是会丢失。<strong>为了解决这个问题</strong>，Kafka 为生产者提供一个选项叫做 <code>acks</code>，当这个选项被设置为 <code>all</code> 时，<strong>生产者</strong>发送的每一条消息除了发给 Leader 外还会发给所有的 ISR，并且<strong>必须得到 Leader 和所有 ISR 的确认后才被认为发送成功</strong>。这样，只有 Leader 和所有的 ISR 都挂了，消息才会丢失。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505135948401.png" alt="image-20230505135948401" style="zoom:25%;" />
+<p><strong>建议是：</strong></p>
+<ul>
+<li>
+<p>如果你需要确保消息一条都不能丢失，那么建议不要开启消息队列的同步刷盘，而是需要使用集群的方式来解决，可以<strong>配置当所有 ISR Follower 都接收到消息才返回成功</strong>。</p>
+</li>
+<li>
+<p>如果对消息的丢失有一定的容忍度，那么建议不部署集群，即使以集群方式部署，也建议配置<strong>只发送给一个 Follower</strong> 就可以返回成功了。</p>
+</li>
+</ul>
+<ol start="3">
+<li><strong>Consumer 端丢失</strong></li>
+</ol>
+<p><strong>原因：<strong>一个消费者消费消息的进度是记录在消息队列集群中的，而消费的过程分为三步：接收消息、处理消息、<strong>更新消费进度</strong>。如果消费者在消费完消息后没有及时提交offset，就可能在下次启动时重新消费已经消费过的消息；如果消费者</strong>在消费完消息前就提交了offset</strong>，就可能在发生异常时漏掉一些实际上未消费的消息。</p>
+<p>偏移量(offset)表示消费者在分区中已经消费的消息的位置。</p>
+<p><strong>解决方案</strong>：<strong>一定要等到消息接收和处理完成后才能更新消费进度</strong>，比如取消自动提交，改为手动提交。确定消费成功后，再手动提交偏移量。<strong>但这样容易重复消费</strong>。</p>
+<h5 id="重复消费">重复消费</h5>
+<p>为了避免消息丢失，需要付出两方面的代价：一方面是性能的损耗；一方面可能造成消息重复消费。性能损耗还能接受，但消息重复消费可能就会造成严重错误，那么如何避免呢？</p>
+<p><strong>Kafka 出现消息重复消费的原因：</strong></p>
+<ul>
+<li><strong>根本原因</strong>：已经消费的数据没有成功提交 offset。</li>
+<li>Kafka 侧由于服务端处理业务时间长或者网络链接等等原因让 Kafka 认为服务假死，触发了分区 rebalance。</li>
+</ul>
+<p>想要完全的避免消息重复的发生是很难做到的，因为网络的抖动、机器的宕机和处理的异常都是比较难以避免的，在工业上并没有成熟的方法，因此我们会把要求放宽，<strong>只要保证即使消费到了重复的消息，从消费的最终结果来看和只消费一次是等同的就好了</strong>，也就是保证在消息的生产和消费的过程是<strong>幂等</strong>的。</p>
+<p>注：**<code>幂等</code>**指只执行一次操作和多次执行同一个操作，最终得到的结果是相同的</p>
+<blockquote>
+<h4 id="问kafka-如何保证消息不被重复消费如何实现幂等性设计去重机制">问：Kafka 如何保证消息不被重复消费？/如何实现幂等性，设计去重机制？</h4>
+</blockquote>
+<p><strong>生产端</strong>：</p>
+<ul>
+<li>
+<p><strong>思路</strong>：Kafka 支持将 Producer 升级为<strong>幂等性 Producer</strong>，保证消息虽然可能在生产端重复生产，但是最终<strong>在消息队列存储时只会存储一份</strong>。</p>
+</li>
+<li>
+<p><strong>具体做法</strong>：给每一个生产者一个唯一的 ID，并且为生产的每一条消息赋予一个唯一 ID，消息队列的服务端会存储 <code>&lt; 生产者 ID，最后一条消息 ID&gt;</code> 的映射。当某一个生产者产生新的消息时，消息队列服务端会比对消息 ID 是否与存储的最后一条 ID 一致，如果一致，就认为是重复的消息，服务端会自动丢弃。</p>
+</li>
+</ul>
+<p><strong>消费端</strong>：</p>
+<ul>
+<li><strong>思路</strong>：可分为<strong>通用层</strong>和<strong>业务层</strong>。</li>
+<li><strong>具体做法</strong>：
+<ul>
+<li><strong>通用层</strong>：可以在消息被生产的时候，使用发号器给它<strong>生成一个全局唯一的消息 ID</strong>，消息被处理之后，<strong>把这个 ID 存储在数据库中</strong>，在处理下一条消息之前，先从数据库里面查询这个全局 ID 是否被消费过，如果被消费过就放弃消费；</li>
+<li><strong>业务层</strong>：利用乐观锁的方式来实现。这个机制是<strong>在消息中添加一个版本号</strong>，在生产消息时先查询数据的版本号，并且将版本号连同消息一起发送给消息队列。消费端在拿到消息和版本号后，执行时也带上版本号。比如在消费第一条消息时，version 值为 1，SQL 可以执行成功，并且同时把 version 值改为了 2；在执行第二条相同的消息时，由于 version 值不再是 1，所以这条 SQL 不能执行成功，也就保证了消息的幂等性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="235-零拷贝">2.3.5 零拷贝</h4>
+<p><strong>零拷贝是一种思想</strong>：指将数据在内核空间直接从磁盘文件复制到网卡中，而不需要经由用户态的应用程序。这样既可以提高数据读取的性能，也能减少核心态和用户态之间的上下文切换，提高数据传输效率。</p>
+<p><strong>零拷贝基于 DMA 技术</strong>，DMA 传输将数据从一个地址空间复制到另外一个地址空间。当CPU 初始化这个传输动作，传输动作本身是由 DMA 控制器来实行和完成。因此<strong>通过DMA，硬件则可以绕过CPU，自己去直接访问系统主内存</strong>。很多硬件都支持DMA，其中就包括网卡、声卡、磁盘驱动控制器等。</p>
+<h5 id="传统数据文件拷贝">传统数据文件拷贝</h5>
+<ul>
+<li>操作系统将数据从<strong>磁盘</strong>拷贝到<strong>内核缓冲区</strong>；</li>
+<li>应用程序通过系统调用将<strong>内核缓存区</strong>的数据拷贝到<strong>用户缓冲区</strong>；</li>
+<li>应用程序将<strong>用户缓冲区</strong>的数据拷贝到<strong>内核的 Socket 缓冲区</strong>中；</li>
+<li>操作系统将 <strong>Socket 缓冲区</strong>的数据拷贝到<strong>网卡缓冲区</strong>中，通过网卡发送给数据接收方。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502215933425.png" alt="image-20230502215933425" style="zoom:40%;" />
+<p><strong>总结</strong>：涉及 1 次内核态到用户态的数据拷贝和 1 次 用户态到内核态的数据拷贝。</p>
+<h5 id="零拷贝">零拷贝</h5>
+<p>操作系统提供了 <code>Sendfile</code> 函数，可以减少数据被拷贝的次数。使用了 <code>Sendfile</code> 之后，在内核缓冲区的数据不会被拷贝到用户缓冲区，而是直接被拷贝到 Socket 缓冲区，节省了一次拷贝的过程，提升了消息发送的性能。</p>
+<ul>
+<li>操作系统将数据从<strong>磁盘</strong>拷贝到<strong>内核缓冲区</strong>；</li>
+<li>系统调用 <code>Sendfile</code> 将<strong>数据的文件描述符</strong>直接被拷贝到 <strong>Socket 缓冲区</strong>(仅仅会拷贝一个描述符过去，不会拷贝数据到 Socket 缓存)；</li>
+<li>操作系统将 <strong>Socket 缓冲区</strong>的数据拷贝到<strong>网卡缓冲区</strong>中，通过网卡发送给数据接收方。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502220341173.png" alt="image-20230502220341173" style="zoom:40%;" />
+<p><strong>总结</strong>：省略了两次不必要的数据拷贝：</p>
+<ul>
+<li>从内核空间拷贝到用户空间；</li>
+<li>从用户空间再次拷贝到内核空间。</li>
+</ul>
+<blockquote>
+<h4 id="问零拷贝zero-copy在-kafka-中的应用优点">问：零拷贝(Zero-Copy)在 Kafka 中的应用？优点？⭐</h4>
+</blockquote>
+<p>在Kafka中，体现Zero Copy使用场景的地方有两处：<strong>基于mmap的索引</strong>和<strong>日志文件读写所用的TransportLayer</strong>：</p>
+<ul>
+<li>索引都是基于MappedByteBuffer的，也就是让用户态和内核态共享内核态的数据缓冲区，此时，数据不需要复制到用户态空间。</li>
+<li>TransportLayer是Kafka传输层的接口，它使用了FileChannel的transferTo方法，该方法底层使用<strong>sendfile</strong>实现了Zero Copy。对Kafka而言，如果I/O通道使用普通的PLAINTEXT，那么，Kafka就可以利用Zero Copy特性，直接将页缓存中的数据发送到网卡的Buffer中，避免中间的多次拷贝。相反，如果I/O通道启用了SSL，那么，Kafka便无法利用Zero Copy特性了。</li>
+</ul>
+<h2 id="三常见面试题">三、常见面试题</h2>
+<ul>
+<li>什么是 Kafka，它有哪些特点和优势？</li>
+<li>Kafka 的架构是怎样的，它包含哪些组件和角色？</li>
+<li>Kafka 是如何实现高吞吐量和高可用性的？</li>
+<li>Kafka 是如何保证消息的顺序性和一致性的？</li>
+<li>Kafka 是如何实现分区和副本的，它们有什么作用？</li>
+<li>Kafka 是如何实现生产者和消费者之间的通信的，它们有哪些参数和策略可以配置？</li>
+<li>Kafka 是如何维护消费者的消费状态和偏移量的，它们存储在哪里？
+<ul>
+<li>Kafka使用消费者组来维护消费者的消费状态和偏移量。消费者组中的每个消费者都会读取一个或多个分区中的数据，并将其偏移量存储在内存中。Kafka使用一个名为__consumer_offsets的内部主题来存储消费者组的偏移量信息。每个消费者组都有一个对应的__consumer_offsets主题，其中包含每个分区的偏移量信息。消费者组中的每个消费者都会定期将其偏移量提交到__consumer_offsets主题中，以便其他消费者可以知道哪些数据已经被消费，哪些数据还没有被消费。</li>
+</ul>
+</li>
+<li>Kafka 有哪些常见的使用场景，它与其他消息系统有什么区别和联系？</li>
+<li>Zookeeper 对于 Kafka 的作用是什么，如果 Zookeeper 宕机了会怎样？</li>
+<li>如何监控和度量 Kafka 的运行状态和性能指标？</li>
+<li>如何优化 Kafka 的生产者和消费者的性能，提高吞吐量和降低延迟？</li>
+<li>如何保证 Kafka 的数据安全性，避免数据丢失或重复消费？</li>
+<li>如何处理 Kafka 的异常情况，比如分区不平衡、主从切换、消息堆积等？</li>
+</ul>
+<blockquote>
+<h4 id="问kafka是什么">问：Kafka是什么？</h4>
+</blockquote>
+<p>Kafka 是一款<strong>分布式流处理框架</strong>，用于实时构建流处理应用。它有一个核心的功能广为人知，即作为企业级的<strong>消息引擎</strong>被广泛使用。</p>
+<blockquote>
+<h4 id="问什么是消费者组">问：什么是消费者组？⭐</h4>
+</blockquote>
+<p><strong>标准答案</strong>：关于它的定义，<strong>官网</strong>上的介绍言简意赅，**即消费者组是 Kafka 提供的可扩展且具有容错性的消费者机制。**切记，一定要加上前面那句，以显示你对官网很熟悉。</p>
+<p>另外，最好再介绍下消费者组的原理：在 Kafka 中，<strong>消费者组是一个由多个消费者实例构成的组</strong>。<strong>多个实例共同订阅若干个主题，实现共同消费</strong>。同一个组下的每个实例都配置有相同的组ID，被<strong>分配不同的订阅分区</strong>。<strong>当某个实例挂掉的时候，其他实例会自动地承担起它负责消费的分区</strong>。</p>
+<blockquote>
+<p>此时，又有一个小技巧给到你：消费者组的题目，能够帮你在某种程度上掌控下面的面试方向。</p>
+<ul>
+<li>如果你擅长<strong>位移值原理</strong>，就不妨再提一下消费者组的位移提交机制；</li>
+<li>如果你擅长Kafka <strong>Broker</strong>，可以提一下消费者组与Broker之间的交互；</li>
+<li>如果你擅长与消费者组完全不相关的<strong>Producer</strong>，那么就可以这么说：“消费者组要消费的数据完全来自于Producer端生产的消息，我对Producer还是比较熟悉的。”</li>
+</ul>
+<p>使用这个策略的话，面试官可能会被你的话术所影响，偏离他之前想问的知识路径。当然了，如果你什么都不擅长，那就继续往下看题目吧。</p>
+</blockquote>
+<blockquote>
+<h4 id="问在-kafka-中zookeeper-的作用是什么">问：在 Kafka 中，ZooKeeper 的作用是什么？🚩⭐</h4>
+</blockquote>
+<p>这是一道能够帮助你脱颖而出的题目。碰到这个题目，请在心中暗笑三声。</p>
+<p><strong>标准答案</strong>：目前，<strong>Kafka 使用 ZooKeeper 存放集群元数据、成员管理、Controller 选举，以及其他一些管理类任务</strong>。KIP-500 提案之后，<strong>Kafka 就不再依赖于 ZooKeeper</strong>。</p>
+<ul>
+<li>
+<p><strong>存放元数据</strong>：是指主题分区的所有数据都保存在ZooKeeper中，且以它保存的数据为权威，其他“人”都要与它保持对齐；</p>
+</li>
+<li>
+<p><strong>成员管理</strong>：是指Broker节点的注册、注销以及属性变更；</p>
+</li>
+<li>
+<p><strong>Controller选举</strong>：是指选举集群Controller，而其他管理类任务包括但不限于主题删除、参数配置等。</p>
+</li>
+<li>
+<p><strong>KIP-500</strong>：是使用社区自研的基于Raft的共识算法，替代ZooKeeper，实现Controller自选举。</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="问解释下-kafka-中位移offset的作用">问：解释下 Kafka 中位移(offset)的作用？</h4>
+</blockquote>
+<p>在 Kafka 中，<strong>每个 Partition 下的每条消息</strong>都被赋予了一个<strong>唯一的 ID 数值</strong>，用于<strong>标识它在分区中的位置</strong>。这个ID数值，就被称为位移，或者叫<strong>偏移量</strong>。一旦消息被写入到分区日志，它的位移值将不能被修改。</p>
+<p>主要是用来：</p>
+<ul>
+<li>记录当前消费到哪里了？</li>
+<li>记录当前日志提交到哪里了？引出水位机制。</li>
+</ul>
+<blockquote>
+<h4 id="问阐述下-kafka-中的主副本leader-replica和从副本follower-replica的区别">问：阐述下 Kafka 中的主副本(Leader Replica)和从副本(Follower Replica)的区别？</h4>
+</blockquote>
+<p>可以这么回答：<strong>Kafka 副本分为 Leader 副本和 Replica 副本</strong>。<strong>只有 Leader 副本才能对外提供读写服务</strong>，响应 Clients 端的请求。<strong>Follower 副本只是采用拉(PULL)的方式，被动地同步Leader副本中的数据</strong>，并且在 Leader 副本所在的 Broker 宕机后，随时准备<strong>选举成 Leader 副本</strong>，实现高可用性。</p>
+<p>通常来说，回答到这个程度，其实才只说了60%，因此，我建议你再回答两个额外的加分项。</p>
+<ul>
+<li><strong>强调 Follower 副本也能对外提供读服务</strong>。自 Kafka 2.4 版本开始，社区通过引入新的 Broker 端参数，<strong>允许 Follower 副本有限度地提供读服务</strong>；</li>
+<li><strong>强调 Leader 和 Follower 的消息序列在实际场景中不一致</strong>。很多原因都可能造成Leader和Follower保存的消息序列不一致，比如程序Bug、网络问题等。这是很严重的错误，必须要完全规避。你可以补充下，之前确保一致性的主要手段是高水位机制，但高水位值无法保证Leader连续变更场景下的数据一致性，因此，<strong>社区引入了Leader Epoch机制</strong>，来修复高水位值的弊端。关于“Leader Epoch机制”，国内的资料不是很多，它的普及度远不如高水位，不妨大胆地把这个概念秀出来，力求惊艳一把。上一季专栏的[第27节课]讲的就是Leader Epoch机制的原理，推荐你赶紧去学习下。</li>
+</ul>
+<blockquote>
+<h4 id="问leolsoarisrhw-都表示什么含义">问：LEO、LSO、AR、ISR、HW 都表示什么含义？</h4>
+</blockquote>
+<ul>
+<li><strong>LEO</strong>：Log End Offset。日志末端位移值或末端偏移量，表示<strong>日志下一条待插入消息的位移值</strong>。举个例子，如果日志有10条消息，位移值从0开始，那么，第10条消息的位移值就是9。此时，LEO = 10；</li>
+<li><strong>LSO</strong>：Log Stable Offset。这是Kafka事务的概念。如果你没有使用到事务，那么这个值不存在（其实也不是不存在，只是设置成一个无意义的值）。<strong>该值控制了事务型消费者能够看到的消息范围</strong>。它经常与Log Start Offset，即日志起始位移值相混淆，因为有些人将后者缩写成LSO，这是不对的。在Kafka中，LSO就是指代Log Stable Offset；</li>
+<li><strong>HW</strong>：高水位值（High watermark）。这是<strong>控制消费者可读取消息范围的重要字段</strong>。一个普通消费者只能“看到”Leader副本上介于Log Start Offset和HW（不含）之间的所有消息。水位以上的消息是对消费者不可见的；</li>
+<li><strong>AR</strong>：Assigned Replicas。AR是主题被创建后，<strong>所有副本</strong>统称为assigned replicas，即 AR；</li>
+<li><strong>ISR</strong>：In-Sync Replicas。<strong>指代的是AR中那些与Leader保持同步的副本集合</strong>。在AR中的副本可能不在ISR中，但Leader副本天然就包含在ISR中。关于ISR，还有一个常见的面试题目是<strong>如何判断副本是否应该属于ISR</strong>。目前的判断依据是：<strong>Follower LEO落后Leader LEO的时间，是否超过了Broker端参数replica.lag.time.max.ms值</strong>。如果超过了，副本就会被从ISR中移除。</li>
+</ul>
+<blockquote>
+<h4 id="问leader-partition-的选举策略有几种在哪些场景下需要执行-leader-选举">问：Leader Partition 的选举策略有几种？/在哪些场景下需要执行 Leader 选举？</h4>
+</blockquote>
+<p>Partition 的 Leader 选举由 Controller 负责。当前，Kafka有 4 种 Leader Partition 选举策略：</p>
+<ul>
+<li><strong>OfflinePartition Leader选举</strong>：<strong>每当有分区上线时，就需要执行 Leader 选举</strong>。所谓的分区上线，可能是创建了新分区，也可能是之前的下线分区重新上线。这是最常见的分区 Leader 选举场景。</li>
+<li><strong>ReassignPartition Leader选举</strong>：当你手动运行kafka-reassign-partitions命令，或者是调用Admin的alterPartitionReassignments方法执行分区副本重分配时，可能触发此类选举。假设原来的AR是[1，2，3]，Leader是1，当执行<strong>副本重分配</strong>后，副本集合AR被设置成[4，5，6]，显然，Leader必须要变更，此时会发生Reassign Partition Leader选举。</li>
+<li><strong>PreferredReplicaPartition Leader选举</strong>：当你手动运行kafka-preferred-replica-election命令，或自动触发了Preferred Leader选举时，该类策略被激活。所谓的Preferred Leader，指的是AR中的第一个副本。比如AR是[3，2，1]，那么，Preferred Leader就是3。</li>
+<li><strong>ControlledShutdownPartition Leader选举</strong>：当Broker正常关闭时，该Broker上的所有Leader副本都会下线，因此，需要为受影响的分区执行相应的Leader选举。</li>
+</ul>
+<p>这 4 类选举策略的大致思想是类似的，即<strong>从 AR 中挑选首个在 ISR 中的副本</strong>，作为新 Leader。</p>
+<blockquote>
+<h4 id="问kafka-的哪些场景中使用了零拷贝zero-copy">问：Kafka 的哪些场景中使用了零拷贝(Zero Copy)？⭐</h4>
+</blockquote>
+<p>Zero Copy是特别容易被问到的高阶题目。Kafka的数据是持久化到每个Partition下的.log文件中的，因此当需要消费已经持久化的消息时，势必需要从磁盘中将数据读取到内存中，并通过网卡发送给消费者。而Kafka的高性能主要就依赖于<strong>零拷贝技术</strong>。</p>
+<p>在Kafka中，体现Zero Copy使用场景的地方有两处：<strong>基于mmap的索引</strong>和<strong>日志文件读写所用的TransportLayer</strong>：</p>
+<ul>
+<li>索引都是基于MappedByteBuffer的，也就是让用户态和内核态共享内核态的数据缓冲区，此时，数据不需要复制到用户态空间。</li>
+<li>TransportLayer是Kafka传输层的接口，它使用了FileChannel的transferTo方法，该方法底层使用<strong>sendfile</strong>实现了Zero Copy。对Kafka而言，如果I/O通道使用普通的PLAINTEXT，那么，Kafka就可以利用Zero Copy特性，直接将页缓存中的数据发送到网卡的Buffer中，避免中间的多次拷贝。相反，如果I/O通道启用了SSL，那么，Kafka便无法利用Zero Copy特性了。</li>
+</ul>
+<blockquote>
+<h4 id="问kafka-为什么不支持读写分离">问：Kafka 为什么不支持读写分离？⭐</h4>
+</blockquote>
+<p>Kafka 2.4 之前，<strong>不支持</strong>；2.4 之后，<strong>Kafka 提供了有限度的读写分离，也就是说，Follower 副本能够对外提供读服务</strong>。</p>
+<p>说完这些之后，你可以再给出之前的版本不支持读写分离的理由。</p>
+<ul>
+<li><strong>场景不适用</strong>。读写分离适用于那种<strong>读负载很大，而写操作相对不频繁</strong>的场景，可Kafka不属于这样的场景。</li>
+<li><strong>同步机制</strong>。Kafka采用PULL方式实现Follower的同步，因此，Follower与Leader存在不一致性窗口。如果允许读Follower副本，就势必要处理消息滞后（Lagging）的问题。</li>
+</ul>
+<blockquote>
+<h4 id="问controller-发生网络分区network-partitioning时kafka-会怎么样">问：Controller 发生网络分区（Network Partitioning）时，Kafka 会怎么样？</h4>
+</blockquote>
+<p>一旦发生Controller网络分区，那么，第一要务就是查看集群是否出现“脑裂”，即同时出现两个甚至是多个Controller组件。这可以根据Broker端监控指标ActiveControllerCount来判断。</p>
+<blockquote>
+<h4 id="问简述-follower-副本消息同步的完整流程">问：简述 Follower 副本消息同步的完整流程？⭐</h4>
+</blockquote>
+<ul>
+<li>首先，Follower 发送 FETCH 请求给 Leader；</li>
+<li>接着，Leader 会读取底层日志文件中的消息数据，再更新它内存中的 Follower 副本的 LEO 值，更新为 FETCH 请求中的 fetchOffset 值。最后，尝试更新分区高水位值；</li>
+<li>Follower 接收到 FETCH 响应之后，会把消息写入到底层日志，接着更新 LEO 和 HW 值。</li>
+</ul>
+<p>Leader 和 Follower 的 HW 值更新时机是不同的，Follower 的 HW 更新永远落后于 Leader 的 HW。这种时间上的错配是造成各种不一致的原因。</p>
+<p>==// TODO==</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/09-%E5%88%86%E5%B8%83%E5%BC%8F/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/07-redis/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

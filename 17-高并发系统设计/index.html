@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="" />
+<meta property="og:description" content="[toc] 一、概述 问：如何理解高并发系统？ 所谓设计高并发系统，就是设计一个系统，保证它整体可用的同时，能够处理很高的并发用户请求，能够承受很大的流量" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="[toc] 一、概述 问：如何理解高并发系统？ 所谓设计高并发系统，就是设计一个系统，保证它整体可用的同时，能够处理很高的并发用户请求，能够承受很大的流量"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" /><link rel="prev" href="https://blog.seucy.me/18-java/" /><link rel="next" href="https://blog.seucy.me/16-docker/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1\/"
+        },"genre": "posts","wordcount":  21461 ,
+        "url": "https:\/\/blog.seucy.me\/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;21461 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;43 minutes&nbsp;<span id="/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#问如何理解高并发系统">问：如何理解高并发系统？</a></li>
+          </ul>
+        </li>
+        <li><a href="#分而治之横向扩展">分而治之，横向扩展</a></li>
+        <li><a href="#微服务拆分系统拆分">微服务拆分（系统拆分）</a></li>
+        <li><a href="#分库分表">分库分表</a></li>
+        <li><a href="#池化技术">池化技术</a></li>
+        <li><a href="#读写分离">读写分离</a></li>
+        <li><a href="#使用缓存">使用缓存</a></li>
+        <li><a href="#cdn">CDN</a></li>
+        <li><a href="#消息队列">消息队列</a></li>
+        <li><a href="#elasticsearch">ElasticSearch</a></li>
+        <li><a href="#降级熔断">降级熔断</a></li>
+        <li><a href="#限流">限流</a></li>
+      </ul>
+    </li>
+    <li><a href="#二数据库">二、数据库</a>
+      <ul>
+        <li><a href="#池化">池化</a></li>
+        <li><a href="#主从读写分离">主从读写分离</a></li>
+        <li><a href="#分库分表-1">分库分表</a></li>
+        <li><a href="#nosql">NoSQL</a></li>
+      </ul>
+    </li>
+    <li><a href="#三缓存">三、缓存</a>
+      <ul>
+        <li><a href="#概述">概述</a>
+          <ul>
+            <li><a href="#什么是缓存">什么是缓存？</a></li>
+            <li><a href="#缓存分类">缓存分类</a></li>
+          </ul>
+        </li>
+        <li><a href="#缓存一致性">缓存一致性</a></li>
+        <li><a href="#高可用">高可用</a>
+          <ul>
+            <li><a href="#客户端方案">客户端方案⭐</a></li>
+            <li><a href="#中间代理层方案">中间代理层方案</a></li>
+            <li><a href="#服务端方案">服务端方案⭐</a></li>
+            <li><a href="#缓存穿透及解决">缓存穿透及解决</a></li>
+          </ul>
+        </li>
+        <li><a href="#cdn-1">CDN</a>
+          <ul>
+            <li><a href="#问是否也可以使用分布式缓存来解决这个问题呢">问：是否也可以使用分布式缓存来解决这个问题呢？</a></li>
+            <li><a href="#关键技术">关键技术</a></li>
+            <li><a href="#cname">CNAME</a></li>
+            <li><a href="#问那么如何做到这一点呢这就需要依靠-dns-来帮我们解决域名映射的问题了">问：那么如何做到这一点呢？这就需要依靠 DNS 来帮我们解决域名映射的问题了。</a></li>
+            <li><a href="#问具体是怎么解决的呢举个例子">问：具体是怎么解决的呢？举个例子。</a></li>
+            <li><a href="#问dns-域名解析的时间可能会有点久怎么办呢">问：DNS 域名解析的时间可能会有点久，怎么办呢？</a></li>
+            <li><a href="#gslb">GSLB</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四消息队列">四、消息队列</a>
+      <ul>
+        <li><a href="#应用场景">应用场景</a>
+          <ul>
+            <li><a href="#高并发写请求-削峰">高并发写请求-削峰</a></li>
+            <li><a href="#业务流程-异步">业务流程-异步</a></li>
+            <li><a href="#系统模块-解耦">系统模块-解耦</a></li>
+          </ul>
+        </li>
+        <li><a href="#避免重复消费">避免重复消费</a>
+          <ul>
+            <li><a href="#避免消息丢失">避免消息丢失</a>
+              <ul>
+                <li><a href="#消息生产的过程中丢失">消息生产的过程中丢失</a></li>
+                <li><a href="#消息队列中丢失">消息队列中丢失</a></li>
+                <li><a href="#消费过程中消息丢失">消费过程中消息丢失</a></li>
+              </ul>
+            </li>
+            <li><a href="#避免重复消费-1">避免重复消费</a></li>
+            <li><a href="#问kafka-如何保证消息不被重复消费如何实现幂等性设计去重机制">问：Kafka 如何保证消息不被重复消费？/如何实现幂等性，设计去重机制？</a></li>
+          </ul>
+        </li>
+        <li><a href="#消息延迟堆积">消息延迟/堆积</a>
+          <ul>
+            <li><a href="#如何监控消息延迟">如何监控消息延迟</a>
+              <ul>
+                <li><a href="#监控消息的堆积">监控消息的堆积</a></li>
+                <li><a href="#生成监控消息">生成监控消息</a></li>
+              </ul>
+            </li>
+            <li><a href="#减少消息延迟">减少消息延迟</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#五微服务">五、微服务</a>
+      <ul>
+        <li><a href="#概述-1">概述</a>
+          <ul>
+            <li><a href="#为什么要使用微服务架构">为什么要使用微服务架构？</a></li>
+            <li><a href="#微服务拆分原则">微服务拆分原则</a></li>
+          </ul>
+        </li>
+        <li><a href="#远程调用">远程调用</a>
+          <ul>
+            <li><a href="#如何提升网络传输性能">如何提升网络传输性能？</a></li>
+            <li><a href="#选择合适的序列化方法">选择合适的序列化方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#服务注册与发现">服务注册与发现</a>
+          <ul>
+            <li><a href="#注册中心">注册中心</a></li>
+            <li><a href="#问什么是优雅的关闭注册中心怎么做到">问：什么是优雅的关闭？注册中心怎么做到？</a></li>
+            <li><a href="#服务状态管理">服务状态管理</a>
+              <ul>
+                <li><a href="#主动探测">主动探测</a></li>
+                <li><a href="#心跳模式">心跳模式</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#分布式-trace">分布式 Trace</a>
+          <ul>
+            <li><a href="#单体架构中的慢请求排查">单体架构中的慢请求排查</a></li>
+            <li><a href="#分布式-trace-1">分布式 Trace</a></li>
+          </ul>
+        </li>
+        <li><a href="#负载均衡">负载均衡</a>
+          <ul>
+            <li><a href="#客户端负载均衡">客户端负载均衡</a></li>
+            <li><a href="#负载均衡策略">负载均衡策略</a>
+              <ul>
+                <li><a href="#静态策略">静态策略</a></li>
+                <li><a href="#动态策略">动态策略</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#api-网关">API 网关</a>
+          <ul>
+            <li><a href="#网关分类">网关分类</a>
+              <ul>
+                <li><a href="#入口网关">入口网关⭐</a></li>
+                <li><a href="#出口网关">出口网关</a></li>
+              </ul>
+            </li>
+            <li><a href="#如何实现">如何实现</a></li>
+            <li><a href="#引入网关">引入网关</a></li>
+          </ul>
+        </li>
+        <li><a href="#跨地域分布式系统">跨地域分布式系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#六维护">六、维护</a>
+      <ul>
+        <li><a href="#降级熔断-1">降级熔断</a>
+          <ul>
+            <li><a href="#雪崩是如何发生的">雪崩是如何发生的</a></li>
+            <li><a href="#熔断机制">熔断机制</a></li>
+            <li><a href="#降级机制">降级机制</a></li>
+          </ul>
+        </li>
+        <li><a href="#限流-1">限流</a>
+          <ul>
+            <li><a href="#什么是限流">什么是限流？</a></li>
+            <li><a href="#限流算法">限流算法</a>
+              <ul>
+                <li><a href="#固定窗口算法">固定窗口算法</a></li>
+                <li><a href="#滑动窗口算法">滑动窗口算法</a></li>
+                <li><a href="#漏桶算法">漏桶算法</a></li>
+                <li><a href="#令牌桶算法">令牌桶算法</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[toc]</p>
+<h2 id="一概述">一、概述</h2>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504170702284.png" alt="image-20230504170702284" style="zoom:50%;" />
+<blockquote>
+<h4 id="问如何理解高并发系统">问：如何理解高并发系统？</h4>
+</blockquote>
+<p>所谓设计<strong>高并发</strong>系统，就是设计一个系统，保证它<strong>整体可用</strong>的同时，能够<strong>处理很高的并发用户请求</strong>，能够承受<strong>很大的流量冲击</strong>。</p>
+<p>我们要设计高并发的系统，那就需要处理好一些常见的系统瓶颈问题，如<strong>内存不足、磁盘空间不足，连接数不够，网络宽带不够</strong>等等，以应对突发的流量洪峰。</p>
+<h3 id="分而治之横向扩展">分而治之，横向扩展</h3>
+<p><strong>单个服务器</strong>的缺点：</p>
+<ul>
+<li>抗住的流量请求是非常有限；</li>
+<li>有单点的风险，挂了就寄了。</li>
+</ul>
+<p>因此，可以<strong>分而治之，横向扩展</strong>。即，采用<strong>分布式部署</strong>的方式，<strong>部署多台服务器，把流量分流开</strong>，让每个服务器都承担一部分的并发和流量，提升<strong>整体系统的并发能力</strong>。</p>
+<h3 id="微服务拆分系统拆分">微服务拆分（系统拆分）</h3>
+<p>所谓的<strong>微服务拆分</strong>，其实就是把一个单体的应用，按功能单一性，拆分为多个服务模块，这样就可以达到<strong>分摊请求流量的目的</strong>，提高了并发能力。<strong>比如一个电商系统，拆分为用户系统、订单系统、商品系统等等</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504171728914.png" alt="image-20230504171728914" style="zoom:50%;" />
+<h3 id="分库分表">分库分表</h3>
+<p>考虑将单机数据库，拆分为多个数据库或表。</p>
+<p>详情参考：</p>
+<ul>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NzU5NTIwNg%3D%3D%26mid%3D2247502983%26idx%3D1%26sn%3D47cc9079b01940cbb83d4f71972e5d20%26chksm%3Dcf2213aef8559ab845c5740abc98c335f0b040976bc39781ade95ea085cf32a183021a54ff36%26token%3D1274856030%26lang%3Dzh_CN%23rd" target="_blank" rel="noopener noreffer ">分库分表经典15连问</a></li>
+</ul>
+<h3 id="池化技术">池化技术</h3>
+<p><strong>请求调用数据库</strong>时，都会先获取数据库的连接，然后依靠这个连接来查询数据，搞完收工，最后关闭连接，释放资源。如果我们不用数据库连接池的话，<strong>每次执行<code>SQL</code>，都要创建连接和销毁连接，这就会导致每个查询请求都变得更慢了</strong>，相应的，系统处理用户请求的能力就降低了。</p>
+<p>因此，需要使用池化技术，即<strong>数据库连接池、HTTP 连接池、Redis 连接池</strong>等等。使用数据库连接池，可以避免每次查询都新建连接，减少不必要的资源开销，通过复用连接池，<strong>提高系统处理高并发请求的能力</strong>。</p>
+<p>同理，我们使用线程池，也能<strong>让任务并行处理，更高效地完成任务</strong>。</p>
+<ul>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NzU5NTIwNg%3D%3D%26mid%3D2247487945%26idx%3D1%26sn%3D447d2da258797de08eca329a2500d457%26chksm%3Dcf21cee0f85647f676dced72811b90bf7db7c898d2a90b7dc2195c5d6279c05d1b125d4b82a1%26token%3D1976733249%26lang%3Dzh_CN%26scene%3D21%23wechat_redirect" target="_blank" rel="noopener noreffer ">面试必备：Java线程池解析</a></li>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NzU5NTIwNg%3D%3D%26mid%3D2247501030%26idx%3D1%26sn%3D0c0c8523d73d65ba7358856ea02fb5fc%26chksm%3Dcf221bcff85592d9556cb3735357b96baad9544c1b9c3149d0bffc290dedab32bb86d40e1075%26token%3D1976733249%26lang%3Dzh_CN%26scene%3D21%23wechat_redirect" target="_blank" rel="noopener noreffer ">细数线程池的10个坑</a></li>
+</ul>
+<h3 id="读写分离">读写分离</h3>
+<p>通常来说，一台单机的MySQL服务器，可以支持<code>500</code>左右的<code>TPS</code>和<code>10000</code>左右的<code>QPS</code>，即单机支撑的<strong>请求访问是有限</strong>的。</p>
+<p>当请求量非常大的时候，对于实时性要求不高的读请求，都去读从库，<strong>写的请求或者实时性要求高的请求，才走主库</strong>。</p>
+<p><a href="https://link.juejin.cn/?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NzU5NTIwNg%3D%3D%26mid%3D2247497982%26idx%3D1%26sn%3Dbb589329cceb5462fc41f66ec63dbf56%26chksm%3Dcf2227d7f855aec16dd4d3b3425c0401850eeaf2c9cdc82e82722d38a00c24ee9ccfa3353774%26token%3D1274856030%26lang%3Dzh_CN%23rd" target="_blank" rel="noopener noreffer ">面试必备：聊聊MySQL的主从</a></p>
+<h3 id="使用缓存">使用缓存</h3>
+<p>内存操作，显然更快，能支撑更高的并发量。</p>
+<h3 id="cdn">CDN</h3>
+<p>什么是CDN？</p>
+<blockquote>
+<p>Content Delivery Network/Content Distribution Network，翻译过来就是<strong>内容分发网络</strong>，它表示将静态资源分发到位于多个地理位置机房的服务器，可以做到数据就近访问，加速了静态资源的访问速度，因此<strong>让系统更好处理正常别的动态请求</strong>。</p>
+</blockquote>
+<p>商品图片，<code>icon</code>等等静态资源，可以对页面做<strong>静态化处理，减少访问服务端的请求</strong>。如果用户分布在全国各地，有的在上海，有的在深圳，地域相差很远，网速也各不相同。为了让用户最快访问到页面，可以使用<code>CDN</code>。<code>CDN</code>可以让用户就近获取所需内容。</p>
+<h3 id="消息队列">消息队列</h3>
+<p><strong>异步、削峰、解耦</strong></p>
+<p>搞一些双十一、双十二等运营活动时，需要<strong>避免流量暴涨，打垮应用系统的风险</strong>。因此一般会引入消息队列，来应对<strong>高并发的场景</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504172517287.png" alt="image-20230504172517287" style="zoom:50%;" />
+<p>假设你的应用系统每秒最多可以处理<code>2k</code>个请求，每秒却有<code>5k</code>的请求过来，可以<strong>引入消息队列</strong>，应用系统每秒从消息队列拉<code>2k</code>请求处理得了。</p>
+<p>有些伙伴担心这样可能会出现<strong>消息积压</strong>的问题：</p>
+<ul>
+<li>首先，搞一些运营活动，不会每时每刻都那么多请求过来你的系统（<strong>除非有人恶意攻击</strong>），高峰期过去后，积压的请求可以慢慢处理；</li>
+<li>其次，如果消息队列长度超过最大数量，可以直接抛弃用户请求或跳转到错误页面；</li>
+</ul>
+<h3 id="elasticsearch">ElasticSearch</h3>
+<p><strong>一般搜索功能都会用到它</strong>，它是一个分布式、高扩展、高实时的搜索与数据分析引擎，简称为<code>ES</code>。<code>ES</code>可以扩容方便，天然支撑高并发。<strong>当数据量大的时候，不用动不动就加机器扩容，分库等等</strong>，可以考虑用<code>ES</code>来支持简单的查询搜索、统计类的操作。</p>
+<h3 id="降级熔断">降级熔断</h3>
+<p><strong>熔断降级</strong>是保护系统的一种手段。当前互联网系统一般都是分布式部署的，而分布式系统中偶尔会出现某个基础服务不可用，最终导致整个系统不可用的情况, 这种现象被称为<strong>服务雪崩效应</strong>。</p>
+<p>比如分布式调用链路<code>A-&gt;B-&gt;C....</code>，下图所示：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504172755261.png" alt="image-20230504172755261" style="zoom:50%;" />
+<blockquote>
+<p>如果服务<code>C</code>出现问题，比如是因为慢<code>SQL</code>导致调用缓慢，那将导致<code>B</code>也会延迟，从而<code>A</code>也会延迟。堵住的<code>A</code>请求会消耗占用系统的线程、IO、CPU等资源。当请求<code>A</code>的服务越来越多，占用计算机的资源也越来越多，最终会导致系统瓶颈出现，造成其他的请求同样不可用，最后导致业务系统崩溃。</p>
+</blockquote>
+<p>为了应对服务雪崩, 常见的做法是<strong>熔断和降级</strong>。最简单是加开关控制，当下游系统出问题时，开关打开降级，不再调用下游系统。还可以选用开源组件<code>Hystrix</code>来支持。</p>
+<h3 id="限流">限流</h3>
+<p>如果你的系统每秒扛住的请求是一千，<strong>如果一秒钟来了十万请求呢</strong>？换个角度就是说，高并发的时候，流量洪峰来了，超过系统的承载能力，怎么办呢？</p>
+<p>这时候，我们可以采取限流方案。就是为了保护系统，多余的请求，直接丢弃。</p>
+<blockquote>
+<p><strong>什么是限流</strong>：在计算机网络中，限流就是控制网络接口发送或接收请求的速率，它可防止DoS攻击和限制Web爬虫。限流，也称流量控制。是指系统在面临高并发，或者大流量请求的情况下，限制新的请求对系统的访问，从而保证系统的稳定性。</p>
+</blockquote>
+<p>可以使用<code>Guava</code>的<code>RateLimiter</code>单机版限流，也可以使用<code>Redis</code>分布式限流，还可以使用阿里开源组件<code>sentinel</code>限流。</p>
+<p>面试的时候，你说到限流这块的话？面试官很大概率会问你限流的算法：<a href="https://link.juejin.cn?target=https%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzg3NzU5NTIwNg%3D%3D%26mid%3D2247490393%26idx%3D1%26sn%3D98189caa486406f8fa94d84ba0667604%26chksm%3Dcf21c470f8564d665ce04ccb9dc7502633246da87a0541b07ba4ac99423b28ce544cdd6c036b%26token%3D162724582%26lang%3Dzh_CN%26scene%3D21%23wechat_redirect" target="_blank" rel="noopener noreffer ">面试必备：4种经典限流算法讲解</a></p>
+<h2 id="二数据库">二、数据库</h2>
+<h3 id="池化">池化</h3>
+<p><strong>原因</strong>：数据库的调用方式是先获取数据库的连接，然后依靠这条连接从数据库中查询数据，最后关闭连接释放数据库资源。这种调用方式下，每次执行 SQL 都需要重新建立连接，而建立连接的耗时可能要比执行sql的耗时还要高，因此采用<strong>池化技术</strong>。</p>
+<p><strong>做法</strong>：数据库连接池有两个最重要的配置：<strong>最小连接数和最大连接数</strong>，它们控制着从连接池中获取连接的流程：</p>
+<ul>
+<li>如果当前连接池中的连接数小于最小连接数，则创建新的连接；</li>
+<li>如果连接池中有空闲连接则复用空闲连接；</li>
+<li>如果空闲池中没有空闲连接并且当前连接数小于最大连接数，则创建新的连接处理请求；</li>
+<li>如果当前连接数已经大于等于最大连接数，则按照配置中设定的时间等待旧的连接可用；</li>
+<li>如果等待超过了这个设定时间则向用户抛出错误。</li>
+</ul>
+<p><strong>总结</strong>：</p>
+<ul>
+<li>池子的最大值和最小值的设置很重要，初期可以依据经验来设置，后面还是需要根据实际运行情况做调整。</li>
+<li>池子中的对象需要在使用之前预先初始化完成，叫做<strong>连接池预热</strong>，比方说使用线程池时就需要预先初始化所有的核心线程。如果池子未经过预热可能会导致系统重启后产生比较多的慢请求。</li>
+<li>池化技术核心是一种空间换时间优化方法的实践，所以要关注空间占用情况，避免出现空间过度使用出现内存泄露或者频繁垃圾回收等问题。</li>
+</ul>
+<h3 id="主从读写分离">主从读写分离</h3>
+<p><strong>原因</strong>：其实，大部分系统的访问模型是<strong>读多写少</strong>，读写请求量的差距可能达到几个数量级。<strong>读写分离</strong>主要用来解决<strong>查询请求</strong>增多的问题。</p>
+<p><strong>关键技术</strong>：</p>
+<ul>
+<li>主从复制；</li>
+<li>访问哪个数据库。可基于代理选择。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504175149460.png" alt="image-20230504175149460" style="zoom: 25%;" />
+<h3 id="分库分表-1">分库分表</h3>
+<p><strong>原因</strong>：<strong>读写分离</strong>主要解决<strong>读请求</strong>增多的问题，而<strong>分库分表</strong>解决<strong>写请求</strong>增多、<strong>存储</strong>变多的问题。</p>
+<p><strong>关键技术</strong>：</p>
+<ul>
+<li><strong>垂直分片</strong>：可以<strong>解决单库数据存储问题</strong>，同时，单库的数据量降低，也能<strong>提高数据查询的性能</strong>。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504175901831.png" alt="image-20230504175901831" style="zoom: 25%;" />
+<ul>
+<li><strong>水平分片</strong>：解决单库或单表数据存储问题，同时，单库或单表的数据量降低，也能提高数据查询的性能。</li>
+</ul>
+<p>当分库分表之后，同一个逻辑表的数据被分布到多个库中，这时如果使用数据库自增字段作为主键，那么只能保证在这个库中是唯一的，<strong>无法保证全局的唯一性</strong>。那么假如设计用户系统的时候，使用自增 ID 作为用户 ID，就可能出现<strong>两个用户有两个相同的 ID</strong>，这是不可接受的，那么就需要<strong>生成全局唯一的 ID</strong>。</p>
+<ol>
+<li>UUID</li>
+</ol>
+<p>不建议使用 UUID 作为数据库主键，因为：</p>
+<ul>
+<li>ID 有序更利于索引数据的插入，而 UUID 是无序的，造成了多余的数据移动的开销；</li>
+<li>UUID 不具备业务含义；</li>
+<li>UUID 是由 32 个 16 进制数字组成的字符串(128位)，如果作为数据库主键使用比较耗费空间。</li>
+</ul>
+<ol start="2">
+<li><strong>==雪花算法(Snowflake)==</strong></li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504195721943.png" alt="image-20230504195721943" style="zoom: 33%;" />
+<p>Snowflake 的核心思想是将 64 位的二进制数字分成若干部分，每一部分都存储有特定含义的数据，比如说时间戳、机器 ID、序列号等等，最终生成全局唯一的有序 ID。<strong>可以自定义各字段代表的含义和位数</strong>。</p>
+<p>原理知道了，那工程上是怎么实现呢？</p>
+<ul>
+<li>一种是<strong>嵌入到业务代码</strong>里，也就是分布在业务服务器中。</li>
+<li>一种是<strong>作为独立的服务部署</strong>，这也就是我们常说的发号器服务。</li>
+</ul>
+<p>Snowflake 算法设计的非常简单且巧妙，性能上也足够高效，同时也能够生成<strong>具有全局唯一性、单调递增性和有业务含义的 ID</strong>，但是它也有一些缺点：</p>
+<ul>
+<li><strong>其中最大的缺点就是它依赖于系统的时间戳</strong>，一旦系统时间不准，就有可能生成重复的 ID。所以如果我们发现系统时钟不准，就可以让发号器暂时拒绝发号，直到时钟准确为止；</li>
+<li>另外，如果请求发号器的 QPS 不高，比如说发号器每毫秒只发一个 ID，就会造成生成 ID 的末位永远是 1，那么在分库分表时如果使用 ID 作为分区键就会造成库表分配的不均匀。 <strong>这一点，也是我在实际项目中踩过的坑，而解决办法主要有两个：</strong>
+<ul>
+<li>时间戳<strong>不记录毫秒而是记录秒</strong>，这样在一个时间区间里可以多发出几个号，避免出现分库分表时数据分配不均；</li>
+<li>生成的序列号的<strong>起始号可以做一下随机</strong>，这一秒是 21，下一秒是 30，这样就会尽量的均衡了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="nosql">NoSQL</h3>
+<p>// TODO</p>
+<h2 id="三缓存">三、缓存</h2>
+<h3 id="概述">概述</h3>
+<h4 id="什么是缓存">什么是缓存？</h4>
+<p>凡是位于速度相差较大的两种硬件之间，<strong>用于协调两者数据传输速度差异的结构，均可称之为缓存</strong>。内存和缓存之间不能划等号。</p>
+<p>常见硬件组件的延时情况：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504201503886.png" alt="image-20230504201503886" style="zoom:33%;" />
+<p>可以看到，做一次内存寻址大概需要 100ns，而做一次磁盘的查找则需要 10ms，所以，使用内存作为缓存的存储介质相比于以磁盘作为主要存储介质的数据库来说，性能上会提高多个数量级，同时也能够支撑更高的并发量。</p>
+<h4 id="缓存分类">缓存分类</h4>
+<p>日常开发中，常见的缓存主要就是<strong>静态缓存、分布式缓存、热点本地缓存</strong>这三种。</p>
+<ul>
+<li><strong>静态缓存</strong>在 Web 1.0 时期是非常著名的，它一般通过生成 Velocity 模板或者静态 HTML 文件来实现静态缓存，在 Nginx 上部署静态缓存可以减少对于后台应用服务器的压力。</li>
+</ul>
+<p>例如，我们在做一些内容管理系统的时候，后台会录入很多的文章，前台在网站上展示文章内容，就像新浪，网易这种门户网站一样。<strong>解决思路是</strong>：每篇文章在录入的时候渲染成静态页面，放置在所有的前端 Nginx 或者 Squid 等 Web 服务器上，这样用户在访问的时候会优先访问 Web 服务器上的静态页面，在对旧的文章执行一定的清理策略后，依然可以保证 99% 以上的缓存命中率。</p>
+<p>静态缓存只能针对静态数据来缓存，对于动态请求就无能为力了，针对<strong>动态请求</strong>做缓存就需要<strong>分布式缓存</strong>了。</p>
+<ul>
+<li><strong>分布式缓存</strong>最典型的就是 Redis 了。</li>
+</ul>
+<p>当遇到<strong>极端</strong>的热点数据查询时，分布式缓存也扛不住了，就<strong>要考虑热点本地缓存</strong>了。</p>
+<ul>
+<li><strong>热点本地缓存</strong>主要部署在<strong>应用服务器的代码</strong>中，用于阻挡热点查询对于分布式缓存节点或者数据库的压力。</li>
+</ul>
+<p><strong>本地缓存方案</strong>，如 HashMap，Guava Cache 或者是 Ehcache 等，<strong>它们和应用程序部署在同一个进程中</strong>，优势是不需要跨网络调度，速度极快，所以可以来阻挡短时间内的热点查询。</p>
+<p>比如，电商系统的首页有一些推荐的商品，请求量很大，可以使用 Guava Cache 来将所有的推荐商品的信息缓存起来，并且设置每隔 30 秒重新从数据库中加载最新的所有商品。这样，在获取所有商品信息的时候可以调用 Loading Cache 的 get 方法，就可以<strong>优先从本地缓存中获取商品信息</strong>，如果本地缓存不存在，会使用 CacheLoader 中的逻辑从数据库中加载所有的商品。</p>
+<p>缺点就是有时效性，不能实时读到最新的数据。</p>
+<h3 id="缓存一致性">缓存一致性</h3>
+<p>旁路缓存策略。</p>
+<h3 id="高可用">高可用</h3>
+<p>主要选择的方案有<strong>客户端方案、中间代理层方案和服务端方案</strong>三大类：</p>
+<ul>
+<li><strong>客户端方案</strong>：在客户端配置多个缓存的节点，通过缓存写入和读取算法策略来实现分布式，从而提高缓存的可用性。</li>
+<li><strong>中间代理层方案</strong>：在应用代码和缓存节点之间增加代理层，客户端所有的写入和读取的请求都通过代理层，而代理层中会内置高可用策略，帮助提升缓存系统的高可用。</li>
+<li><strong>服务端方案</strong>：Redis 2.4 版本后提出的 Redis Sentinel 方案。</li>
+</ul>
+<h4 id="客户端方案">客户端方案⭐</h4>
+<p>在客户端方案中，需要关注缓存的<strong>写和读</strong>两个方面：</p>
+<ul>
+<li><strong>写数据时</strong>，需要把被写入缓存的数据<strong>分散到多个节点</strong>中，即进行数据分片，通常采用<strong>一致性哈希</strong>；</li>
+<li><strong>读数据时</strong>，可以利用<strong>多组的缓存来做容错</strong>，提升缓存系统的可用性。关于读数据，这里可以使用主从和多副本两种策略，两种策略是为了解决不同的问题而提出的。</li>
+</ul>
+<h4 id="中间代理层方案">中间代理层方案</h4>
+<p>虽然客户端方案已经能解决大部分的问题，但是只能在单一语言系统之间复用。例如微博使用 Java 语言实现了这么一套逻辑，再使用 PHP 就难以复用，需要重新写一套，很麻烦。<strong>而中间代理层的方案就可以解决这个问题</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504213741565.png" alt="image-20230504213741565" style="zoom: 33%;" />
+<p>所有缓存的<strong>读写请求</strong>都是经过代理层完成的。代理层是无状态的，主要负责读写请求的路由功能。</p>
+<h4 id="服务端方案">服务端方案⭐</h4>
+<p>Redis 在 2.4 版本中提出了 Redis Sentinel 模式来解决主从 Redis 部署时的高可用问题，它可以在主节点挂了以后自动将从节点提升为主节点，保证整体集群的可用性，整体的架构如下图所示：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504213938152.png" alt="image-20230504213938152" style="zoom: 33%;" />
+<h4 id="缓存穿透及解决">缓存穿透及解决</h4>
+<ul>
+<li>回种空值；</li>
+<li>布隆过滤器；</li>
+<li>分布式锁。</li>
+</ul>
+<h3 id="cdn-1">CDN</h3>
+<p><strong>分布式缓存</strong>主要对<strong>动态请求数据</strong>做了加速，但是系统中还<strong>存在着大量的静态资源请求：</strong></p>
+<ol>
+<li>对于移动 APP 来说，静态资源主要是<strong>图片、视频和流媒体</strong>信息。</li>
+<li>对于 Web 网站来说，则包括了 <strong>JavaScript 文件，CSS 文件，静态 HTML 文件</strong>等等。</li>
+</ol>
+<blockquote>
+<h4 id="问是否也可以使用分布式缓存来解决这个问题呢">问：是否也可以使用分布式缓存来解决这个问题呢？</h4>
+</blockquote>
+<p>不能！</p>
+<p>一般来说，图片和视频的大小会在<strong>几兆到几百兆之间</strong>，如果我们的<strong>应用服务器</strong>和<strong>分布式缓存</strong>都部署在北京的机房里，这时一个杭州的用户要访问缓存中的一个视频，那这个视频文件就需要从北京传输到杭州，期间会经过多个公网骨干网络，延迟很高，会让用户感觉视频打开很慢，严重影响到用户的使用体验。</p>
+<p>所以，静态资源访问的关键点是<strong>就近访问</strong>，即北京用户访问北京的数据，杭州用户访问杭州的数据，这样才可以达到性能的最优。</p>
+<p>你可能会说：「那我们在杭州也自建一个机房，让用户访问杭州机房的数据就好了呀。」可用户遍布在全国各地，有些应用可能还有国外的用户，我们不可能在每个地域都自建机房，这样成本太高了。</p>
+<p>另外，单个视频和图片等静态资源很大，并且访问量又极高，如果使用业务服务器和分布式缓存来承担这些流量，无论是对于内网还是外网的带宽都会是很大的考验。</p>
+<p>所以考虑在业务服务器的上层，增加一层特殊的缓存，<strong>用来承担绝大部分对于静态资源的访问</strong>，这一层特殊缓存的节点需要遍布在全国各地，这样可以<strong>让用户选择最近的节点访问</strong>。缓存的命中率也需要一定的保证，<strong>尽量减少访问资源存储源站的请求数量（回源请求）</strong>，也就是用 CDN。</p>
+<h4 id="关键技术">关键技术</h4>
+<p><strong>内容分发网络</strong>(CDN，Content Delivery Network/Content Distribution Network)：简单来说，CDN 就是将<strong>静态的资源</strong>分发到<strong>位于多个地理位置机房中的服务器上</strong>，因此它能很好地解决数据就近访问的问题，也就<strong>加快了静态资源的访问速度</strong>。</p>
+<p>要搭建一个 CDN 系统需要考虑哪两点：</p>
+<ol>
+<li>如何将用户的<strong>请求映射</strong>到 CDN 节点上；</li>
+<li>如何根据用户的地理位置信息选择到<strong>比较近</strong>的节点。</li>
+</ol>
+<h4 id="cname">CNAME</h4>
+<p>首先，我们考虑一下如何让用户的请求到达 CDN 节点，你可能会觉得，这很简单啊，只需要告诉用户 CDN 节点的 IP 地址，然后请求这个 IP 地址上面部署的 CDN 服务就可以了啊。<strong>但是这样会有一个问题</strong>：就是我们使用的是第三方厂商的 CDN 服务，CDN 厂商会给我们一个 CDN 的节点 IP，比如说这个 IP 地址是「111.202.34.130」，那么我们的电商系统中的图片的地址很可能是这样的：「http://111.202.34.130/1.jpg」，这个地址是要存储在数据库中的。</p>
+<p>那么如果这个节点 IP 发生了变更怎么办？或者我们如果更改了 CDN 厂商怎么办？是不是要修改所有的商品的 url 域名呢？这就是一个比较大的工作量了。所以，我们要做的事情是 <strong>将第三方厂商提供的 IP 隐藏起来，给到用户的最好是一个本公司域名的子域名。</strong></p>
+<blockquote>
+<h4 id="问那么如何做到这一点呢这就需要依靠-dns-来帮我们解决域名映射的问题了">问：那么如何做到这一点呢？这就需要依靠 DNS 来帮我们解决域名映射的问题了。</h4>
+</blockquote>
+<p><strong>域名系统</strong>(DNS，Domain Name System)：实际上就是一个<strong>存储域名和 IP 地址对应关系的分布式数据库</strong>。而域名解析的结果一般有两种：</p>
+<ul>
+<li>一种叫做 <code>A 记录</code>，返回的是<strong>域名对应的 IP 地址</strong>；</li>
+<li>另一种是 <code>CNAME 记录</code>，返回的是<strong>另一个域名</strong>。</li>
+</ul>
+<p>也就是说当前域名的解析要跳转到另一个域名的解析上，实际上 <a href="https://www.baidu.com" target="_blank" rel="noopener noreffer ">www.baidu.com</a> 域名的解析结果就是一个 <code>CNAME</code> 记录，域名的解析被跳转到 <a href="https://www.a.shifen.com" target="_blank" rel="noopener noreffer ">www.a.shifen.com</a> 上了，正是利用 CNAME 记录来解决域名映射问题的。</p>
+<blockquote>
+<h4 id="问具体是怎么解决的呢举个例子">问：具体是怎么解决的呢？举个例子。</h4>
+</blockquote>
+<p>比如你的公司的一级域名叫做 <code>example.com</code>，那么你可以给你的图片服务的域名定义为 <code>img.example.com</code>，然后将这个域名的解析结果的 <code>CNAME</code> 配置到 CDN 提供的域名上。</p>
+<p>比如 ucloud 可能会提供一个域名是 <code>80f21f91.cdn.ucloud.com.cn</code> 这个域名。这样你的电商系统使用的图片地址可以是 <code>http://img.example.com/1.jpg</code>。</p>
+<p>用户在请求这个地址时，DNS 服务器会将域名解析到 <code>80f21f91.cdn.ucloud.com.cn</code> 域名上，然后再将这个域名解析为 CDN 的节点 IP，这样就可以得到 CDN 上面的资源数据了。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504222357021.png" alt="image-20230504222357021" style="zoom:33%;" />
+<blockquote>
+<h4 id="问dns-域名解析的时间可能会有点久怎么办呢">问：DNS 域名解析的时间可能会有点久，怎么办呢？</h4>
+</blockquote>
+<p><strong>一个解决的思路是</strong>：在 APP 启动时，对需要解析的域名做预先解析，然后把解析的结果缓存到本地的一个 LRU 缓存里面。这样当我们要使用这个域名的时候，只需要从缓存中直接拿到所需要的 IP 地址就好了，如果缓存中不存在才会走整个 DNS 查询的过程。<strong>同时</strong>，为了避免 DNS 解析结果的变更造成缓存内数据失效，我们可以启动一个定时器，定期地更新缓存中的数据。</p>
+<h4 id="gslb">GSLB</h4>
+<p><strong>全局负载均衡</strong>(GSLB，Global Server Load Balance)：主要是<strong>对于部署在不同地域的服务器之间做负载均衡</strong>，底层可能管理了很多的本地负载均衡组件。<strong>它有两方面的作用</strong>：</p>
+<ul>
+<li>一方面，它是一种<strong>负载均衡</strong>服务器。负载均衡，顾名思义嘛，指的是让流量平均分配使得下面管理的服务器的负载更平均；</li>
+<li>另一方面，它还需要保证流量流经的服务器与流量源头<strong>在地缘上是比较接近的</strong>。</li>
+</ul>
+<p>GSLB 可以<strong>通过多种策略</strong>，来<strong>保证返回的 CDN 节点和用户尽量保证在同一地缘区域</strong>：</p>
+<ul>
+<li>比如说可以将用户的 IP 地址按照地理位置划分为若干的区域，然后将 CDN 节点对应到一个区域上，然后根据用户所在区域来返回合适的节点；</li>
+<li>也可以通过发送数据包测量 RTT 的方式来决定返回哪一个节点。</li>
+</ul>
+<p>有了 GSLB 之后，节点的解析过程变成了下图中的样子：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230504222717731.png" alt="image-20230504222717731" style="zoom:33%;" />
+<p><strong>当然，是否能够从 CDN 节点上获取到资源还取决于 CDN 的同步延时。</strong> <strong>一般，会通过 CDN 厂商的接口将静态的资源写入到某一个 CDN 节点上</strong> ，再由 CDN 内部的同步机制将资源分散同步到每个 CDN 节点，即使 CDN 内部网络经过了优化，这个同步的过程是有延时的，一旦我们无法从选定的 CDN 节点上获取到数据，我们就不得不从源站获取数据，而用户网络到源站的网络可能会跨越多个主干网，这样不仅性能上有损耗，也会消耗源站的带宽，带来更高的研发成本。所以，我们在使用 CDN 的时候需要关注 CDN 的命中率和源站的带宽情况。</p>
+<h4 id="小结">小结</h4>
+<ol>
+<li>DNS 技术是 CDN 实现中使用的核心技术，可以将用户的请求映射到 CDN 节点上；</li>
+<li>DNS 解析结果需要做本地缓存，降低 DNS 解析过程的响应时间；</li>
+<li>GSLB 可以给用户返回一个离着他更近的节点，加快静态资源的访问速度。</li>
+</ol>
+<h2 id="四消息队列">四、消息队列</h2>
+<p>上面一直关注的是如何提升<strong>读请求</strong>的性能，但随着业务发展，可能会遇到一些存在<strong>高并发写请求的场景，其中秒杀抢购就是最典型的场景</strong>。</p>
+<h3 id="应用场景">应用场景</h3>
+<h4 id="高并发写请求-削峰">高并发写请求-削峰</h4>
+<blockquote>
+<p><strong>秒杀场景</strong>：</p>
+<p><strong>秒杀开始前</strong>，用户查询的是少量的商品数据，属于<strong>查询的热点数据</strong>，可以采用缓存策略，将请求尽量挡在上层的缓存中，能被静态化的数据，比如说商城里的图片和视频数据，<strong>尽量做到静态化，这样就可以命中 CDN 节点缓存</strong>，减少 Web 服务器的查询量和带宽负担。Web 服务器比如 Nginx 可以直接访问分布式缓存节点，这样可以避免请求到达 Tomcat 等业务服务器。</p>
+<p><strong>秒杀开始后</strong>，用户瞬间向电商系统请求生成订单，扣减库存，<strong>用户的这些写操作都是不经过缓存直达数据库的</strong>。1 秒钟之内，有 1 万个数据库连接同时达到，系统的数据库濒临崩溃，寻找能够应对如此<strong>高并发的写请求方案</strong>迫在眉睫。</p>
+</blockquote>
+<p>在秒杀场景下，短时间之内数据库的写流量会很高，那么依照我们以前的思路应该对数据做分库分表。如果已经做了分库分表，那么就需要扩展更多的数据库来应对更高的写流量。但是无论是分库分表，还是扩充更多的数据库，都会比较复杂，原因是你需要将数据库中的数据做迁移，这个时间就要按天甚至按周来计算了。</p>
+<p>而在秒杀场景下，<strong>高并发的写请求并不是持续的，也不是经常发生的</strong>，而只有在秒杀活动开始后的几秒或者十几秒时间内才会存在。<strong>为了应对这十几秒的瞬间写高峰</strong>，就要花费几天甚至几周的时间来扩容数据库，再在秒杀之后花费几天的时间来做缩容，<strong>这无疑是得不偿失的</strong>。</p>
+<p><strong>所以，解决思路是</strong>：将秒杀请求暂存在消息队列中，然后业务服务器会响应用户「秒杀结果正在计算中」，释放了系统资源之后再处理其它用户的请求。</p>
+<p>我们会在后台启动若干个队列处理程序，消费消息队列中的消息，再执行校验库存、下单等逻辑。<strong>因为只有有限个队列处理线程在执行，所以落入后端数据库上的并发请求是有限的</strong>。而请求是可以在消息队列中被短暂地堆积，<strong>当库存被消耗完之后，消息队列中堆积的请求就可以被丢弃了</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505111138643.png" alt="image-20230505111138643" style="zoom:33%;" />
+<p>这就是消息队列在秒杀系统中最主要的作用：<strong>削峰填谷</strong>。也就是说它可以削平短暂的流量高峰，虽说堆积会造成请求被短暂延迟处理，但是只要我们时刻监控消息队列中的堆积长度，在堆积量超过一定量时，增加队列处理机数量，来提升消息的处理能力就好了，而且秒杀的用户对于短暂延迟知晓秒杀的结果，也是有一定容忍度的。</p>
+<p>比如秒杀商品有 1000 件，处理一次购买请求的时间是 500ms，那么总共就需要 500s 的时间。这时，你部署 10 个队列处理程序，那么秒杀请求的处理时间就是 50s，也就是说用户需要等待 50s 才可以看到秒杀的结果，这是可以接受的。这时会并发 10 个请求到达数据库，并不会对数据库造成很大的压力。</p>
+<h4 id="业务流程-异步">业务流程-异步</h4>
+<p>在刚才提到的秒杀场景下，我们在处理购买请求时，<strong>需要 500ms</strong>。这时，你分析了一下整个的购买流程，发现<strong>这里面会有主要的业务逻辑，也会有次要的业务逻辑</strong>：比如说，主要的流程是生成订单、扣减库存；次要的流程可能是我们在下单购买成功之后会给用户发放优惠券，会增加用户的积分。假如发放优惠券的耗时是 50ms，增加用户积分的耗时也是 50ms，那么如果我们将发放优惠券、增加积分的操作放在另外一个队列处理机中执行，那么<strong>整个流程就缩短到了 400ms</strong>，性能提升了 20%，处理这 1000 件商品的时间就变成了 400s。如果我们还是希望能在 50s 之内看到秒杀结果的话，只需要部署 8 个队列程序就好了。</p>
+<p>经过将一些业务流程异步处理之后，我们的秒杀系统部署结构也会有所改变：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505112214825.png" alt="image-20230505112214825" style="zoom: 33%;" />
+<h4 id="系统模块-解耦">系统模块-解耦</h4>
+<p>比如数据团队对你说，在秒杀活动之后想要统计活动的数据，借此来分析活动商品的受欢迎程度、购买者人群的特点以及用户对于秒杀互动的满意程度等等指标。<strong>而我们需要将大量的数据发送给数据团队</strong>，那么要怎么做呢？</p>
+<p><strong>一个思路是</strong>：可以使用 HTTP 或者 RPC 的方式来同步地调用，也就是数据团队这边提供一个接口，我们实时将秒杀的数据推送给它，<strong>但是这样调用会有两个问题</strong>：</p>
+<ul>
+<li>整体系统的耦合性比较强，当数据团队的接口发生故障时，会影响到秒杀系统的可用性。</li>
+<li>当数据系统需要新的字段，就要变更接口的参数，那么秒杀系统也要随着一起变更。</li>
+</ul>
+<p>这时，我们可以<strong>考虑使用消息队列降低业务系统和数据系统的直接耦合度</strong>。</p>
+<p>秒杀系统产生一条购买数据后，我们可以先把全部数据发送给消息队列，然后数据团队再订阅这个消息队列的话题，这样它们就可以接收到数据，然后再做过滤和处理了。秒杀系统在这样解耦合之后，数据系统的故障就不会影响到秒杀系统了，同时，当数据系统需要新的字段时，只需要解析消息队列中的消息，拿到需要的数据就好了。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505112938853.png" alt="image-20230505112938853" style="zoom:33%;" />
+<p><strong>异步处理、解耦合和削峰填谷</strong> 是消息队列在秒杀系统设计中起到的主要作用，其中，</p>
+<ul>
+<li>削峰填谷可以削去到达秒杀系统的峰值流量，让业务逻辑的处理更加缓和，但会造成<strong>请求处理的延迟</strong>；</li>
+<li>异步处理可以简化业务流程中的步骤，提升系统性能；</li>
+<li>解耦合可以将秒杀系统和数据系统解耦开，这样两个系统的任何变更都不会影响到另一个系统，可以提升系统的鲁棒性。</li>
+</ul>
+<h3 id="避免重复消费">避免重复消费</h3>
+<h4 id="避免消息丢失">避免消息丢失</h4>
+<p>如果要保证消息只被消费一次，首先就要保证消息不会丢失。</p>
+<p>消息丢失主要存在三个场景：</p>
+<ul>
+<li>消息从生产者写入到消息队列的过程。</li>
+<li>消息在消息队列中的存储场景。</li>
+<li>消息被消费者消费的过程。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505134539208.png" alt="image-20230505134539208" style="zoom: 25%;" />
+<h5 id="消息生产的过程中丢失">消息生产的过程中丢失</h5>
+<p><strong>主要原因</strong>：网络抖动，消息有可能因为网络的错误而丢失。</p>
+<p><strong>解决方案</strong>：消息重传。当你发现发送超时后你就将消息重新发一次，但是你也不能无限制地重传消息。一般来说，如果不是消息队列发生故障，或者是到消息队列的网络断开了，重试 2～3 次就可以了。</p>
+<h5 id="消息队列中丢失">消息队列中丢失</h5>
+<p><strong>主要原因</strong>：为了减少消息存储时对磁盘的随机 I/O，Kafka 可以配置当达到某一时间间隔，或者累积一定的消息数量的时候再刷盘，<strong>也就是所说的异步刷盘</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505135601561.png" alt="image-20230505135601561" style="zoom:25%;" />
+<p><strong>解决方案</strong>：考虑以<strong>集群方式部署 Kafka 服务</strong>，通过部署多个副本备份数据，保证消息<strong>尽量</strong>不丢失。</p>
+<p><strong>具体实现</strong>：Kafka 集群中有一个 Leader 负责消息的写入和消费，可以有多个 Follower 负责数据的备份。Follower 中有一个特殊的集合叫做 ISR，当 Leader 故障时，会从 ISR 中新选举出来 Leader。Leader 的数据会异步地复制给 Follower，这样在 Leader 发生掉电或者宕机时，Kafka 会从 Follower 中消费消息，减少消息丢失的可能。</p>
+<p>由于消息是异步地从 Leader 复制到 Follower 的，所以一旦 Leader 宕机，那些还没有来得及复制到 Follower 的消息还是会丢失。<strong>为了解决这个问题</strong>，Kafka 为生产者提供一个选项叫做 <code>acks</code>，当这个选项被设置为 <code>all</code> 时，<strong>生产者</strong>发送的每一条消息除了发给 Leader 外还会发给所有的 ISR，并且<strong>必须得到 Leader 和所有 ISR 的确认后才被认为发送成功</strong>。这样，只有 Leader 和所有的 ISR 都挂了，消息才会丢失。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505135948401.png" alt="image-20230505135948401" style="zoom:25%;" />
+<p><strong>建议是：</strong></p>
+<ul>
+<li>
+<p>如果你需要确保消息一条都不能丢失，那么建议不要开启消息队列的同步刷盘，而是需要使用集群的方式来解决，可以<strong>配置当所有 ISR Follower 都接收到消息才返回成功</strong>。</p>
+</li>
+<li>
+<p>如果对消息的丢失有一定的容忍度，那么建议不部署集群，即使以集群方式部署，也建议配置<strong>只发送给一个 Follower</strong> 就可以返回成功了。</p>
+</li>
+</ul>
+<h5 id="消费过程中消息丢失">消费过程中消息丢失</h5>
+<p><strong>主要原因</strong>：一个消费者消费消息的进度是记录在消息队列集群中的，而消费的过程分为三步：接收消息、处理消息、<strong>更新消费进度</strong>。接收消息和处理消息的过程都可能会发生异常或者失败，比如说，消息接收时网络发生抖动，导致消息并没有被正确的接收到；处理消息时可能发生一些业务的异常导致处理流程未执行完成，<strong>这时如果更新消费进度</strong>，那么这条失败的消息就永远不会被处理了，也可以认为是丢失了。</p>
+<p><strong>解决方案</strong>：<strong>一定要等到消息接收和处理完成后才能更新消费进度</strong>，但是这也会造成消息重复的问题，比方说某一条消息在处理之后，消费者恰好宕机了，那么因为没有更新消费进度，所以当这个消费者重启之后，还会重复地消费这条消息。</p>
+<h4 id="避免重复消费-1">避免重复消费</h4>
+<p>为了避免消息丢失，需要付出两方面的代价：一方面是性能的损耗；一方面可能造成消息重复消费。性能损耗还能接受，但消息重复消费可能就会造成严重错误，那么如何避免呢？</p>
+<p><strong>Kafka 出现消息重复消费的原因：</strong></p>
+<ul>
+<li><strong>根本原因</strong>：已经消费的数据没有成功提交 offset。</li>
+<li>Kafka 侧由于服务端处理业务时间长或者网络链接等等原因让 Kafka 认为服务假死，触发了分区 rebalance。</li>
+</ul>
+<p>想要完全的避免消息重复的发生是很难做到的，因为网络的抖动、机器的宕机和处理的异常都是比较难以避免的，在工业上并没有成熟的方法，因此我们会把要求放宽，<strong>只要保证即使消费到了重复的消息，从消费的最终结果来看和只消费一次是等同的就好了</strong>，也就是保证在消息的生产和消费的过程是<strong>幂等</strong>的。</p>
+<p>注：**<code>幂等</code>**指只执行一次操作和多次执行同一个操作，最终得到的结果是相同的</p>
+<blockquote>
+<h4 id="问kafka-如何保证消息不被重复消费如何实现幂等性设计去重机制">问：Kafka 如何保证消息不被重复消费？/如何实现幂等性，设计去重机制？</h4>
+</blockquote>
+<p><strong>生产端</strong>：</p>
+<ul>
+<li>
+<p><strong>思路</strong>：Kafka 支持将 Producer 升级为<strong>幂等性 Producer</strong>，保证消息虽然可能在生产端重复生产，但是最终<strong>在消息队列存储时只会存储一份</strong>。</p>
+</li>
+<li>
+<p><strong>具体做法</strong>：给每一个生产者一个唯一的 ID，并且为生产的每一条消息赋予一个唯一 ID，消息队列的服务端会存储 <code>&lt; 生产者 ID，最后一条消息 ID&gt;</code> 的映射。当某一个生产者产生新的消息时，消息队列服务端会比对消息 ID 是否与存储的最后一条 ID 一致，如果一致，就认为是重复的消息，服务端会自动丢弃。</p>
+</li>
+</ul>
+<p><strong>消费端</strong>：</p>
+<ul>
+<li><strong>思路</strong>：可分为<strong>通用层</strong>和<strong>业务层</strong>。</li>
+<li><strong>具体做法</strong>：
+<ul>
+<li><strong>通用层</strong>：可以在消息被生产的时候，使用发号器给它<strong>生成一个全局唯一的消息 ID</strong>，消息被处理之后，<strong>把这个 ID 存储在数据库中</strong>，在处理下一条消息之前，先从数据库里面查询这个全局 ID 是否被消费过，如果被消费过就放弃消费；</li>
+<li><strong>业务层</strong>：利用乐观锁的方式来实现。这个机制是<strong>在消息中添加一个版本号</strong>，在生产消息时先查询数据的版本号，并且将版本号连同消息一起发送给消息队列。消费端在拿到消息和版本号后，执行时也带上版本号。比如在消费第一条消息时，version 值为 1，SQL 可以执行成功，并且同时把 version 值改为了 2；在执行第二条相同的消息时，由于 version 值不再是 1，所以这条 SQL 不能执行成功，也就保证了消息的幂等性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息延迟堆积">消息延迟/堆积</h3>
+<h4 id="如何监控消息延迟">如何监控消息延迟</h4>
+<p>监控消息的延迟有两种方式：</p>
+<ul>
+<li>使用消息队列提供的工具，通过监控消息的堆积来完成；</li>
+<li>通过生成监控消息的方式来监控消息的延迟情况。</li>
+</ul>
+<h5 id="监控消息的堆积">监控消息的堆积</h5>
+<p>首先需要从原理上了解，<strong>在消息队列中消费者的消费进度是多少</strong>，因为这样才方便计算当前的消费延迟是多少。比方说，生产者向队列中一共生产了 1000 条消息，某一个消费者消费进度是 900 条，那么这个消费者的消费延迟就是 100 条消息。</p>
+<p><strong>在 Kafka 中，消费者的消费进度在不同的版本上是不同的。</strong></p>
+<ul>
+<li>
+<p>在 Kafka0.9 之前的版本中，<strong>消费进度是存储在 ZooKeeper 中的</strong>，消费者在消费消息的时候，先要从 ZooKeeper 中获取最新的消费进度，再从这个进度的基础上消费后面的消息。</p>
+</li>
+<li>
+<p>在 Kafka0.9 版本之后，消费进度被迁入到 Kakfa 的一个<strong>专门的 topic 叫 <code>__consumer_offsets</code></strong> 里面。</p>
+</li>
+</ul>
+<p>Kafka 也提供了一些工具来获取这个消费进度的信息，帮助实现自己的监控，<strong>比较推荐 <code>JMX</code></strong>。Kafka 通过 JMX 暴露了消息堆积的数据，我在本地启动了一个 console consumer，然后使用 jconsole 连接这个 consumer，你就可以看到这个 consumer 的堆积数据了。</p>
+<h5 id="生成监控消息">生成监控消息</h5>
+<p><strong>具体做法</strong>：</p>
+<ol>
+<li>先定义一种<strong>特殊的消息</strong>；</li>
+<li>然后<strong>启动一个监控程序</strong>，将这个消息定时地<strong>循环写入到消息队列</strong>中。消息的内容可以是生成消息的时间戳，并且也会作为队列的消费者消费数据；</li>
+<li>业务处理程序消费到这个消息时直接丢弃掉，而<strong>监控程序在消费到这个消息</strong>时，<strong>就可以和这个消息的生成时间做比较</strong>，如果时间差达到某一个阈值就可以向我们报警。</li>
+</ol>
+<h4 id="减少消息延迟">减少消息延迟</h4>
+<p>减少消息的处理延迟，需要在<strong>消费端和消息队列</strong>两个层面来完成。</p>
+<p><strong>消费端</strong>：</p>
+<ul>
+<li><strong>增加消费者的数量</strong></li>
+</ul>
+<p>在 Kafka 中，Topic 的 Partition 数量决定了消费的并行度，增加多余的消费者也是没用的。这是因为 Kafka 约定一个 Partition 只能被一个消费者消费。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505152939340.png" alt="image-20230505152939340" style="zoom:25%;" />
+<ul>
+<li><strong>优化消费代码</strong></li>
+</ul>
+<p>可以在 consumer 中<strong>提升处理消息的并行度</strong>，所以可以考虑使用多线程的方式来增加处理能力：你可以预先创建一个或者多个线程池，在接收到消息之后，<strong>把消息丢到线程池中来异步地处理</strong>，这样，原本串行的消费消息的流程就变成了并行的消费，可以提高消息消费的吞吐量，在并行处理的前提下，我们就<strong>可以在一次和消息队列的交互中多拉取几条数据，然后分配给多个线程来处理</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505153217920.png" alt="image-20230505153217920" style="zoom: 25%;" />
+<p><strong>消息队列</strong>：</p>
+<ul>
+<li><strong>零拷贝</strong></li>
+</ul>
+<p><strong>传统数据文件拷贝</strong></p>
+<ul>
+<li>操作系统将数据从<strong>磁盘</strong>拷贝到<strong>内核缓冲区</strong>；</li>
+<li>应用程序通过系统调用将<strong>内核缓存区</strong>的数据拷贝到<strong>用户缓冲区</strong>；</li>
+<li>应用程序将<strong>用户缓冲区</strong>的数据拷贝到<strong>内核的 Socket 缓冲区</strong>中；</li>
+<li>操作系统将 <strong>Socket 缓冲区</strong>的数据拷贝到<strong>网卡缓冲区</strong>中，通过网卡发送给数据接收方。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502215933425.png" alt="image-20230502215933425" style="zoom:40%;" />
+<p><strong>总结</strong>：涉及 1 次内核态到用户态的数据拷贝和 1 次 用户态到内核态的数据拷贝。</p>
+<p><strong>零拷贝</strong></p>
+<p>操作系统提供了 <code>Sendfile</code> 函数，可以减少数据被拷贝的次数。使用了 <code>Sendfile</code> 之后，在内核缓冲区的数据不会被拷贝到用户缓冲区，而是直接被拷贝到 Socket 缓冲区，节省了一次拷贝的过程，提升了消息发送的性能。</p>
+<ul>
+<li>操作系统将数据从<strong>磁盘</strong>拷贝到<strong>内核缓冲区</strong>；</li>
+<li>系统调用 <code>Sendfile</code> 将<strong>数据的文件描述符</strong>直接被拷贝到 <strong>Socket 缓冲区</strong>(仅仅会拷贝一个描述符过去，不会拷贝数据到 Socket 缓存)；</li>
+<li>操作系统将 <strong>Socket 缓冲区</strong>的数据拷贝到<strong>网卡缓冲区</strong>中，通过网卡发送给数据接收方。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230502220341173.png" alt="image-20230502220341173" style="zoom:40%;" />
+<p><strong>总结</strong>：省略了两次不必要的数据拷贝：</p>
+<ul>
+<li>从内核空间拷贝到用户空间；</li>
+<li>从用户空间再次拷贝到内核空间。</li>
+</ul>
+<h2 id="五微服务">五、微服务</h2>
+<h3 id="概述-1">概述</h3>
+<h4 id="为什么要使用微服务架构">为什么要使用微服务架构？</h4>
+<ul>
+<li>一体化架构增加了研发的成本，抑制了研发效率的提升。</li>
+</ul>
+<blockquote>
+<p>《人月神话》中曾经提到：一个团队内部沟通成本，和人员数量 n 有关，约等于 n(n-1)/2，也就是说随着团队人员的增加，沟通的成本呈指数级增长，一个 100 人的团队，需要沟通的渠道大概是 100（100-1）/2 = 4950。那么为了减少沟通成本，我们一般会把团队拆分成若干个小团队，每个小团队 5～7 人，负责一部分功能模块的开发和维护。</p>
+<p>按照亚马逊 CEO，贝佐斯的「两个披萨」的理论，如果两个披萨不够你的团队吃，那么你的团队就太大了，需要拆分，所以一个小团队包括开发、运维、测试以 6～8 个人为最佳；</p>
+</blockquote>
+<p>有的研发同学会认为最快的方式，不是询问其他团队是否有现成的，而是自己写一套，但是这种想法是不合适的，这样一来就会造成功能服务的<strong>重复开发</strong>。</p>
+<p>由于代码部署在一起，每个人都向同一个代码库提交代码，代码冲突无法避免；同时，<strong>功能之间耦合严重</strong>，可能你只是更改了很小的逻辑，却导致其它功能不可用，从而在测试时需要对整体功能回归，延长了交付时间。</p>
+<p><strong>模块之间互相依赖</strong>，一个小团队中的成员犯了一个错误，就可能会影响到，其它团队维护的服务，对于整体系统稳定性影响很大。</p>
+<ul>
+<li>一体化架构对于系统的运维也会有很大的影响。</li>
+</ul>
+<p>在项目初期，你的代码可能只有几千行，构建一次只需要一分钟，那么你可以很敏捷灵活地频繁上线变更修复问题。但是当你的系统扩充到几十万行，甚至上百万行代码的时候，<strong>一次构建的过程，包括编译、单元测试、打包和上传到正式环境</strong>，花费的时间可能达到十几分钟，并且，<strong>任何小的修改，都需要构建整个项目</strong>，上线变更的过程非常不灵活。</p>
+<p><strong>这些问题，都可以用微服务来解决。</strong></p>
+<h4 id="微服务拆分原则">微服务拆分原则</h4>
+<ol>
+<li>
+<p><strong>单一服务内部功能的高内聚、低耦合</strong>。即，每个服务只完成自己职责之内的任务，对于不是自己职责的功能，交给其它服务来完成。</p>
+</li>
+<li>
+<p>关注服务拆分的粒度，<strong>先粗略拆分，再逐渐细化</strong>。因为服务多了也会带来问题，像是服务个数的增加会增加运维的成本。再比如，原本一次请求只需要调用进程内的多个方法，现在则需要跨网络调用多个 RPC 服务，在性能上肯定会有所下降。<strong>推荐的做法是：<strong>拆分初期可以把服务粒度拆的粗一些，后面随着团队对于业务和微服务理解的加深，再考虑把服务粒度细化。<strong>比如说，<strong>对于一个社区系统来说，你可以先把</strong>和用户关系相关的业务逻辑</strong>，都拆分到</strong>用户关系服务</strong>中，之后，再把其中比如黑名单的逻辑独立成黑名单服务。</p>
+</li>
+<li>
+<p>拆分的过程，要<strong>尽量避免影响产品的日常功能迭代</strong>，也就是说，要一边做产品功能迭代，一边完成服务化拆分。总不能停掉所有业务开发，全盘推翻重构完再上线吧？参考如下<strong>剥离顺序</strong>：</p>
+</li>
+</ol>
+<ul>
+<li><strong>优先剥离比较独立的边界服务</strong>。从非核心的服务出发，减少拆分对现有业务的影响，也给团队一个练习、试错的机会；</li>
+<li>要<strong>理清服务之间的调用关系</strong>，<strong>当两个服务存在依赖关系时，优先拆分被依赖的服务</strong>。<strong>比如</strong>，内容服务会依赖用户服务获取用户信息，互动服务会依赖内容服务，所以要按照先用户服务，再内容服务，最后互动服务的顺序来进行拆分。</li>
+</ul>
+<ol start="4">
+<li>服务接口的定义要具备<strong>可扩展性</strong>。服务拆分之后，由于服务是以独立进程的方式部署，所以服务之间通信，就不再是进程内部的方法调用，而是跨进程的网络通信了。在这种通信模型下需要注意，服务接口的定义要具备可扩展性，否则在服务变更时，会造成意想不到的错误。<strong>比如</strong>，某一个微服务的接口有三个参数，在一次业务需求开发中，组内的一个同学将这个接口的参数调整为了四个，接口被调用的地方也做了修改，结果上线这个服务后，却不断报错，无奈只能回滚。</li>
+</ol>
+<h3 id="远程调用">远程调用</h3>
+<p>当采用微服务架构之后，原本的 1 次请求，可能需要调用 4、5 次服务，如图。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505165520013.png" alt="image-20230505165520013" style="zoom:25%;" />
+<p>那如何避免其带来的性能损耗呢？</p>
+<ul>
+<li>选择合适的网络模型，有针对性地调整网络参数，以优化网络传输性能；</li>
+<li>选择合适的序列化方式，以提升封包、解包的性能。</li>
+</ul>
+<h4 id="如何提升网络传输性能">如何提升网络传输性能？</h4>
+<p>有很多方面：</p>
+<ul>
+<li><strong>I/O 多路复用</strong>；</li>
+<li><strong>禁用 Nagle 算法</strong>。</li>
+</ul>
+<p>要讲讲 <strong>Nagle 算法</strong>：</p>
+<blockquote>
+<p>tcp 协议的包头有 20 字节，ip 协议的包头也有 20 字节，如果仅仅传输 1 字节的数据，在网络上传输的就有 20 + 20 + 1 = 41 字节，其中真正有用的数据只有 1 个字节，这对效率和带宽是极大的浪费。所以在 1984 年的时候，John Nagle 提出了以他的名字命名的 <strong>Nagle 算法</strong>：</p>
+<p>如果是连续的小数据包，大小没有一个 MSS（Maximum Segment Size，最大分段大小），并且还没有收到之前发送的数据包的 Ack 信息，那么这些小数据包就会在发送端暂存起来，直到小数据包累积到一个 MSS，或者收到一个 Ack 为止。</p>
+</blockquote>
+<p><strong>原本是为了减少不必要的网络传输</strong>，但是如果接收端开启了 DelayedACK（延迟 ACK 的发送，这样可以合并多个 ACK，提升网络传输效率），<strong>那就会发生</strong>，发送端发送第一个数据包后，接收端没有返回 ACK，这时发送端发送了第二个数据包，因为 Nagle 算法的存在，并且第一个发送包的 ACK 还没有返回，所以第二个包会暂存起来。而 DelayedACK 的超时时间，默认是 40ms，所以一旦到了 40ms，接收端回给发送端 ACK，那么发送端才会发送第二个包，<strong>这样就增加了延迟</strong>。</p>
+<p><strong>解决的方式非常简单</strong>：只要在 socket 上开启 tcp_nodelay 就好了，这个参数关闭了 Nagle 算法，这样发送端就不需要等到上一个发送包的 ACK 返回，直接发送新的数据包就好了。这对于<strong>强网络交互的场景</strong>来说非常的适用，基本上，如果你要自己实现一套网络框架，<strong>tcp_nodelay 这个参数最好是要开启的</strong>。</p>
+<h4 id="选择合适的序列化方法">选择合适的序列化方法</h4>
+<p>一次 RPC 调用需要经历<strong>两次序列化、两次反序列化</strong>的过程，因此需要选择高效的序列化方法。</p>
+<p>没啥要求的可以用 JSON，不然还得是 Protobuf。(原因详见 Protobuf 的 md)</p>
+<h3 id="服务注册与发现">服务注册与发现</h3>
+<h4 id="注册中心">注册中心</h4>
+<p><strong>注册中心提供的功能</strong>：</p>
+<ul>
+<li>其一是提供了<strong>服务地址的存储</strong>；</li>
+<li>其二是当<strong>存储内容发生变化时，可以将变更的内容推送给客户端</strong>。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505171133103.png" alt="image-20230505171133103" style="zoom:25%;" />
+<p>有了注册中心之后，<strong>服务节点的增加和减少对于客户端就是透明的</strong>。这样，除了可以实现不重启客户端，就能动态地变更服务节点以外，还可以<strong>实现优雅关闭的功能</strong>。</p>
+<blockquote>
+<h4 id="问什么是优雅的关闭注册中心怎么做到">问：什么是优雅的关闭？注册中心怎么做到？</h4>
+</blockquote>
+<p><strong>优雅关闭</strong>是必须要考虑的问题。因为如果直接暴力地停止服务，那么已经发送给服务端的请求，来不及被处理就会被丢弃了，就会造成这部分请求失败，<strong>服务就会有波动</strong>。</p>
+<p>所以，服务在退出的时候，都需要<strong>先停掉流量，再停止服务</strong>，这样服务的关闭才会更平滑。</p>
+<ul>
+<li><strong>对于 RPC 服务来说</strong>，可以<strong>先将 RPC 服务从注册中心的服务列表中删除掉</strong>，然后<strong>观察 RPC 服务端没有未处理的请求之后</strong>，<strong>再将服务端停掉</strong>。有了优雅关闭之后，RPC 服务端再重启的时候，就会减少对客户端的影响。</li>
+</ul>
+<h4 id="服务状态管理">服务状态管理</h4>
+<p>一般有两种解决思路：</p>
+<ul>
+<li>主动探测；</li>
+<li><strong>心跳模式</strong>；</li>
+</ul>
+<h5 id="主动探测">主动探测</h5>
+<p><strong>思路</strong>：RPC 服务<strong>打开一个端口</strong>，由<strong>注册中心每隔一段时间（比如 30 秒）探测这些端口是否可用</strong>，如果可用就认为服务仍然是正常的，否则就可以认为服务不可用，那么注册中心就可以把服务从列表里面删除了。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505172212864.png" alt="image-20230505172212864" style="zoom:25%;" />
+<p><strong>缺陷</strong>：</p>
+<ul>
+<li>所有的 RPC 服务端都需要开放一个<strong>统一的端口</strong>给注册中心探测，但<strong>需要开放的端口很可能已经被占用</strong>，这样会造成 RPC 服务启动失败；</li>
+<li>如果 <strong>RPC 服务实例比较多</strong>，那么<strong>每次探测的成本也会比较高</strong>，探测的时间也比较长，这样<strong>当一个服务不可用时，可能会有一段时间的延迟</strong>，才会被注册中心探测到。</li>
+</ul>
+<p>因此，改进成了<strong>心跳模式</strong>。</p>
+<h5 id="心跳模式">心跳模式</h5>
+<p>大部分注册中心都采用<strong>心跳模式</strong>检测 RPC 服务是否存活。</p>
+<p><strong>思路</strong>：</p>
+<ul>
+<li>首先，注册中心为每一个连接上来的 RPC 服务节点，<strong>记录最近续约的时间</strong>；</li>
+<li>同时，<strong>注册中心会启动一个定时器</strong>，检测 RPC 服务节点的<strong>租约是否到期</strong>，租约到期就认为这个服务节点不可用</li>
+<li>RPC 服务节点可以按照一定的时间间隔(比如 30 秒)，<strong>向注册中心发送心跳包</strong>续约；</li>
+<li>注册中心收到心跳包之后，会<strong>更新这个节点的最近续约时间</strong>。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505173108910.png" alt="image-20230505173108910" style="zoom:25%;" />
+<h3 id="分布式-trace">分布式 Trace</h3>
+<p>慢请求问题如何排查？</p>
+<h4 id="单体架构中的慢请求排查">单体架构中的慢请求排查</h4>
+<ul>
+<li>为了应对多线程同时请求造成的日志混乱，可以在记录打点日志时，<strong>使用 requestId 将日志串起来</strong>，这样方便比较一次请求中的多个步骤的耗时情况；</li>
+<li>使用<strong>静态代理的方式做切面编程</strong>，避免在业务代码中，加入大量打印耗时的日志的代码，减少了对于代码的侵入性，同时编译期的代码注入可以减少；</li>
+<li>增加日志采样率，<strong>避免全量日志的打印</strong>；</li>
+<li>为了<strong>避免在排查问题时，需要到多台服务器上搜索日志</strong>，可以使用<strong>消息队列</strong>，将日志集中起来放在了 Elasticsearch 中。</li>
+</ul>
+<h4 id="分布式-trace-1">分布式 Trace</h4>
+<p>在单体架构中，单次请求的所有的耗时日志，都被记录在一台服务器上；而在微服务的场景下，单次请求可能跨越多个 RPC 服务，<strong>这就造成了，单次的请求的日志会分布在多个服务器上</strong>。</p>
+<p>可以采用 <code>traceId + spanId</code> 这两个数据维度来记录服务之间的调用关系（这里 traceId 就是 requestId），也就是使用 traceId 串起单次请求，用 spanId 记录每一次 RPC 调用。</p>
+<p>比如，请求从用户端过来，先到达 A 服务，A 服务会分别调用 B 和 C 服务，B 服务又会调用 D 和 E 服务。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505194337536.png" alt="image-20230505194337536" style="zoom:25%;" />
+<p><strong>那么 spanId 是何时生成的，又是如何传递的呢？</strong></p>
+<ul>
+<li>
+<p>首先，A 服务在发起 RPC 请求服务 B 前，先从线程上下文中获取当前的 traceId 和 spanId，然后，依据上面的逻辑生成本次 RPC 调用的 spanId，再将 spanId 和 traceId 序列化后，装配到请求体中，发送给服务方 B。</p>
+</li>
+<li>
+<p>服务方 B 获取请求后，从请求体中反序列化出 spanId 和 traceId，同时设置到线程上下文中，以便给下次 RPC 调用使用。在服务 B 调用完成返回响应前，计算出服务 B 的执行时间发送给<strong>消息队列</strong>。</p>
+</li>
+<li>
+<p>当然，在服务 B 中，你依然可以使用切面编程的方式，得到所有调用的数据库、缓存、HTTP 服务的响应时间，只是在发送给消息队列的时候，要加上当前线程上下文中的 spanId 和 traceId。</p>
+</li>
+<li>
+<p>这样，无论是数据库等资源的响应时间，还是 RPC 服务的响应时间就都汇总到了消息队列中，在经过一些处理之后，最终被写入到 Elasticsearch 中以便给开发和运维同学查询使用。</p>
+</li>
+</ul>
+<h3 id="负载均衡">负载均衡</h3>
+<p>负载均衡服务大体上可以分为两大类：一类是<strong>代理类的负载均衡服务</strong>；另一类是<strong>客户端负载均衡服务</strong>。</p>
+<p>代理类负载均衡服务典型的就是 NGINX 和 LVS，适用于普通的 Web 服务。但<strong>对于微服务架构来说，是不合适的</strong>。因为微服务架构中的服务节点存储在注册中心里，使用 LVS 就很难和注册中心交互，获取全量的服务节点列表。另外，一般微服务架构中，使用的是 RPC 协议而不是 HTTP 协议，所以 Nginx 也不能满足要求。</p>
+<p>在 RPC 中，通常<strong>会使用另一类的负载均衡服务，客户端负载均衡服务，也就是把负载均衡的服务内嵌在 RPC 客户端中</strong>。</p>
+<h4 id="客户端负载均衡">客户端负载均衡</h4>
+<p>客户端负载均衡服务，一般和客户端应用部署在一个进程中，<strong>提供多种选择节点的策略</strong>，最终为客户端应用提供一个最佳的，可用的服务端节点。<strong>思想</strong>：这类服务一般会结合注册中心来使用，注册中心提供服务节点的完整列表，<strong>客户端拿到列表之后使用负载均衡服务的策略选取一个合适的节点，然后将请求发到这个节点上</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505195248658.png" alt="image-20230505195248658" style="zoom: 33%;" />
+<h4 id="负载均衡策略">负载均衡策略</h4>
+<p>负载均衡策略从大体上来看可以分为两类：</p>
+<ul>
+<li>一类是<strong>静态策略</strong>，也就是说负载均衡服务器在选择服务节点时，<strong>不会参考后端服务的实际运行的状态</strong>。</li>
+<li>一类是<strong>动态策略</strong>，也就是说负载均衡服务器<strong>会依据后端服务的一些负载特性</strong>，来决定要选择哪一个服务节点。</li>
+</ul>
+<h5 id="静态策略">静态策略</h5>
+<ul>
+<li><strong>轮询</strong>(<strong>RoundRobin，RR</strong>)：按照服务列表的顺序，逐个请求后端服务节点；</li>
+<li><strong>带权轮询</strong>：给节点加上权重值，比如给 8 核 8G 的机器配置权重为 2，那么就会给它分配双倍的流量；</li>
+<li><strong>一致性 Hash</strong>。</li>
+</ul>
+<p>轮询和带有权重的轮询策略，能够将请求尽量平均地分配到后端服务节点上，也就能够做到对于负载的均衡分配，在没有更好的动态策略之前，应该优先使用这两种策略，比如 Nginx 就会优先使用轮询的策略。</p>
+<h5 id="动态策略">动态策略</h5>
+<p><strong>原理</strong>：负载均衡服务器会收集对后端服务节点的调用信息，比如从负载均衡器到服务节点的活跃连接数，或者是请求调用的响应时间，然后从中选择连接数最少的服务节点，或者响应时间最短的服务节点。</p>
+<p>在实际开发中，<strong>优先考虑使用动态的策略</strong>。</p>
+<h3 id="api-网关">API 网关</h3>
+<p>API 网关是一种架构模式，它是<strong>将一些服务共有的功能整合在一起</strong>，<strong>独立部署为单独的一层</strong>，用来解决一些服务治理的问题。<strong>可以把它看作系统的边界</strong>，它可以对出入系统的流量做<strong>统一的管控</strong>。</p>
+<h4 id="网关分类">网关分类</h4>
+<p>API 网关可以分为两类：<strong>一类叫做入口网关，一类叫做出口网关</strong>。</p>
+<h5 id="入口网关">入口网关⭐</h5>
+<p><strong>入口网关</strong>部署在<strong>负载均衡服务器</strong>和<strong>应用服务器</strong>之间，主要有以下作用：</p>
+<ul>
+<li>提供给客户端一个<strong>统一的请求接入地址</strong>，API 网关可以将用户的请求动态路由到不同的业务服务上，并且做一些<strong>必要的协议转换</strong>工作。比如，部署的微服务对外暴露的协议可能不同，有些还提供的是 HTTP 服务；有些已经完成 RPC 改造，对外暴露 RPC 服务。API 网关可以对客户端<strong>屏蔽这些服务的部署地址，以及协议的细节</strong>，给客户端的调用带来很大的便捷。</li>
+<li>植入一些<strong>服务治理</strong>的策略，比如服务的熔断、降级，流量控制和分流等；</li>
+<li>API 网关可以嵌入中间件，比如用户认证和授权的实现等；</li>
+<li>API 网关可以给请求分配 Request ID，辅助进行日志记录，用于之前讲的分布式 Trace。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505202336273.png" alt="image-20230505202336273" style="zoom: 33%;" />
+<h5 id="出口网关">出口网关</h5>
+<p>不是重点。</p>
+<p>在系统开发中，会<strong>依赖很多外部的第三方系统</strong>，<strong>出口网关就是负责调用这些外部第三方系统的</strong>。比如典型的例子：第三方账户登录、使用第三方工具支付等等。我们可以在应用服务器和第三方系统之间，部署出口网关，在出口网关中，对调用外部的 API 做统一的认证、授权，审计以及访问控制。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505202606430.png" alt="image-20230505202606430" style="zoom:25%;" />
+<h4 id="如何实现">如何实现</h4>
+<p>// TODO：线程池</p>
+<ul>
+<li>可以<strong>针对不同的服务使用不同的线程池</strong>，在线程池内部针对不同的接口设置配额</li>
+</ul>
+<p>Tyk 是一种 Go 语言实现的轻量级 API 网关，有着丰富的插件资源，对于 Go 语言栈的团队来说，也是一种不错的选择。</p>
+<h4 id="引入网关">引入网关</h4>
+<p>在服务层和客户端之间建立一层薄薄的 Web 层，<strong>主要做两件事</strong>：</p>
+<ul>
+<li><strong>聚合服务层接口数据</strong>。比如，商品详情页的接口，可能会聚合服务层中，获取商品信息、用户信息、店铺信息以及用户评论等多个服务接口的数据；</li>
+<li>负责<strong>协议转换、限流、黑白名单</strong>等。比如将 HTTP 请求转换为 RPC 请求，并且对前端的流量做一些限制，对于某些请求添加设备 ID 的黑名单等等。</li>
+</ul>
+<p>聚合服务接口数据，<strong>一般有两种解决思路</strong>：</p>
+<ul>
+<li>
+<p>独立出一组网关专门做服务聚合、超时控制方面的事情，我们一般把前一种网关叫做<strong>流量网关</strong>，后一种可以叫做<strong>业务网关</strong>；</p>
+</li>
+<li>
+<p><strong>抽取独立的服务层，专门做接口聚合的操作</strong>。这样服务层就大概分为<strong>原子服务层</strong>和<strong>聚合服务层</strong>。</p>
+</li>
+</ul>
+<p>接口数据聚合是业务操作，与其放在通用的网关层来实现，不如放在更贴近业务的服务层来实现，<strong>所以，我更倾向于第二种方案。</strong></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230505203746383.png" alt="image-20230505203746383" style="zoom:33%;" />
+<h3 id="跨地域分布式系统">跨地域分布式系统</h3>
+<h2 id="六维护">六、维护</h2>
+<h3 id="降级熔断-1">降级熔断</h3>
+<h4 id="雪崩是如何发生的">雪崩是如何发生的</h4>
+<p><strong>雪崩</strong>：局部故障最终导致全局故障。</p>
+<p>那么，为什么会发生雪崩呢？我们知道，系统在运行的时候是需要消耗一些资源的，包括 CPU、内存等系统资源，也包括执行业务逻辑的时候，需要的线程资源。</p>
+<p>举个例子，一般在业务执行的容器内，都会定义一些线程池来分配执行任务的线程，比如在 Tomcat 这种 Web 容器的内部，定义了线程池来处理 HTTP 请求；RPC 框架也给 RPC 服务端初始化了线程池来处理 RPC 请求。</p>
+<p>这些线程池中的线程资源是有限的，如果这些线程资源被耗尽，那么服务自然也就无法处理新的请求，服务提供方也就宕机了。比如，你的垂直电商系统有四个服务 A、B、C、D，A 调用 B，B 调用 C 和 D。其中，A、B、D 服务是系统的核心服务（像是电商系统中的订单服务、支付服务等等），C 是非核心服务（像反垃圾服务、审核服务）。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506111249892.png" alt="image-20230506111249892" style="zoom: 25%;" />
+<p>所以，一旦作为入口的 A 流量增加，你可能会考虑把 A、B 和 D 服务扩容，忽略 C。那么 C 就有可能因为无法承担这么大的流量，导致请求处理缓慢，进一步会让 B 在调用 C 的时候，B 中的请求被阻塞，等待 C 返回响应结果。这样一来，B 服务中被占用的线程资源就不能释放。</p>
+<p>久而久之，B 就会因为线程资源被占满，无法处理后续的请求。那么从 A 发往 B 的请求，就会被放入 B 服务线程池的队列中，然后 A 调用 B 响应时间变长，进而拖垮 A 服务。你看，仅仅因为非核心服务 C 的响应时间变长，就可以导致整体服务宕机，<strong>这就是我们经常遇到的一种服务雪崩情况。</strong></p>
+<p>那么我们要如何避免出现上面这种情况呢？从刚刚的介绍中可以看到，因为服务调用方等待服务提供方的响应时间过长，它的资源被耗尽，才引发了级联反应，发生雪崩。</p>
+<p>所以在分布式环境下，<strong>系统最怕的反而不是某一个服务或者组件宕机，而是最怕它响应缓慢</strong>，因为，某一个服务或者组件宕机也许只会影响系统的部分功能，但它响应一慢，就会出现雪崩拖垮整个系统。</p>
+<p><strong>解决的思路</strong>就是在检测到某一个服务的响应时间出现异常时，切断调用它的服务与它之间的联系，让服务的调用快速返回失败，从而释放这次请求持有的资源。<strong>这个思路也就是我们经常提到的降级和熔断机制。</strong></p>
+<h4 id="熔断机制">熔断机制</h4>
+<p>服务治理中的熔断机制指的是在<strong>发起服务调用</strong>时，如果<strong>返回错误</strong>或者<strong>超时的次数超过一定阈值</strong>，则<strong>后续的请求不再发向远程服务而是暂时返回错误</strong>。</p>
+<p>服务调用方为每一个调用的服务维护一个<strong>有限状态机</strong>，在这个状态机中会有三种状态：<strong>关闭（调用远程服务）</strong>、<strong>半打开（尝试调用远程服务）<strong>和</strong>打开（直接返回错误）</strong>：</p>
+<ul>
+<li>当调用失败的次数累积到一定的阈值时，熔断状态从关闭态切换到打开态。一般在实现时，如果调用成功一次，就会重置调用失败次数。</li>
+<li>当熔断处于打开状态时，我们会启动一个超时计时器，当计时器超时后，状态切换到半打开态。你也可以通过设置一个定时器，定期地探测服务是否恢复。</li>
+<li>在熔断处于半打开状态时，请求可以达到后端服务，如果累计一定的成功次数后，状态切换到关闭态；如果出现调用失败的情况，则切换到打开态。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506112618965.png" alt="image-20230506112618965" style="zoom:25%;" />
+<h4 id="降级机制">降级机制</h4>
+<p>相比熔断来说，降级是一个更大的概念。因为它是<strong>站在整体系统负载的角度上，放弃部分非核心功能或者服务，保证整体的可用性的方法</strong>，是一种有损的系统容错方式。这样看来，<strong>熔断</strong>也是降级的一种，除此之外还有<strong>限流降级</strong>、<strong>开关降级</strong>等。</p>
+<p>此处先介绍<strong>开关降级</strong>，<strong>限流降级</strong>单独讲。</p>
+<p><strong>开关降级</strong>指的是在代码中预先埋设一些<strong>开关</strong>，用来<strong>控制服务调用的返回值</strong>。比方说，<strong>开关关闭的时候正常调用远程服务，开关打开时则执行降级的策略</strong>。这些<strong>开关的值可以存储在配置中心中</strong>，当系统出现问题需要降级时，只需要通过配置中心<strong>动态更改开关的值</strong>，就可以<strong>实现不重启服务快速地降级远程服务</strong>了。</p>
+<p>在<strong>设计开关降级预案的时候，首先要区分哪些是核心服务，哪些是非核心服务</strong>。<strong>因为我们只能针对非核心服务来做降级处理</strong>，然后就可以<strong>针对具体的业务，制定不同的降级策略</strong>了。列举一些常见场景下的降级策略：</p>
+<ul>
+<li>针对<strong>读取数据</strong>的场景，我们一般采用的策略是<strong>直接返回降级数据</strong>。比如，如果数据库的压力比较大，我们在降级的时候，可以考虑只读取缓存的数据，而不再读取数据库中的数据；如果非核心接口出现问题，可以直接返回服务繁忙或者返回固定的降级数据。</li>
+<li>对于一些轮询查询数据的场景，比如每隔 30 秒轮询获取未读数，可以<strong>降低获取数据的频率</strong>（将获取频率下降到 10 分钟一次）。</li>
+<li>而对于<strong>写数据</strong>的场景，一般会考虑把<strong>同步写转换成异步写</strong>，这样可以牺牲一些数据一致性和实效性来保证系统的可用性。</li>
+</ul>
+<h3 id="限流-1">限流</h3>
+<h4 id="什么是限流">什么是限流？</h4>
+<p>限流，也称流量控制。是指系统在面临高并发，或者<strong>大流量请求</strong>的情况下，<strong>限制新的请求对系统的访问</strong>，从而<strong>保证系统的稳定性</strong>。限流会导致部分用户请求处理不及时或者被拒，这就影响了用户体验。所以一般需要在系统稳定和用户体验之间<strong>平衡</strong>一下。</p>
+<h4 id="限流算法">限流算法</h4>
+<h5 id="固定窗口算法">固定窗口算法</h5>
+<p>首先维护一个<strong>计数器</strong>，将<strong>单位时间段</strong>当做一个窗口，计数器记录这个窗口接收请求的次数。</p>
+<ul>
+<li>当次数少于限流阀值，就允许访问，并且计数器+1</li>
+<li>当次数大于限流阀值，就拒绝访问。</li>
+<li>当前的时间窗口过去之后，计数器清零。</li>
+</ul>
+<p>假设单位时间是1秒，限流阀值为3。在单位时间1秒内，每来一个请求,计数器就加1，如果计数器累加的次数超过限流阀值3，后续的请求全部拒绝。等到1s结束后，计数器清0，重新开始计数。如下图：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506140956584.png" alt="image-20230506140956584" style="zoom: 40%;" />
+<p><strong>缺陷</strong>：假设<strong>限流阀值为5个请求</strong>，<strong>单位时间窗口是1s</strong>，如果我们在单位时间内的前0.8-1s和1-1.2s，分别并发5个请求。虽然都没有超过阀值，但是如果算0.8-1.2s，则并发数高达10，已经<strong>超过单位时间1s不超过5阀值</strong>的定义啦。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506141258226.png" alt="image-20230506141258226" style="zoom:40%;" />
+<h5 id="滑动窗口算法">滑动窗口算法</h5>
+<p>滑动窗口算法<strong>解决固定窗口临界值</strong>的问题。它<strong>将单位时间周期分为n个小周期</strong>，<strong>分别记录每个小周期内接口的访问次数</strong>，并且<strong>根据时间滑动删除过期的小周期</strong>。</p>
+<p>假设单位时间还是1s，滑动窗口算法把它划分为5个小周期，也就是滑动窗口（单位时间）被划分为5个小格子。每格表示0.2s。每过0.2s，时间窗口就会往右滑动一格。然后呢，每个小周期，都有自己独立的计数器，如果请求是0.83s到达的，0.8~1.0s对应的计数器就会加1。</p>
+<p>那滑动窗口是如何解决临界问题的？</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506141854284.png" alt="image-20230506141854284" style="zoom:40%;" />
+<p>假设我们1s内的限流阀值还是5个请求，<code>0.8~1.0s</code>内（比如0.9s的时候）来了5个请求，落在黄色格子里。时间过了1.0s这个点之后，又来5个请求，落在紫色格子里。如果<strong>是固定窗口算法，是不会被限流的</strong>；但是<strong>滑动窗口的话，每过一个小周期，它会右移一个小格</strong>。过了1.0s这个点后，会右移一小格，当前的单位时间段是<code>0.2~1.2s</code>，这个区域的请求已经超过限定的5了，已触发限流啦，实际上，<strong>紫色格子的请求都被拒绝</strong>啦。</p>
+<p><strong>TIPS</strong>: 当滑动窗口的格子周期划分的越多，那么滑动窗口的滚动就越平滑，限流的统计就会越精确。</p>
+<p><strong>缺陷</strong>：滑动窗口算法虽然解决了<strong>固定窗口的临界问题</strong>，但是一旦到达限流后，<strong>请求都会直接暴力被拒绝</strong>。酱紫我们会损失一部分请求，这其实对于产品来说，并不太友好。</p>
+<h5 id="漏桶算法">漏桶算法</h5>
+<p>漏桶算法面对限流，就<strong>更加的柔性</strong>，不存在直接的粗暴拒绝。</p>
+<p>它的<strong>原理</strong>很简单，可以认为就是<strong>注水漏水</strong>的过程：<strong>往漏桶中以任意速率流入水，以固定的速率流出水</strong>。当水超过桶的容量时，会被溢出，也就是被丢弃。因为桶容量是不变的，保证了整体的速率。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506142550445.png" alt="image-20230506142550445" style="zoom: 33%;" />
+<ul>
+<li>流入的水滴，可以看作是访问系统的请求，这个流入速率是不确定的。</li>
+<li>桶的容量一般表示系统所能处理的请求数。</li>
+<li>如果桶的容量满了，就达到限流的阀值，就会丢弃水滴（拒绝请求）</li>
+<li>流出的水滴，是恒定过滤的，对应服务按照固定的速率处理请求。</li>
+</ul>
+<p>在<strong>正常流量</strong>的时候，<strong>系统按照固定的速率处理请求</strong>，是我们想要的。但是<strong>面对突发流量</strong>的时候，漏桶算法还是循规蹈矩地处理请求，这就不是我们想看到的啦。流量变突发时，我们肯定<strong>希望系统尽量快点处理请求</strong>，提升用户体验嘛。</p>
+<h5 id="令牌桶算法">令牌桶算法</h5>
+<p>面对<strong>突发流量</strong>的时候，我们可以使用令牌桶算法限流。相比漏桶算法，<strong>可以调节速率</strong>。</p>
+<p><strong>令牌桶算法原理</strong>：</p>
+<ul>
+<li>有一个令牌管理员，根据限流大小，定速往令牌桶里放令牌。</li>
+<li>如果令牌数量满了，超过令牌桶容量的限制，那就丢弃。</li>
+<li>系统在接受到一个用户请求时，都会先去令牌桶要一个令牌。如果拿到令牌，那么就处理这个请求的业务逻辑；</li>
+<li>如果拿不到令牌，就直接拒绝这个请求。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230506143053361.png" alt="image-20230506143053361" style="zoom:33%;" />
+<p>如果令牌发放的策略正确，这个系统即不会被拖垮，也能<strong>提高机器的利用率</strong>。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=Mzg3NzU5NTIwNg==&amp;mid=2247490393&amp;idx=1&amp;sn=98189caa486406f8fa94d84ba0667604&amp;chksm=cf21c470f8564d665ce04ccb9dc7502633246da87a0541b07ba4ac99423b28ce544cdd6c036b&amp;token=162724582&amp;lang=zh_CN&amp;scene=21#wechat_redirect" target="_blank" rel="noopener noreffer ">面试必备：4种经典限流算法讲解</a></li>
+</ul>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://zq99299.github.io/note-architect/hc/" target="_blank" rel="noopener noreffer ">高并发系统设计 40 问</a></li>
+<li><a href="https://juejin.cn/post/7185736156573597756" target="_blank" rel="noopener noreffer ">字节三面：如何设计一个高并发系统</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/18-java/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/16-docker/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

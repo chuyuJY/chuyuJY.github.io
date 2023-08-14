@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="" />
+<meta property="og:description" content="Protobuf 的编码是基于变种的 Base 128。因此，按照 Base 64 --&gt; Base 128 --&gt; Protobuf 的顺序来学习比较好~ 原文链接 一、Base 64 计算机之间传输数据时，数据本质上是一串字节流" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/13-protobuf/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="Protobuf 的编码是基于变种的 Base 128。因此，按照 Base 64 --&gt; Base 128 --&gt; Protobuf 的顺序来学习比较好~ 原文链接 一、Base 64 计算机之间传输数据时，数据本质上是一串字节流"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/13-protobuf/" /><link rel="prev" href="https://blog.seucy.me/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" /><link rel="next" href="https://blog.seucy.me/12-jwt%E8%AE%A4%E8%AF%81/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/13-protobuf\/"
+        },"genre": "posts","wordcount":  2446 ,
+        "url": "https:\/\/blog.seucy.me\/13-protobuf\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2446 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;<span id="/13-protobuf/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一base-64">一、Base 64</a></li>
+    <li><a href="#二base-128">二、Base 128</a></li>
+    <li><a href="#三base-128-varints">三、Base 128 Varints</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#编码解码">编码/解码</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四protobuf">四、Protobuf</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#数据类型">数据类型</a>
+              <ul>
+                <li><a href="#有符号整型">有符号整型</a></li>
+                <li><a href="#定长数据64-bit">定长数据(64-bit)</a></li>
+                <li><a href="#字符串">字符串</a></li>
+              </ul>
+            </li>
+            <li><a href="#消息结构">消息结构</a></li>
+            <li><a href="#嵌套消息">嵌套消息</a></li>
+            <li><a href="#字段顺序">字段顺序</a></li>
+            <li><a href="#安全性">安全性</a></li>
+            <li><a href="#对比jsonxml">对比JSON、XML</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Protobuf 的编码是基于变种的 Base 128。因此，按照 <code>Base 64 --&gt; Base 128 --&gt; Protobuf</code> 的顺序来学习比较好~</p>
+<p><a href="https://mp.weixin.qq.com/s/enDUynhZ1Pnzg_4xEjR21A" target="_blank" rel="noopener noreffer ">原文链接</a></p>
+<h2 id="一base-64">一、Base 64</h2>
+<p>计算机之间传输数据时，数据本质上是一串字节流。由于不同机器采用的字符集不同等原因，我们并不能保证目标机器能够正确地“理解”字节流。</p>
+<p>先看看 Base 64 如何工作，假设这里有 <strong>4 个字节</strong>，代表要传输的二进制数据：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405220001528.png" alt="image-20230405220001528" style="zoom:50%;" />
+<ol>
+<li>首先将这个字节流按<strong>每 6 个 bit 为一组</strong>进行分组，<strong>剩下少于 6 bits 的低位补 0</strong>；</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405220053643.png" alt="image-20230405220053643" style="zoom: 50%;" />
+<ol start="2">
+<li>然后在<strong>每一组 6 bits 的高位补两个 0</strong>；</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405220134940.png" alt="image-20230405220134940" style="zoom:50%;" />
+<ol start="3">
+<li>对照 Base 64 table，字节流可以用 <code>ognC0w</code> 来表示。另外，Base 64 编码是按照 6 bits 为一组进行编码，每 3 个字节的原始数据要用 4 个字节来储存，<strong>编码后的长度要为 4 的整数倍</strong>，<strong>不足 4 字节的部分要使用 pad 补齐</strong>，所以最终的编码结果为<code>ognC0w==</code>。</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405220203286.png" alt="image-20230405220203286" style="zoom: 40%;" />
+<p>Base 64 编码之后所有字节<strong>均可以用数字、字母、+、/、= 进行表示</strong>，这些都是可以被<strong>正常显示</strong>的 ascii 字符，即**“安全”的字节**。绝大部分的计算机和操作系统都对 ascii 有着良好的支持，<strong>保证了编码之后的字节流能被正确地复制、传播、解析</strong>。</p>
+<p><strong>Base 64 存在的问题就是</strong>：编码后的每一个字节的<strong>最高两位总是 0</strong>，在不考虑 pad 的情况下，<strong>有效 bit 只占 bit 总数的 75%</strong>，造成大量的空间浪费。</p>
+<h2 id="二base-128">二、Base 128</h2>
+<p>因此，<strong>Base 128</strong> 的大致实现思路是：<strong>将字节流按 7 bits 进行分组，然后低位补 0</strong>。</p>
+<p>但问题来了，<strong>Base 64 实际上用了 2^6^+1 个 ascii 字符</strong>，按照这个思路 <strong>Base 128 需要使用 2^7^+1 个 ascii 个字符</strong>，但是 <strong>ascii 字符一共只有 128 个</strong>。另外，即使不考虑 pad，ascii 中包含了一些<strong>不可以正常打印的控制字符</strong>，编码之后的字符还可能包含会被不同操作系统转换的换行符号(10 和 13)。因此，<strong>Base 64 至今依然没有被 Base 128 替代</strong>。</p>
+<h2 id="三base-128-varints">三、Base 128 Varints</h2>
+<p><strong>Protocol Buffers</strong> 所用的编码方式就是 Base 128 Varints。(按照小端模式讨论)</p>
+<h4 id="编码解码">编码/解码</h4>
+<p>对于编码后的每个字节，<strong>低 7 位用于储存数据</strong>，<strong>最高位</strong>用来标识当前字节是否是当前整数的最后一个字节，称为<strong>最高有效位</strong>（most significant bit, msb）。msb 为 1 时，代表着后面还有数据；msb 为 0 时代表着当前字节是当前整数的最后一个字节。</p>
+<ol>
+<li>如何将使用 Base 128 Varints 对<strong>整数</strong>进行<strong>编码</strong>：</li>
+</ol>
+<ul>
+<li>将数据按每 7 bits 一组拆分</li>
+<li>逆序每一个组(因为小端)</li>
+<li>添加 msb</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413213832575.png" alt="image-20230413213832575" style="zoom:33%;" />
+<ol start="2">
+<li>如何将使用 Base 128 Varints 对<strong>整数</strong>进行解码：</li>
+</ol>
+<ul>
+<li>去除 msb</li>
+<li>将字节流逆序(msb 为 0 的字节储存原始数据的高位部分，小端模式)</li>
+<li>最后拼接所有的 bits。</li>
+</ul>
+<p><code>300 (0b 10 0101100)</code>编码：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413214205518.png" alt="image-20230413214205518" style="zoom:33%;" />
+<p>解码：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413214133131.png" alt="image-20230413214133131" style="zoom:33%;" />
+<p>protobuf 的 varints <strong>最多可以编码 8 字节的数据</strong>，这是因为绝大部分的现代计算机最高支持处理 64 位的整型。</p>
+<h2 id="四protobuf">四、Protobuf</h2>
+<p><strong>Protocol Buffers</strong> 所用的编码方式就是 Base 128 Varints。(按照小端模式讨论)</p>
+<h4 id="数据类型">数据类型</h4>
+<p>protobuf 支持的数据类型(<strong><code>wire type</code></strong>)：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413214619993.png" alt="image-20230413214619993" style="zoom: 67%;" />
+<p>当实际使用 protobuf 进行编码时，经过了两步处理：</p>
+<ul>
+<li>将 <strong>编程语言的数据结构</strong> 转化为 <strong><code>wire type</code></strong>。</li>
+<li>根据不同的 <code>wire type</code> 使用对应的方法编码。前文所提到的 Base 128 Varints 用来编码 varint 类型的数据，其他 <code>wire type</code> 则使用其他编码方式。</li>
+</ul>
+<p>部分数据类型到 <code>wire type</code> 的转换规则：</p>
+<ul>
+<li>
+<h5 id="有符号整型">有符号整型</h5>
+</li>
+</ul>
+<p>采用 ZigZag 编码来将 sint32 和 sint64 转换为 wire type 0。下面是 ZigZag 编码的规则（注意是算术位移）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span>    	<span class="c1">// when n &gt;= 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">-</span><span class="n">n</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span> 	<span class="c1">// when n &lt; 0
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>一些例子：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413215613221.png" alt="image-20230413215613221" style="zoom: 50%;" />
+<ul>
+<li>
+<h5 id="定长数据64-bit">定长数据(64-bit)</h5>
+</li>
+</ul>
+<p>直接采用小端模式储存，不作转换。</p>
+<ul>
+<li>
+<h5 id="字符串">字符串</h5>
+</li>
+</ul>
+<p>以字符串<code>&quot;testing&quot;</code>为例：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413215946810.png" alt="image-20230413215946810" style="zoom:33%;" />
+<p>编码后的 value 分为两部分：</p>
+<ul>
+<li>蓝色，表示字符串采用 UTF-8 编码后字节流的长度(bytes)，采用 Base 128 Varints 进行编码。</li>
+<li>白色，字符串用 UTF-8 编码后的字节流。</li>
+</ul>
+<h4 id="消息结构">消息结构</h4>
+<p>Protobuf 采用 proto3 作为 DSL 来描述其支持的消息结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-protobuf" data-lang="protobuf"><span class="line"><span class="cl"><span class="n">syntax</span> <span class="o">=</span> <span class="s">&#34;proto3&#34;</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="kd">message</span> <span class="nc">SearchRequest</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="kt">string</span> <span class="n">query</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="kt">int32</span> <span class="n">page_number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="kt">int32</span> <span class="n">result_per_page</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>设想一下这样一个场景：数据的发送方在业务迭代之后需要在消息内携带<strong>更多的字段</strong>，而有的接收方<strong>并没有更新</strong>自己的 proto 文件。要保持较好的兼容性，<strong>接收方需要分辨出哪些字段是自己可以识别的，哪些是不能识别的新增字段</strong>。要做到这一点，发送方在编码消息时还必须<strong>附带每个字段的 key</strong>，<strong>客户端读取到未知的 key 时，可以直接跳过对应的 value</strong>。</p>
+<p>proto3 中每一个字段后面都有一个 <code>= x</code>，比如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-protobuf" data-lang="protobuf"><span class="line"><span class="cl">  <span class="kt">string</span> <span class="n">query</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的等号并不是用于赋值，而是给每一个字段指定一个 <code>ID</code>，称为 <strong><code>field number</code></strong>。<strong>消息内同一层次字段的 <code>field number</code> 必须各不相同</strong>。</p>
+<p>上面所说的 key，在 protobuf 源码中被称为 <code>tag</code>。<strong><code>tag</code> 由 <code>field number</code> 和 <code>type</code> 两部分组成</strong>：</p>
+<ul>
+<li><code>field number</code> 左移 3 bits</li>
+<li>在最低 3 bits 写入 <code>wire type</code></li>
+</ul>
+<p>一个生成 <code>tag</code> 的例子：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413220725664.png" alt="image-20230413220725664" style="zoom:50%;" />
+<p>Go 版本 Protobuf 中生成 tag 的源码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">EncodeTag</span><span class="p">(</span><span class="nx">num</span> <span class="nx">Number</span><span class="p">,</span> <span class="nx">typ</span> <span class="nx">Type</span><span class="p">)</span> <span class="kt">uint64</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">uint64</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">3</span> <span class="p">|</span> <span class="nb">uint64</span><span class="p">(</span><span class="nx">typ</span><span class="o">&amp;</span><span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>源码中生成的 <code>tag</code> 是 uint64，代表着 <code>field number</code> 可以使用 61 个 bit 吗？<strong>并非如此。<strong>事实上，</strong>==<code>tag</code> 的长度不能超过 32 bits==</strong>，意味着 <code>field number</code> 的最大取值为 2^29^-1 (536870911)。而且在这个范围内，<strong>有一些数是不能被使用的</strong>：</p>
+<ul>
+<li><code>0</code>：protobuf 规定 <code>field number</code> 必须为正整数。</li>
+<li><code>19000 到 19999</code>： protobuf 仅供内部使用的保留位。</li>
+</ul>
+<p>理解了生成 tag 的规则之后，不难得出以下结论：</p>
+<ul>
+<li><code>field number</code> 不必从 1 开始，可以从合法范围内的任意数字开始。</li>
+<li>不同字段间的 <code>field number</code> 不必连续，只要合法且不同即可。</li>
+</ul>
+<p><strong>当修改 proto 文件时，需要注意</strong>⭐：</p>
+<ul>
+<li><strong><code>field number</code> 一旦被分配了就不应该被更改</strong>，除非你能保证所有的接收方都能更新到最新的 proto 文件；</li>
+<li><strong>由于 <code>tag</code> 中不携带 <code>field name</code> 信息，更改 <code>field name</code> 并不会改变消息的结构</strong>。发送方认为的 apple 到接受方可能会被识别成 pear。双方把字段读取成哪个名字完全由双方自己的 proto 文件决定，<strong>只要字段的 <code>wire type</code> 和 <code>field number</code> 相同即可</strong>。</li>
+</ul>
+<hr>
+<p><strong>最后再来个复杂例子(能看明白就算会了~)</strong>：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413221828128.png" alt="image-20230413221828128" style="zoom:50%;" />
+<h4 id="嵌套消息">嵌套消息</h4>
+<p><code>wire type 2</code>不仅支持 string，也支持 embedded messages。</p>
+<p>对于嵌套消息：</p>
+<ul>
+<li>首先要<strong>将被嵌套的消息进行编码成字节流</strong>；</li>
+<li>然后就可以像处理 UTF-8 编码的字符串一样处理这些字节流：在字节流前面加入使用 Base 128 Varints 编码的长度即可。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230413222243688.png" alt="image-20230413222243688" style="zoom:50%;" />
+<p>能看明白就是胜利！😉</p>
+<h4 id="字段顺序">字段顺序</h4>
+<p>Proto 文件中定义字段的顺序与最终编码结果的字段顺序无关，两者有可能相同也可能不同。</p>
+<p><strong>任何 Protobuf 的实现都应该保证字段以任意顺序编码的结果都能被解码。</strong></p>
+<h4 id="安全性">安全性</h4>
+<p>由于 Protobuf 序列化后就是一堆字节流，需要有原 Proto 声明文件才能反序列化，因此也具备一定的保密性。</p>
+<h4 id="对比jsonxml">对比JSON、XML</h4>
+<ul>
+<li>XML、JSON 更注重数据结构化，关注人类可读性和语义表达能力；</li>
+<li>ProtoBuf 更注重数据序列化，关注效率、空间、速度，人类可读性差，语义表达能力不足（为保证极致的效率，会舍弃一部分元信息）</li>
+</ul>
+<p>ProtoBuf 的应用场景更为明确，XML、JSON 的应用场景更为丰富。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/13-protobuf/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/13-protobuf/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/13-protobuf/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/13-protobuf/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/13-protobuf/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/13-protobuf/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/12-jwt%E8%AE%A4%E8%AF%81/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

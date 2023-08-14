@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="" />
+<meta property="og:description" content="[toc] 一些比较好的文档： https://tanxinyu.work/raft/ https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md https://tanxinyu.work/consistency-and-consensus/ https://tanxinyu.work/zookeeper-thesis/ Zookeeper Etcd https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA(未) 常见" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="[toc] 一些比较好的文档： https://tanxinyu.work/raft/ https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md https://tanxinyu.work/consistency-and-consensus/ https://tanxinyu.work/zookeeper-thesis/ Zookeeper Etcd https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA(未) 常见"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" /><link rel="prev" href="https://blog.seucy.me/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/" /><link rel="next" href="https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/09-%E5%88%86%E5%B8%83%E5%BC%8F\/"
+        },"genre": "posts","wordcount":  31461 ,
+        "url": "https:\/\/blog.seucy.me\/09-%E5%88%86%E5%B8%83%E5%BC%8F\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;31461 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;63 minutes&nbsp;<span id="/09-%E5%88%86%E5%B8%83%E5%BC%8F/" class="leancloud_visitors" data-flag-title="">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见面试题">常见面试题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#raft-算法">RAFT 算法</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#一分布式理论和一致性模型">一、分布式理论和一致性模型</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#cap">==<strong>CAP</strong>==</a></li>
+            <li><a href="#问所谓的-3选2-">问：所谓的 “3选2” ？</a></li>
+            <li><a href="#问为啥不可能同时满足-cap-呢">问：<strong>为啥不可能同时满足 CAP 呢？</strong></a></li>
+            <li><a href="#base"><strong>==BASE==</strong></a></li>
+            <li><a href="#一致性模型">==一致性模型==</a>
+              <ul>
+                <li><a href="#强一致性">强一致性</a></li>
+                <li><a href="#弱一致性">弱一致性</a></li>
+              </ul>
+            </li>
+            <li><a href="#问那共识和一致性有什么区别">问：那共识和一致性有什么区别？</a></li>
+          </ul>
+        </li>
+        <li><a href="#错误类型与错误容忍fault-tolerance">错误类型与错误容忍(Fault Tolerance)</a></li>
+      </ul>
+    </li>
+    <li><a href="#二paxos-算法">二、Paxos 算法</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#两阶段">两阶段</a>
+              <ul>
+                <li><a href="#prepare-阶段">prepare 阶段</a></li>
+                <li><a href="#accept-阶段">accept 阶段</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三raft-算法">三、RAFT 算法</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#任期term">任期(Term)</a></li>
+            <li><a href="#问term-号的作用">问：Term 号的作用？</a></li>
+            <li><a href="#日志log">日志(Log)</a></li>
+            <li><a href="#leader-选举">==Leader 选举==</a></li>
+            <li><a href="#问选主过程">问：选主过程？</a></li>
+            <li><a href="#问会出现选不出主的情况吗如何解决">问：会出现选不出主的情况吗？如何解决？</a></li>
+            <li><a href="#日志复制">==日志复制==</a></li>
+            <li><a href="#问日志复制的过程是什么样的">问：日志复制的过程是什么样的？</a></li>
+            <li><a href="#问a-id12一致性检查的过程是怎样的如何保证节点一致性a">问：<a id='1.2'>一致性检查的过程是怎样的？/如何保证节点一致性？⭐⭐</a></a></li>
+            <li><a href="#问一致性检查失效的情况如何解决呢">问：一致性检查失效的情况？如何解决呢？</a></li>
+            <li><a href="#问参加选举的节点有没有什么限制">问：参加选举的节点有没有什么限制？</a></li>
+            <li><a href="#问节点崩溃会发生什么">问：节点崩溃会发生什么？</a></li>
+            <li><a href="#问raft-中的各种时间设置">问：RAFT 中的各种时间设置？</a></li>
+            <li><a href="#日志压缩">日志压缩</a></li>
+            <li><a href="#问啥时候进行-snapshot-呢">问：啥时候进行 snapshot 呢？</a></li>
+            <li><a href="#问做-snapshot-时是否还可继续提供写请求">问：做 snapshot 时是否还可继续提供写请求？</a></li>
+            <li><a href="#预投票">预投票</a></li>
+            <li><a href="#问预投票机制是为了解决啥是咋实现的">问：预投票机制是为了解决啥？是咋实现的？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#四pbft-算法">四、PBFT 算法</a>
+      <ul>
+        <li><a href="#简介">简介</a>
+          <ul>
+            <li><a href="#约定变量">约定变量</a></li>
+            <li><a href="#术语">术语</a></li>
+            <li><a href="#n--3f--1">N &gt; 3f + 1</a></li>
+          </ul>
+        </li>
+        <li><a href="#算法流程">算法流程</a>
+          <ul>
+            <li><a href="#约定符号">约定符号</a></li>
+            <li><a href="#消息结构">消息结构</a></li>
+            <li><a href="#核心过程">核心过程</a></li>
+            <li><a href="#一种优化流程">一种优化流程</a></li>
+          </ul>
+        </li>
+        <li><a href="#日志压缩-1">日志压缩</a>
+          <ul>
+            <li><a href="#稳定检查点">稳定检查点</a></li>
+            <li><a href="#水位线">水位线</a></li>
+          </ul>
+        </li>
+        <li><a href="#视图切换">视图切换</a>
+          <ul>
+            <li><a href="#view-change-过程">View-Change 过程</a></li>
+            <li><a href="#cpq">C、P、Q</a></li>
+            <li><a href="#leader-选举-1">Leader 选举</a></li>
+          </ul>
+        </li>
+        <li><a href="#主动恢复">主动恢复</a>
+          <ul>
+            <li><a href="#视图协商">视图协商</a></li>
+          </ul>
+        </li>
+        <li><a href="#增删节点随便看看而已">增删节点(随便看看而已)</a>
+          <ul>
+            <li><a href="#增加节点">增加节点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#五分布式id">五、分布式ID⭐</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#问什么是分布式id">问：什么是分布式ID？</a></li>
+            <li><a href="#问分布式id-需要满足啥条件">问：分布式ID 需要满足啥条件？</a></li>
+            <li><a href="#问分布式id-常见的解决方案">⭐问：分布式ID 常见的解决方案？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#六分布式锁">六、分布式锁⭐</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#概述-1">概述</a></li>
+            <li><a href="#基于-mysql-实现分布式锁">基于 Mysql 实现分布式锁</a></li>
+            <li><a href="#基于-redis-实现分布式锁">基于 Redis 实现分布式锁</a>
+              <ul>
+                <li><a href="#加解锁流程">加解锁流程</a></li>
+                <li><a href="#安全性分析">安全性分析</a>
+                  <ul>
+                    <li><a href="#死锁避免">死锁避免</a></li>
+                    <li><a href="#解锁操作的原子性">解锁操作的原子性</a></li>
+                    <li><a href="#主备切换的一致性">主备切换的一致性</a></li>
+                    <li><a href="#可重入">可重入</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="#问如何实现可重入锁">问：如何实现可重入锁？⭐</a></li>
+            <li><a href="#问如果对资源的操作还未结束锁就到期了咋办">问：如果对资源的操作还未结束，锁就到期了咋办？⭐</a></li>
+            <li><a href="#基于-zookeeper-实现分布式锁">基于 Zookeeper 实现分布式锁</a></li>
+            <li><a href="#问怎么利用-zookeeper-实现分布式锁呢能实现共享锁和独占锁嘛">问：怎么利用 Zookeeper 实现分布式锁呢？能实现共享锁和独占锁嘛？</a></li>
+            <li><a href="#问为啥要使用临时节点来实现分布式锁">问：为啥要使用临时节点来实现分布式锁？</a></li>
+            <li><a href="#问如何实现可重入锁-1">问：如何实现可重入锁？</a></li>
+            <li><a href="#基于-etcd-实现分布式锁">基于 ETCD 实现分布式锁</a>
+              <ul>
+                <li><a href="#主要机制">主要机制</a></li>
+                <li><a href="#实现流程">实现流程</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#七分布式事务">七、分布式事务</a></li>
+    <li><a href="#八zookeeper">八、Zookeeper</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#zookeeper-基础理论">Zookeeper 基础理论</a></li>
+            <li><a href="#问zookeeper-是什么">问：Zookeeper 是什么？</a></li>
+            <li><a href="#问zookeeper-具有哪些特性">问：Zookeeper 具有哪些特性？⭐</a></li>
+            <li><a href="#问zookeeper-有哪些数据类型">问：Zookeeper 有哪些数据类型？⭐</a></li>
+            <li><a href="#问zookeeper-集群中有哪些角色">问：Zookeeper 集群中有哪些角色？⭐</a></li>
+            <li><a href="#zookeeper-工作原理">Zookeeper 工作原理</a>
+              <ul>
+                <li><a href="#读操作">读操作</a></li>
+                <li><a href="#写操作">写操作</a></li>
+              </ul>
+            </li>
+            <li><a href="#问watcher事件监听器-有啥用">问：Watcher(事件监听器) 有啥用？⭐</a></li>
+            <li><a href="#问会话机制zookeeper-是咋推送给客户端的呢">问：会话机制？(Zookeeper 是咋推送给客户端的呢？)</a></li>
+            <li><a href="#zab-协议">ZAB 协议</a></li>
+            <li><a href="#问zookeeper-如何实现高可用崩溃恢复选举过程是啥样的">问：Zookeeper 如何实现高可用？崩溃恢复/选举过程是啥样的？⭐⭐</a></li>
+            <li><a href="#问zookeeper-如何实现分布式数据一致性">问：Zookeeper 如何实现分布式数据一致性？⭐⭐</a></li>
+            <li><a href="#问zookeeper-如何保证事务proposal发送的顺序性">问：Zookeeper 如何保证事务(Proposal)发送的顺序性？⭐⭐</a></li>
+            <li><a href="#问为啥集群中的机器最好是奇数台">问：为啥集群中的机器最好是奇数台？</a></li>
+            <li><a href="#问zookeeper-集群如何防止脑裂现象">问：Zookeeper 集群如何防止脑裂现象？⭐</a></li>
+            <li><a href="#zookeeper-应用">Zookeeper 应用</a>
+              <ul>
+                <li><a href="#分布式id">分布式ID</a></li>
+                <li><a href="#分布式锁">分布式锁⭐</a></li>
+                <li><a href="#集群管理和注册中心">集群管理和注册中心⭐</a></li>
+                <li><a href="#选主">选主</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#九etcd">九、Etcd</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#raft-模块">RAFT 模块</a>
+              <ul>
+                <li><a href="#日志复制-1">==日志复制==</a></li>
+                <li><a href="#数据通道">数据通道</a></li>
+                <li><a href="#leader-选举-2">==Leader 选举==</a></li>
+                <li><a href="#entry">Entry</a></li>
+                <li><a href="#写请求流程">写请求流程</a></li>
+                <li><a href="#线性一致读">线性一致读</a></li>
+              </ul>
+            </li>
+            <li><a href="#问怎么解决线性一致读问题">问：怎么解决线性一致读问题？⭐</a></li>
+            <li><a href="#日志存储">日志存储</a>
+              <ul>
+                <li><a href="#wal">WAL</a></li>
+              </ul>
+            </li>
+            <li><a href="#问什么是-wal-">问：什么是 WAL ？</a></li>
+            <li><a href="#问wal-如何工作">问：WAL 如何工作？</a>
+              <ul>
+                <li><a href="#日志压缩-2">日志压缩</a></li>
+                <li><a href="#日志读写性能的优化">日志读写性能的优化</a></li>
+              </ul>
+            </li>
+            <li><a href="#问ectd-怎么提高日志存储效率">问：ECTD 怎么提高日志存储效率？</a></li>
+            <li><a href="#mvcc-机制">MVCC 机制</a></li>
+            <li><a href="#问了解-mvcc-吗什么是-mvcc-机制">问：了解 MVCC 吗？什么是 MVCC 机制？</a></li>
+            <li><a href="#问etcd-如何存储数据以支持-mvcc-机制">问：ETCD 如何存储数据以支持 MVCC 机制？</a></li>
+            <li><a href="#问etcd-如何维护-key-的版本号数据">问：ETCD 如何维护 key 的版本号数据？</a></li>
+            <li><a href="#问如何利用该结构查找到给定-key-的某个历史版本信息">问：如何利用该结构，查找到给定 key 的某个历史版本信息？</a></li>
+            <li><a href="#问etcd-如何存储每个版本号的数据">问：ETCD 如何存储每个版本号的数据？</a></li>
+            <li><a href="#watch-机制">Watch 机制</a></li>
+            <li><a href="#lease-租约">Lease 租约</a></li>
+            <li><a href="#问key-如何关联一个-lease">问：Key 如何关联一个 Lease?</a>
+              <ul>
+                <li><a href="#续期">续期</a></li>
+              </ul>
+            </li>
+            <li><a href="#问如何高效的淘汰过期的-lease">问：如何高效的淘汰过期的 Lease？</a></li>
+            <li><a href="#问怎么通知其他-follower-淘汰它们呢">问：怎么通知其他 Follower 淘汰它们呢？</a></li>
+            <li><a href="#应用场景">应用场景</a>
+              <ul>
+                <li><a href="#服务注册与发现">服务注册与发现</a></li>
+                <li><a href="#消息发布与订阅">消息发布与订阅</a></li>
+                <li><a href="#负载均衡">负载均衡</a></li>
+                <li><a href="#分布式锁-1">分布式锁</a></li>
+                <li><a href="#分布式队列">分布式队列</a></li>
+              </ul>
+            </li>
+            <li><a href="#关键总结">==关键总结==</a></li>
+            <li><a href="#问为什么-etcd-v3-版本的-keyindex-使用-b-tree-而不使用哈希表平衡二叉树">问：为什么 etcd v3 版本的 KeyIndex 使用 B-tree 而不使用哈希表、平衡二叉树？</a></li>
+            <li><a href="#问etcd-v3-版本数据是采用-boltdb-存储的boltdb-对于每一个写事务都会进行一次刷盘那-etcd-为了优化写入性能做了什么样的处理">问：etcd v3 版本数据是采用 boltdb 存储的，boltdb 对于每一个写事务都会进行一次刷盘，那 etcd 为了优化写入性能，做了什么样的处理？</a></li>
+            <li><a href="#问采用批量提交在尚未达到提交条件而系统宕机会不会导致-v3-版本的部分数据丢失呢">问：采用批量提交，在尚未达到提交条件而系统宕机，会不会导致 v3 版本的部分数据丢失呢？</a></li>
+            <li><a href="#问etcd-如何实现线性一致读">问：ETCD 如何实现线性一致读？⭐</a></li>
+            <li><a href="#问zookeeper-和-etcd-有哪些不同">问：Zookeeper 和 ETCD 有哪些不同？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[toc]</p>
+<p>一些比较好的文档：</p>
+<ul>
+<li><a href="https://tanxinyu.work/raft/" target="_blank" rel="noopener noreffer ">https://tanxinyu.work/raft/</a></li>
+<li><a href="https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md" target="_blank" rel="noopener noreffer ">https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md</a></li>
+<li><a href="https://tanxinyu.work/consistency-and-consensus/" target="_blank" rel="noopener noreffer ">https://tanxinyu.work/consistency-and-consensus/</a></li>
+<li><a href="https://tanxinyu.work/zookeeper-thesis/" target="_blank" rel="noopener noreffer ">https://tanxinyu.work/zookeeper-thesis/</a></li>
+<li><a href="https://mp.weixin.qq.com/s/DwyPt5YZgqE0O0HYEC1ZMQ" target="_blank" rel="noopener noreffer ">Zookeeper</a></li>
+<li><a href="https://wingsxdu.com/posts/database/etcd/#top" target="_blank" rel="noopener noreffer ">Etcd</a></li>
+<li><a href="https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA%28" target="_blank" rel="noopener noreffer ">https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA(</a>未)</li>
+</ul>
+<h2 id="常见面试题">常见面试题</h2>
+<h4 id="raft-算法">RAFT 算法</h4>
+<ul>
+<li>主节点选举过程？</li>
+<li>怎么保证个节点的一致性？<a href="#1.2" rel="">G</a></li>
+</ul>
+<p><a id='1.2'></a></p>
+<h2 id="一分布式理论和一致性模型">一、分布式理论和一致性模型</h2>
+<h4 id="cap">==<strong>CAP</strong>==</h4>
+<ul>
+<li><strong>Consistency（一致性）</strong>：所有节点访问同一份最新的数据副本；</li>
+<li><strong>Availability（可用性）</strong>：非故障的节点在合理的时间内返回合理的响应（不是错误或者超时的响应）；</li>
+<li><strong>Partition Tolerance（分区容错性）</strong>：分布式系统出现网络分区的时候，仍然能够对外提供服务。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/cap.png" alt="img" style="zoom: 67%;" />
+<p>**注：**什么是网络分区？</p>
+<p>分布式系统中，多个节点之前的网络<strong>本来是连通的</strong>，但是因为某些故障（比如部分节点网络出了问题）某些节点之间<strong>不连通</strong>了，整个网络就分成了几块区域，这就叫 <strong>网络分区</strong>。</p>
+<blockquote>
+<h4 id="问所谓的-3选2-">问：所谓的 “3选2” ？</h4>
+</blockquote>
+<p><strong>其实不是任意的 “3选2”。</strong></p>
+<blockquote>
+<p><strong>当发生网络分区的时候，如果我们要继续服务，那么强一致性和可用性只能 2 选 1。也就是说当网络分区之后 P 是前提，决定了 P 之后才有 C 和 A 的选择。也就是说分区容错性（Partition tolerance）我们是必须要实现的。</strong></p>
+<p>==<strong>简而言之就是：</strong>==CAP 理论中分区容错性 P 是一定要满足的，在此基础上，只能满足可用性 A 或者一致性 C。</p>
+</blockquote>
+<p>因此，<strong>分布式系统理论上不可能选择 CA 架构，==只能选择 CP 或者 AP 架构==。</strong></p>
+<blockquote>
+<h4 id="问为啥不可能同时满足-cap-呢">问：<strong>为啥不可能同时满足 CAP 呢？</strong></h4>
+</blockquote>
+<ul>
+<li>
+<p>首先，分布式系统要保障整体的服务，就必须拥有<strong>分区容错性 P</strong>。</p>
+</li>
+<li>
+<p>然后，可以举个例子。若系统发生“分区”，分为A、B：</p>
+<ul>
+<li>
+<p>有写请求进来，修改了 A 中某数据，正常情况下要同步给 B，但分区状态，发生同步失败；</p>
+</li>
+<li>
+<p>此时，B 来了读请求，要么保证一致性，阻塞请求，等待分区状态结束再继续服务；要么保证可用性，返回给旧的数据。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="base"><strong>==BASE==</strong></h4>
+<p><strong>BASE</strong>：<strong>Basically Available（基本可用）</strong>、**Soft-state（软状态）**和 <strong>Eventually Consistent（最终一致性）</strong>。</p>
+<ul>
+<li>**基本可用：**指分布式系统在出现不可预知故障的时候，<strong>允许损失部分可用性</strong>。损失部分可用性，例如响应时间变长，系统提供的功能变少等；</li>
+<li>**软状态：**允许系统存在短暂的数据不一致；</li>
+<li><strong>最终一致性：<strong>系统中所有的数据副本，在经过一段时间的同步后</strong>，最终能达到一致</strong>的状态。</li>
+</ul>
+<p>AP 方案只是在系统发生分区的时候放弃一致性，而不是永远放弃一致性。在分区故障恢复后，系统应该达到<strong>最终一致性</strong>。</p>
+<h4 id="一致性模型">==一致性模型==</h4>
+<p>分布式系统按照对一致性要求的不同，主要分为<strong>强一致性</strong>，<strong>弱一致性</strong>这两大类，前者是基于 safety 的概念，后者是基于 liveness 的概念。</p>
+<h5 id="强一致性">强一致性</h5>
+<p><strong>顺序一致性：<strong>如果一个并发执行过程所包含的</strong>所有读写操作</strong>能够重排成一个<strong>全局线性有序的序列</strong>，并且这个序列满足以下两个条件，那么这个并发执行过程就是满足顺序一致性的：</p>
+<ul>
+<li>重排后的序列中每一个<strong>读操作</strong>返回的值，必须等于前面对<strong>同一个数据对象</strong>的<strong>最近一次写操作</strong>所写入的值；</li>
+<li>原来<strong>每个进程中</strong>各个<strong>操作的执行先后顺序</strong>，在这个重排后的序列中必须<strong>保持一致</strong>。</li>
+</ul>
+<p>**线性一致性：**和顺序一致性很相似，除了满足上面两个条件外，还需要满足：</p>
+<ul>
+<li>不同进程的操作，如果在时间上不重叠，那么它们的<strong>执行先后顺序</strong>，在这个重排后的序列中必须<strong>保持一致</strong>。</li>
+</ul>
+<p><strong>区别：</strong></p>
+<ul>
+<li>线性一致性考虑了时间先后顺序，而顺序一致性没有。</li>
+<li>满足线性一致性的执行过程，肯定都满足顺序一致性；反之不一定。</li>
+<li>线性一致性总是能读到最新的数据，顺序一致性有可能读到旧版本的数据。</li>
+</ul>
+<h5 id="弱一致性">弱一致性</h5>
+<p>弱一致性是指系统在数据成功写入之后，不承诺立即可以读到最新写入的值，也不会具体承诺多久读到，但是会<strong>尽可能保证在某个时间级别之后，可以让数据达到一致性状态</strong>。<strong>其中包括了最终一致性。</strong></p>
+<blockquote>
+<h4 id="问那共识和一致性有什么区别">问：那共识和一致性有什么区别？</h4>
+</blockquote>
+<ul>
+<li>一致性指的是分布式系统中多个副本对外呈现的<strong>数据状态</strong>，比如顺序一致性、线性一致性等。</li>
+<li>共识则指的是分布式系统中多个节点之间，彼此对某个状态达成一致结果的<strong>过程</strong>，比如Paxos、Raft等算法。</li>
+</ul>
+<p>因此，<strong>一致性描述的是结果状态</strong>，<strong>共识则是达成一致性的一种手段</strong>。</p>
+<h3 id="错误类型与错误容忍fault-tolerance">错误类型与错误容忍(Fault Tolerance)</h3>
+<p>在分布式系统当中可能出现的错误主要有两种：</p>
+<ul>
+<li><strong>CF (Crash Fault)</strong>：宕机故障，系统中的某些节点可能出现宕机故障，不会响应请求，但是不会恶意响应；</li>
+<li><strong>BF (Byzantine Fault)</strong>: 拜占庭故障，系统中的某些节点可能出现拜占庭故障，可能会不响应请求，也可能错误响应请求。</li>
+</ul>
+<blockquote>
+<p>出现拜占庭故障的节点我们称为拜占庭节点。</p>
+</blockquote>
+<ul>
+<li>能够容忍宕机故障的系统我们称为 CFT（Crash Fault Tolerance）系统；</li>
+<li>能够容忍拜占庭故障的系统我们称为 BFT（Byzantine Fault Tolerance）系统。</li>
+</ul>
+<h2 id="二paxos-算法">二、Paxos 算法</h2>
+<h4 id="概述">概述</h4>
+<p><strong>主要包括两部分：</strong></p>
+<ul>
+<li>
+<p><strong>Basic Paxos 算法</strong>：描述的是多节点之间如何就某个值(提案 Value)达成共识。</p>
+</li>
+<li>
+<p><strong>Multi-Paxos 思想</strong>：描述的是执行多个 Basic Paxos 实例，就一系列值达成共识。Multi-Paxos 说白了就是执行多次 Basic Paxos ，核心还是 Basic Paxos 。</p>
+</li>
+</ul>
+<p><strong>Basic Paxos 中存在 3 个重要的角色：</strong></p>
+<p><strong>提议者（Proposer）</strong>：也可以叫做协调者（coordinator），提议者负责接受客户端的请求并发起提案。提案信息通常包括提案编号 (Proposal ID) 和提议的值 (Value)。</p>
+<p><strong>接受者（Acceptor）</strong>：也可以叫做投票员（voter），负责对提议者的提案进行投票，同时需要记住自己的投票历史；</p>
+<p><strong>学习者（Learner）</strong>：如果有超过半数接受者就某个提议达成了共识，那么学习者就需要接受这个提议，并就该提议作出运算，然后将运算结果返回给客户端。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230309204849800.png" alt="image-20230309204849800" style="zoom: 50%;" />
+<p><strong>Multi-Paxos 思想：</strong></p>
+<p>思想的核心就是通过多个 Basic Paxos 实例就一系列值达成共识。</p>
+<p>也就是说：Basic Paxos 是 Multi-Paxos 思想的核心，Multi-Paxos 就是多执行几次 Basic Paxos。</p>
+<h4 id="两阶段">两阶段</h4>
+<h5 id="prepare-阶段">prepare 阶段</h5>
+<ul>
+<li><code>Proposer提案者</code>：负责提出 <code>proposal</code>。在提出提案时都会首先获取到一个 <strong>具有全局唯一性的、递增的提案编号 N</strong>，然后将该编号<strong>关联</strong>其要提出的提案，在<strong>第一阶段是只将提案编号发送给所有的表决者</strong>；</li>
+<li><code>Acceptor表决者</code>：每个表决者在 <code>accept</code> 某提案编号后，会将该提案编号N记录在本地，这样每个表决者中保存的已经被 accept 的提案中会存在一个<strong>编号最大的提案</strong>，其编号假设为 <code>maxN</code>。每个表决者仅会 <code>accept</code> 编号大于自己本地 <code>maxN</code> 的提案，在批准提案时表决者会将以前接受过的最大编号的提案作为<strong>响应</strong>反馈给 <code>Proposer</code> 。</li>
+</ul>
+<h5 id="accept-阶段">accept 阶段</h5>
+<ul>
+<li>当<code>Proposer</code>收到超过半数的<code>Accepter</code>的响应后，就会发送提案的内容与编号；</li>
+<li>当<code>Accepter</code>收到提案内容与编号后，若提案编号是自己批准过的最大编号，那就<code>Accept</code>该提案。</li>
+</ul>
+<h2 id="三raft-算法">三、RAFT 算法</h2>
+<p><a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="noopener noreffer ">动态演示</a></p>
+<p><strong>RAFT 只有三种类型的节点：</strong></p>
+<ul>
+<li>
+<p>**<code>Leader</code>：**负责发起心跳，响应客户端，创建日志，同步日志。</p>
+</li>
+<li>
+<p><strong><code>Candidate</code>：</strong><code>Leader </code>选举过程中的临时角色，由<code>Follower</code>转化而来，发起投票参与竞选。</p>
+</li>
+<li>
+<p>**<code>Follower</code>：**接受<code>Leader</code>的心跳和日志同步数据，投票给<code> Candidate</code>。</p>
+</li>
+</ul>
+<h4 id="任期term">任期(Term)</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/paxos-term.png" alt="img" style="zoom: 67%;" />
+<p>RAFT 算法划分任意时间长度的<strong>任期</strong>(Term)，任期用连续的数字表示，看作当前 term 号。</p>
+<blockquote>
+<h4 id="问term-号的作用">问：Term 号的作用？</h4>
+</blockquote>
+<p>每个节点都会存储当前的 term 号，当服务器之间进行通信时会交换当前的 term 号。</p>
+<ul>
+<li>如果有<strong>服务器</strong>发现自己的 term 号比其他人小，那么他会更新到较大的 term 值；</li>
+<li>如果一个**<code>Candidate</code><strong>或者</strong><code>Leader</code>**发现自己的 term 过期了，他会立即退回成<code> Follower</code>；</li>
+<li>如果一台服务器<strong>收到的请求</strong>的 term 号是过期的，那么它会拒绝此次请求。</li>
+</ul>
+<h4 id="日志log">日志(Log)</h4>
+<p><code>entry</code>：每一个<strong>事件</strong>成为 entry，只有 Leader 可以创建 entry。entry 的内容为<code>&lt;term, index, cmd&gt;</code>，其中 cmd 是可以应用到状态机的操作。</p>
+<p><code>log</code>：由 entry 构成的<strong>数组</strong>，每一个 entry 都有一个表明自己在 log 中的 index。只有 Leader 才可以改变其他节点的 log。entry 总是先被 Leader 添加到自己的 log 数组中，然后再发起<strong>共识请求</strong>，获得同意后才会被 Leader 提交给状态机。Follower 只能从 Leader 获取新日志和当前的 commitIndex，然后把对应的 entry 应用到自己的状态机中。</p>
+<p>RAFT 强化了 Leader 的地位，日志算法只能由 Leader 复制给其他成员，这意味着<strong>日志复制是单向的</strong>，Leader 从不会覆盖本地日志，即所有的日志均以 Leader 为基准。</p>
+<h4 id="leader-选举">==Leader 选举==</h4>
+<p>RAFT 使用<strong>心跳机制</strong>来触发<code>Leader</code>的选举。</p>
+<p>如果一台服务器能够收到来自<code>Leader</code>或者<code>Candidate</code>的有效信息，那么它会一直保持为<code>Follower</code>状态，并且刷新自己的 <code>election计时器</code>，<strong>重新计时</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230308205046274.png" alt="image-20230308205046274" style="zoom:50%;" />
+<blockquote>
+<h4 id="问选主过程">问：选主过程？</h4>
+</blockquote>
+<p>每个<code>Follower</code>节点都保持一个<code>election</code>计时器，如果一个<code>Follower</code>在一个周期内没有收到心跳信息，就叫做<strong>选举超时</strong>，然后它就会认为此时没有可用的<code> Leader</code>，并且开始进行一次选举以选出一个新的<code> Leader</code>：</p>
+<ul>
+<li>
+<p><code>Follower</code> 会<strong>自增自己的<code>term</code>号</strong>并且转换状态为<code> Candidate</code>(候选者)；</p>
+</li>
+<li>
+<p>然后他会向所有节点发起**<code>RequestVoteRPC</code>(投票请求)：<strong>自身的任期 term、memberId、最新日志(即最后一个Entry)的任期 term 和 index。<strong>每个节点只有一票</strong>(保证每个Term至多只有一个Leader，避免<code>split brain</code>)，如果发现 <strong>候选者的任期 &gt;= 自身任期</strong> 并且 <strong>候选者的最新日志 &gt;= 自身的最新日志</strong>，则回复同意；这样可以保证</strong>新 leader 节点一定包含最新提交的日志**。</p>
+</li>
+<li>
+<p><code>Candidate</code>的状态会持续到以下情况发生：</p>
+<ul>
+<li>赢得选举：收到了来自集群内的多数选票<code>(N/2+1)</code>；</li>
+<li>其他节点赢得选举；</li>
+<li>一轮选举结束，无人胜出。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230308205007474.png" alt="image-20230308205007474" style="zoom:50%;" />
+</li>
+</ul>
+<p>在<code>Candidate</code><strong>等待选票</strong>的时候，它可能收到其他节点声明自己是<code>Leader</code>的<strong>心跳</strong>，此时有两种情况：</p>
+<ul>
+<li>该<code>Leader</code>的<code>term</code>号<code>&gt;=</code>自己的<code>term</code>号，说明对方已经成为<code> Leader</code>，则自己回退为<code> Follower</code>。</li>
+<li>该<code>Leader</code>的<code>term</code>号<code>&lt;</code>自己的<code>term</code>号，那么会拒绝该请求并让该节点更新<code> term</code>。</li>
+</ul>
+<blockquote>
+<h4 id="问会出现选不出主的情况吗如何解决">问：会出现选不出主的情况吗？如何解决？</h4>
+</blockquote>
+<p>会。同一时刻出现多个<code> Candidate</code>，导致没有<code>Candidate</code>获得大多数选票，<strong>如果没有其他手段</strong>来重新分配选票的话，那么可能会<strong>无限重复下去</strong>。</p>
+<p><strong>RAFT 通过随机的<code>election</code>时间来缓解这一问题：<strong>每一个<code>Candidate</code>在</strong>发起选举后</strong>，都会随机化一个新的选举超时时间，一旦超时后还没完成选举，则自增自己的<code>Term</code>，然后发起新一轮的选举(<code>Term</code> 较大的有更大的概率压倒其他节点)。这种机制使得各个服务器能够分散开来，在大多数情况下只有一个服务器会率先超时；它会在其他服务器超时之前赢得选举。</p>
+<h4 id="日志复制">==日志复制==</h4>
+<blockquote>
+<h4 id="问日志复制的过程是什么样的">问：日志复制的过程是什么样的？</h4>
+</blockquote>
+<ul>
+<li>
+<p>一旦选出<code>Leader</code>，它就负责所有的<strong>客户端请求</strong>。每一个客户端请求都<strong>包含</strong>一条需要被<strong>复制状态机</strong>（<code>Replicated State Mechine</code>）<strong>执行的命令</strong>；</p>
+</li>
+<li>
+<p><code>Leader </code>收到客户端请求后，会生成一个<code> entry</code>，包含<code>&lt;index, term, cmd&gt;</code>，再将这个<code>entry</code>添加到自己的<strong>日志末尾</strong>后( <em>Append Entries</em>)；</p>
+</li>
+<li>
+<p>然后 <code>Leader</code> 会生成日志复制请求，包含<strong>本次待复制的日志列表(新的<code>entry</code>)</strong>、<strong>上一条日志(已提交的最后一个<code>entry</code>)<strong>等信息，并行地向</strong>所有从节点</strong>广播该请求；</p>
+</li>
+<li>
+<p><code>Follower</code>收到日志复制请求后：</p>
+<ul>
+<li>如果发现 <strong><code>leader </code>的任期 &gt;= 自身任期</strong> 并且 <strong>日志一致性检查</strong> 通过，就接受待复制的日志列表，同时返回给<code>Leader</code>同意；</li>
+<li>否则，返回拒绝。</li>
+</ul>
+</li>
+<li>
+<p><strong>如果<code>Leader</code>收到了多数的成功响应</strong>，<code>Leader </code>会将这个<code>entry</code>应用到自己的状态机中，之后可以认为这个<code>entry</code>是 <code>committed </code>的，并且<strong>向客户端返回执行结果</strong>。</p>
+</li>
+</ul>
+<p>==<strong>RAFT 保证以下两个性质：</strong>==</p>
+<ul>
+<li>在两个日志里，有两个 entry 拥有相同的 index 和 term，那么它们一定有相同的 cmd。</li>
+<li>在两个日志里，有两个 entry 拥有相同的 index 和 term，那么它们前面的 entry 也一定相同</li>
+</ul>
+<p><strong>第一条</strong>通过**<code>只有Leader才能生成entry</code><strong>来保证；<strong>第二条</strong>通过</strong>一致性检查**来保证。</p>
+<blockquote>
+<h4 id="问a-id12一致性检查的过程是怎样的如何保证节点一致性a">问：<a id='1.2'>一致性检查的过程是怎样的？/如何保证节点一致性？⭐⭐</a></h4>
+</blockquote>
+<ul>
+<li><code>leader </code>在通过<code>AppendEntriesRPC</code>和<code>follower</code>通讯时，会携带**上一个<code>entry </code>**的信息；</li>
+<li><code>follower</code>在收到后会<strong>对比自己的日志</strong>：如果发现这个<code>entry</code>的信息(index、term)和自己日志内的<strong>不匹配</strong>，则会拒绝该请求；</li>
+<li><strong>一旦<code>leader</code>发现有<code>follower</code>拒绝了请求</strong>，则会与该<code>follower</code>不断进行一致性检查，直到<strong>找到双方最大的共识点</strong>，然后用<code>leader</code>的<code>entries</code>记录覆盖<code>follower</code>在<strong>最大共识点之后</strong>的所有数据。</li>
+</ul>
+<p>这样，主从节点就一致了。</p>
+<blockquote>
+<h4 id="问一致性检查失效的情况如何解决呢">问：一致性检查失效的情况？如何解决呢？</h4>
+</blockquote>
+<p>在出现网络分区时，不同分区<code>A</code>、<code>B</code>就会出现不同的<code>Leader</code>，然后两个分区就有可能出现日志不一致(因为没办法同步了呀)，例如：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230308220014209.png" alt="image-20230308220014209" style="zoom:50%;" />
+<p>如果分区状态结束，重新合并为一个区，<strong><code>Term</code>号小的节点</strong>就会找到和**<code>Term</code>大的节点**的日志中最后一个相同的<code>entry</code>，并回滚该位置之后的所有<code>entry</code>，然后复制<code>Term</code>大的节点的日志<code>Append</code>到后面，此时所有节点的日志就一致了。</p>
+<blockquote>
+<h4 id="问参加选举的节点有没有什么限制">问：参加选举的节点有没有什么限制？</h4>
+</blockquote>
+<p>**Leader 需要保证自己存储全部已经提交的日志条目。**这样才可以使日志条目只有一个流向：从 Leader 流向 Follower，Leader 永远不会覆盖已经存在的日志条目。</p>
+<p>**每个 Candidate 发送 RequestVoteRPC 时，都会带上最后一个 entry 的信息。**所有节点收到投票信息时，会对该 entry 进行比较，如果发现自己的更新，则拒绝投票给该 Candidate。</p>
+<p>**判断日志新旧的方式：**如果两个日志的 term 不同，term 大的最新；如果 term 相同，index 大的最新。</p>
+<blockquote>
+<h4 id="问节点崩溃会发生什么">问：节点崩溃会发生什么？</h4>
+</blockquote>
+<ul>
+<li><strong><code>Leader</code>节点崩溃：<strong>集群中的节点在<code>electionTimeout</code>时间内没有收到<code>Leader</code>的心跳信息就会</strong>触发新一轮的选主</strong>，在<strong>选主期间整个集群对外是不可用的</strong>；</li>
+<li><strong>Follower、Candidate节点崩溃：<strong>那么发送给它的 RequestVoteRPC 和 AppendEntriesRPC 会失败，但由于 raft 的所有请求都是幂等的，所以</strong>失败的话会无限的重试</strong>。如果崩溃恢复后，就可以收到新的请求，然后选择<strong>追加或者拒绝 entry</strong>。</li>
+</ul>
+<blockquote>
+<h4 id="问raft-中的各种时间设置">问：RAFT 中的各种时间设置？</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">broadcastTime &lt;&lt; electionTimeout &lt;&lt; MTBF
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>broadcastTime</code>：向其他节点并发发送消息的平均响应时间；</li>
+<li><code>electionTimeout</code>：选举超时时间；</li>
+<li><code>MTBF(mean time between failures)</code>：单台机器的平均健康时间；</li>
+</ul>
+<p><code>broadcastTime</code>应该比<code>electionTimeout</code>小一个数量级，为的是<strong>使<code>Leader</code>能够持续发送心跳信息（heartbeat）来阻止<code>Follower</code>开始选举</strong>；</p>
+<p><code>electionTimeout</code>也要比<code>MTBF</code>小几个数量级，为的是使得系统稳定运行。<strong>当<code>Leader</code>崩溃时，大约会在整个<code>electionTimeout</code>的时间内不可用</strong>。我们希望这种情况仅占全部时间的很小一部分。</p>
+<p>由于<code>broadcastTime</code>和<code>MTBF</code>是由系统决定的属性，因此需要决定<code>electionTimeout</code>的时间。</p>
+<p>一般来说，<code>broadcastTime </code>一般为 <code>0.5～20ms</code>，<code>electionTimeout </code>可以设置为 <code>150～300ms</code>，<code>MTBF </code>一般为一两个月。</p>
+<h4 id="日志压缩">日志压缩</h4>
+<p>同其他系统一样，日志总不能无限制的增长，这样不仅会导致<strong>日志文件很大</strong>，还会导致恢复数据时执行日志的<strong>时间很长</strong>。因此，需要定时的<strong>快照</strong>(snapshot)。<strong>snapshot 会包括</strong>：</p>
+<ul>
+<li><strong>状态机当前的状态</strong>；</li>
+<li>状态机<strong>最后一条应用的 entry 对应的 index 和 term</strong>；</li>
+<li>集群最新配置信息；</li>
+<li>为了保证 exactly-once 线性化语义的去重表。</li>
+</ul>
+<p>各个节点自行完成自己的 snapshot，当 Leader 发现需要发给某个 Follower 的 nextIndex 已经被做成了 snapshot，则可以直接把这个 snapshot 发送给 Follower，Follower 收到 snapshot 后，检查是否过期，不过期的话，<strong>直接用这个 snapshot 覆盖本地的所有状态</strong>即可。</p>
+<blockquote>
+<h4 id="问啥时候进行-snapshot-呢">问：啥时候进行 snapshot 呢？</h4>
+</blockquote>
+<p>定时或者定大小，达到阈值就 snapshot。</p>
+<blockquote>
+<h4 id="问做-snapshot-时是否还可继续提供写请求">问：做 snapshot 时是否还可继续提供写请求？</h4>
+</blockquote>
+<p>一般情况下，做 snapshot 期间需要保证状态机不发生变化，也就是需要保证 snapshot 期间状态机<strong>不处理写请求</strong>。</p>
+<p>但其实，还可以去向其他节点同步，就是不能 Commit，也就是不能改变状态机的状态。</p>
+<h4 id="预投票">预投票</h4>
+<blockquote>
+<h4 id="问预投票机制是为了解决啥是咋实现的">问：预投票机制是为了解决啥？是咋实现的？</h4>
+</blockquote>
+<p>**主要是为了避免：**一个暂时脱离集群网络的节点，在重新加入集群后会干扰到集群的运行。</p>
+<p>**场景是这样的：**一个离群节点，收不到 Leader 的心跳包，就会导致它的 ElectionTimeout 超时，然后他就会自增自己的 Term 并发起选举，但他收不到其他节点的投票，再次超时后，就会继续自增自己的 Term，持续自增就会导致该节点的 Term 显著高于集群其他节点的 Term，当他突然又恢复了和集群的联系，他的高 Term 就会导致 Leader 退位，但实际上这是不合理的。</p>
+<p>**引入 Pre-Vote 机制后：**一个 candidate 必须在获得了多数赞同的情形下，才会增加自己的 Term。一个节点在满足下述条件时，才会投票给一个 candidate：</p>
+<ul>
+<li>该 candidate 的日志足够新；</li>
+<li>当前节点的 ElectionTimeout 已经超时。</li>
+</ul>
+<p>这样的话，离群节点只会不断的发起 Pre-Vote，而不会更新自己的 Term。</p>
+<h2 id="四pbft-算法">四、PBFT 算法</h2>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://chenquan.me/posts/pbft-key-points/" target="_blank" rel="noopener noreffer ">https://chenquan.me/posts/pbft-key-points/</a></li>
+<li><a href="https://learnblockchain.cn/2019/08/29/pbft" target="_blank" rel="noopener noreffer ">https://learnblockchain.cn/2019/08/29/pbft</a></li>
+<li><a href="https://sammyne.github.io/pbft/" target="_blank" rel="noopener noreffer ">https://sammyne.github.io/pbft/</a></li>
+</ul>
+<h3 id="简介">简介</h3>
+<p>PBFT 是 Practical Byzantine Fault Tolerance 的缩写，意为实用拜占庭容错算法。</p>
+<p>该算法首次将拜占庭容错算法复杂度从指数级降低到了多项式级，其可以<strong>在恶意节点不高于总数 1/3 的情况下</strong>同时保证<strong>安全性（Safety）和活性（Liveness）</strong>。</p>
+<h4 id="约定变量">约定变量</h4>
+<ul>
+<li>集群数量定义为 <em>N</em>，其数量定义为 ∣<em>N</em>∣=<em>n</em></li>
+<li>拜占庭或者是宕机节点集合为定义为 <em>F</em>，其数量定义为 ∣<em>F</em>∣=<em>f</em></li>
+<li><em>quorum</em> 法定成员集合<em>Q</em>，即每次访问的节点数量∣<em>Q</em>∣</li>
+</ul>
+<h4 id="术语">术语</h4>
+<ul>
+<li>
+<p><strong>Primary</strong>: 主节点</p>
+</li>
+<li>
+<p><strong>Replica</strong>: 副本节点</p>
+</li>
+<li>
+<p><strong>Client</strong>: 客户端，用于向共识集群发送消息，请求共识</p>
+</li>
+<li>
+<p><strong>View</strong>: 视图，Primary 和 Replica 共同达成的一个状态视图，所有节点都基于某个视图进行共识</p>
+</li>
+<li>
+<p><strong>Sequence Number</strong>：序列号，由主节点生成的序列号，用于标识共识轮次</p>
+</li>
+<li>
+<p><strong>Check Point</strong>: 检查点，如果某个序列号被确认，则成为检查点</p>
+</li>
+<li>
+<p><strong>Stable checkpoint</strong>: 稳定检查点，该检查点通常会被持久化</p>
+</li>
+</ul>
+<h4 id="n--3f--1">N &gt; 3f + 1</h4>
+<p><strong>这里先提出一个问题</strong>：在分布式系统中需要读写多少台节点才可以满足正确性要求，即 <code>quorum</code> 的值为多少比较合适？</p>
+<p><strong>先给出结论</strong>：</p>
+<ul>
+<li>在 CFT 系统中，只需要达到<code>2f + 1</code>就可以了；</li>
+<li>在 BFT 系统中，就需要达到<code>3f + 1</code>才行，因为是允许同时存在故障节点和拜占庭节点的。</li>
+</ul>
+<p><strong>给出分析</strong>：</p>
+<blockquote>
+<p>节点总数是<code>n</code>，其中作恶节点有<code>f</code>，那么剩下的正确节点为<code>n - f</code>，意味着只要收到<code>n - f</code>个消息就能做出决定，但是这<code>n - f</code>个消息有可能有<code>f</code>个是由作恶节点冒充的，那么正确的消息就是<code>n - f - f</code>个，为了多数一致，正确消息必须占多数，也就是 <code>n - f - f &gt; f</code>，但是节点必须是整数个，所以 <code>n</code> 最少是 <code>3f + 1</code> 个。</p>
+</blockquote>
+<h3 id="算法流程">算法流程</h3>
+<h4 id="约定符号">约定符号</h4>
+<ul>
+<li><code>i</code>：节点ID(replica id)，应该是在 [0, <em>N</em>−1] 范围内的值；</li>
+<li><code>v#</code>：视图编号(view number)，初始为零，用 <code>v#</code> 表示；</li>
+<li><code>Primary</code>：主节点，通常采用模运算取得: <code>Primary = v# mod N</code>；</li>
+<li><code>m</code>：即本轮共识的具体操作，可以是数据库操作，也可以是区块写入操作；</li>
+<li><code>d(m)</code>：是<code>m</code>的摘要信息(digest)；</li>
+<li><code>seq#</code> 为 sequence number；</li>
+<li><code>log</code>：操作日志，通常记录了当前收到的消息，形式为 <code>&lt;v#, seq#, status, d&gt;</code>
+<ul>
+<li><code>status</code> 为 <code>pre-prepared</code> 、<code>prepared</code>或者是<code>committed；</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="消息结构">消息结构</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230422213246397.png" alt="image-20230422213246397" style="zoom:50%;" />
+<p>这里列出了三阶段协议相关的消息结构，其中只有 <code>PRE-PREPARE</code> 消息包含新生成的区块，其他消息则主要包含一些 id、sequence number、区块摘要和签名等信息。</p>
+<h4 id="核心过程">核心过程</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230422210933188.png" alt="image-20230422210933188" style="zoom: 67%;" />
+<ul>
+<li>
+<p><strong>STEP 1</strong>: <strong>客户端发送请求给主节点</strong>(或者发给所有节点)，之后主节点将会<strong>触发三阶段协议</strong>。这里可以有一个优化，节点可以先把请求缓存起来，等到攒够一堆请求之后再一起发送，这样可以降低网络开销和系统负载。</p>
+</li>
+<li>
+<p><strong>STEP 2</strong>: 主节点收到客户端发送来的消息后，构造<code>pre-prepare</code>消息结构体 <code>&lt;&lt;PRE-PREPARE, v#, seq#, d, sig&gt;, m&gt; (p)</code>，其中 <code>(p)</code> 表示由主节点发出，<code>d</code>是当前消息摘要，<code>m</code>为原始消息，<code>sig</code> 为<code>d</code>的数字签名</p>
+<ol>
+<li><code>PRE-PREPARE</code>标识当前消息所处的协议阶段；</li>
+<li><code>v#</code>标识当前视图编号；</li>
+<li><code>seq#</code>为主节点广播消息的一个唯一递增序号；</li>
+<li><code>d</code>为<code>m</code>的消息摘要；</li>
+<li><code>sig</code> 为<code>d</code>的数字签名；</li>
+<li><code>m</code>为客户端发来的消息。</li>
+</ol>
+</li>
+<li>
+<p><strong>STEP 3</strong>: 从节点检查主节点发送的 <code>pre-prepare</code> 消息，<strong>检查通过会存储在本节点日志</strong>。检查通过会进入<code>PREPARE</code>状态，广播消息<code>&lt;PREPARE, v#, seq#, d, i,&gt; (i)</code>，其中 <code>(i)</code> 标识从<code>i</code>节点发出。消息的有效性检查过程如下：</p>
+<ol>
+<li>检查收到的消息体中摘要<code>d</code>，是否和自己对<code>m</code>生成的摘要一致，确保消息的完整性。</li>
+<li>检查<code>v#</code>是否和当前视图<code>v#</code>一致。</li>
+<li>检查序号<code>seq#</code>是否在水线<code>h</code>和<code>H</code>之间，避免快速消耗可用序号。</li>
+<li>检查之前是否接收过相同序号<code>seq#</code>和<code>v#</code>，但是摘要<code>d</code>不同的消息。</li>
+</ol>
+</li>
+<li>
+<p><strong>STEP 4</strong>: 所有节点收到<code>PREPARE</code>消息后，同样也会对消息进行有效性检查，检查的内容也是 STEP3 中的<code>1, 2, 3, 4</code>。</p>
+<ul>
+<li>当收到<code>2f</code>(包括自己)个<strong>检查通过</strong>且<strong>一致</strong>的<code>PREPARE</code>消息后，会进入<code>COMMIT</code>阶段，并且广播消息<code>&lt;COMMIT, v#, seq#, d, i&gt; (i)</code>
+<ul>
+<li><strong><code>2f-1</code> 个从其他节点收到的<code>prepare</code>消息</strong>(不包括自己的)。这里是因为主节点不会再发送<code>prepare</code>消息，因此收到<code>2f-1</code>个<code>prepare</code>，加上主节点的<code>pre-prepare</code>，以及自己的<code>prepare</code>，就是<code>2f+1</code>个了；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>STEP 5</strong>: 所有节点收到<code>COMMIT</code>消息后，同样也会对消息进行有效性检查，检查的内容也是 STEP3 中的<code>1, 2, 3, 4</code>。</p>
+<ul>
+<li>当收到<code>2f+1</code>(包括自己)个<strong>检查通过</strong>且<strong>一致</strong>的<code>COMMIT</code>消息后，进入<code>committed-local</code>状态，按照<code>m</code>中的请求顺序执行操作。</li>
+<li>执行完成之后，所有节点将发送结果给到客户端。</li>
+</ul>
+</li>
+<li>
+<p><strong>STEP 6</strong>: 客户端收到超过<code>2f+1</code>的一致消息则确认当前结果成功</p>
+</li>
+</ul>
+<p>整个过程<strong>不需要要求所有的消息是有序到达的</strong>，因为<code>seq#</code>会保证顺序，只需要对应的<code>pre-prepare</code>，<code>prepare</code>和<code>commit</code>消息都是完整的即可。</p>
+<h4 id="一种优化流程">一种优化流程</h4>
+<blockquote>
+<p>以下是基于公开资料收集的 Hyperchain 优化之后的 RBFT 算法</p>
+</blockquote>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230422213644093.png" alt="image-20230422213644093" style="zoom:50%;" />
+<p><strong>主要优化点</strong>：</p>
+<ul>
+<li><strong>客户端可以发送请求到任意节点</strong>，如果这个节点不是主节点的话，将会进行一次广播；(类似读写分离)</li>
+<li><strong>主节点收到交易之后会先进行验证</strong>，并把验证结果放在<code>pre-prepare</code>中，并且<code>pre-prepare</code>是以区块为单位处理的，这样的 <code>pre-prepare</code> 消息中<strong>既包含了排好序的交易信息也包含了区块验证结果</strong>；</li>
+<li>从节点收到<code>pre-prepare</code>后，也是先验证消息的合法性，然后广播<code>prepare</code>。<strong>不同的是，在收到<code>2f</code>个<code>prepare</code>后会对区块内容进行验证，并与<code>pre-prepare</code>中的验证结果对比</strong>，若一致，则广播 <code>commit</code> 表明本节点同意主节点的验证结果；若不一致，直接发起 <code>view-change</code> 表明本节点认为主节点存在异常行为，需要切换主节点。</li>
+</ul>
+<p><strong>RBFT 具体流程</strong>：</p>
+<ul>
+<li>**交易转发阶段：**客户端将交易发送到区块链中的任意节点（包括共识节点与记账节点），其中记账节点在收到交易后会主动转发给与其相连的共识节点；而共识节点在收到客户端的交易后将其广播给其他共识节点，这样所有共识节点的交易池中都会维护一份完整的交易列表；</li>
+</ul>
+<blockquote>
+<p>共识节点就是参与RBFT共识过程的节点，记账节点是不参与共识，只接受结果并写入区块的节点</p>
+</blockquote>
+<ul>
+<li><strong>PrePrepare 阶段：<strong>主节点按照如下策略进行打包：用户可以根据需求</strong>自定义打包的超时时间（batch timeout）与打包的最大区块大小（batch size）</strong>，主节点在超时时间内收集到了足够多（超过最大区块大小个数）的交易或者超时时间到达后仍未收集到足够多的交易都会触发主节点的打包事件。<strong>主节点将交易按照接收的时间顺序打包成块，并进行验证</strong>，计算执行结果，最后<strong>将定好序的交易信息连同验证结果等写入 <code>pre-prepare</code> 消息中</strong>，广播给所有共识节点，开始三阶段处理流程；</li>
+<li><strong>Prepare 阶段：</strong> 从节点在收到主节点的 <code>pre-prepare</code> 消息后，首先进行消息合法性检查，检查当前的视图与序列号号等信息，检查通过后向共识节点广播 <code>prepare</code> 消息；</li>
+<li>**Commit 阶段：**从节点在收到<code>quorum-1</code> 即(<code>2f</code>) 个<code>prepare</code> 消息以及相应的 <code>pre-prepare</code> 消息后进行验证，并将验证结果与主节点写入<code>pre-prepare</code> 消息中的验证结果进行比对，比对结果一致则广播 <code>commit</code> 表明本节点同意主节点的验证结果，否则直接发起 <code>view-change</code> 表明本节点认为主节点存在异常行为，需要切换主节点；</li>
+<li>**写入账本：**所有共识节点在收到 <code>quorum</code> 个 <code>commit</code> 消息后将执行结果写入本地账本。</li>
+</ul>
+<h3 id="日志压缩-1">日志压缩</h3>
+<p><code>PBFT</code>的每个阶段都写入了日志，长时间运行内存总会不够用，需要一种<strong>日志压缩机制</strong>。<code>PBFT</code>通过<strong>检查点</strong>实现日志压缩，其本质和<code>RAFT</code>算法采用快照的形式清理日志是一样的，只是实现的方式不同。</p>
+<p>为每一次操作创建一个集群中稳定检查点，代价是非常昂贵的。因此，<strong><code>PBFT</code>为常数<code>k</code>个操作创建一次稳定检查点</strong>，比如每100个操作创建一次<strong>检查点<code>checkpoint</code></strong>，当这个<code>checkpoint</code>得到集群中多数节点认可以后，就变成了<strong>稳定检查点<code>stable checkpoint</code></strong>。</p>
+<p>总之，<strong>稳定检查点是一个确定性的系统状态快照，可以用来恢复系统状态</strong>，类比于**<code>RDB</code>快照**；而<strong>水位线[h, H]间的消息</strong>就相当于**<code>AOF</code>文件**。</p>
+<h4 id="稳定检查点">稳定检查点</h4>
+<p><strong>生成过程</strong>：</p>
+<ul>
+<li>当 replica <code>i</code> 生成了一个 <code>checkpoint</code>，将广播消息 <code>&lt;CHECKPOINT, seq#, d(state), i&gt;</code>，其中，<code>seq#</code>是最后一次执行的消息序号，<code>d</code>是<code>seq</code>执行后的状态机状态的摘要；</li>
+<li>当所有节点收到了<code>2f+1</code>个拥有相同的 <code>seq#</code> 和 <code>d(state)</code> 的检查点消息(包括自己)后，将会生成<code>stable checkpoint</code>。</li>
+</ul>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>
+<p>当<code>stable checkpoint</code>生成之后，将会删除<code>stable checkpoint</code>之前(<code>seq#</code>之前)的 <code>pre-prepare</code>、<code>prepare</code>、<code>commit</code>消息，<strong>日志就被压缩了</strong>，并且<strong>稳定检查点是一个确定性的系统状态快照</strong>，可以用来恢复系统状态。</p>
+</li>
+<li>
+<p>同时<code>checkpoint</code>还有一个**提高水线(<code>water mark</code>)**的作用，当一个<code>stable checkpoint</code>被创建的时候，水线<code>h</code>被修改为<code>stable checkpoint</code>的<code>seq#</code>，水线<code>H</code>为<code>h + k</code>而<code>k</code>就是之前用到创建<code>checkpoint</code>的那个常数。</p>
+</li>
+</ul>
+<h4 id="水位线">水位线</h4>
+<p><strong>水位线机制用于限制消息序号的有效范围</strong>，包括：</p>
+<ul>
+<li>低水位线(low-water mark) <code>h</code>；</li>
+<li>高水位线(high water mark) <code>H = h + k</code>。</li>
+</ul>
+<p><strong>设置规则</strong>：</p>
+<p>通常来讲，<strong>低水位线是最近的一个稳定检查点的<code>seq#</code>，而高水位线需要在低水位线上加上一个常量<code>k</code></strong>。</p>
+<ul>
+<li><strong><code>k</code>要足够大</strong>，避免需要频繁创建<strong>稳定检查点</strong>；</li>
+<li>但**<code>k</code>又不能太大**，避免出现故障或错误，进行状态恢复时需要<strong>重放大量的请求数量</strong>。</li>
+</ul>
+<p><strong>作用</strong>：</p>
+<ul>
+<li>在共识进行的过程中，由于节点之间的性能差距，可能会出现节点间运行速率差异过大的情况。部分节点执行的序号可能会领先于其他节点，导致于领先节点的共识数据长时间得不到清理，造成内存占用过大的问题，而<strong>高低水位的作用就是对集群整体的运行速率进行限制，从而限制了节点的共识数据大小</strong>。在执行到最高水位 H 时，如果低水位 h 没有被更新，节点会暂停执行序号更大的请求，等待其他节点的执行，待低水位 h 更新后重新开始执行更大序号的请求。</li>
+</ul>
+<h3 id="视图切换">视图切换</h3>
+<p>视图切换(<code>view-change</code>)是为了保证系统的高可用性，主要发生在：</p>
+<ul>
+<li>主节点超时；</li>
+<li>从节点认为主节点是拜占庭节点。</li>
+</ul>
+<p><code>view-change</code>通过<strong>定时器</strong>来进行切换，<strong>避免从节点长时间等待请求</strong>。</p>
+<blockquote>
+<p><strong>原文中是这样做的</strong>：在通常情况下，主节点将会发送 <code>pre-prepare</code> 来正常进行共识，从节点也可以通过该消息确认主节点是否存活，因此如果超过一段时间没有收到 <code>pre-prepare</code> 的话就会认为该主节点有问题；</p>
+<p><strong>工程上</strong>：在实际运行当中，长时间没有<code>pre-prepare</code>是常见的，因此<strong>一般会通过心跳+定时器来进行探测保活</strong>。</p>
+</blockquote>
+<h4 id="view-change-过程">View-Change 过程</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230423150450984.png" alt="image-20230423150450984" style="zoom:50%;" />
+<p>当从节点收到请求时，如果有定时器在运行就重置(reset)定时器，否则开启一个定时器。但是主节点宕机的时候，从节点<code>i</code>就会在当前<code>视图v#</code>中超时，这个时候该从节点<code>i</code>就会触发<code>view-change</code>：</p>
+<ul>
+<li>
+<p>从节点<code>i</code>会<strong>将视图切换为<code>v#+1</code></strong>，<strong>停止接收除了<code>checkpoint</code>，<code>view-change</code>和<code>new view-change</code>以外的请求</strong>，同时<strong>广播</strong>消息<code>&lt;VIEW-CHANGE, v#+1, seq#(stable_checkpoint), C-set, P-set, i&gt; (i)</code>到集群：</p>
+<ol>
+<li><code>seq#</code>是节点<code>i</code>知道的最后一个<code>stable checkpoint</code>的消息序号；</li>
+<li><code>C-set</code>是节点<code>i</code>保存的 <code>2f+1</code> 个能够证明<code>seq#(stable_checkpoint)</code>是正确检查点的的消息集合；</li>
+<li><code>P-set</code>是一个保存了<code>seq#</code>之后所有已经达到<code>prepared</code>状态消息的集合，通过<code>P-set</code>可以把原来的在稳定检查点之后确定的交易进行重新共识。</li>
+</ol>
+</li>
+<li>
+<p>当视图(<code>v#+1</code>)中的**新主节点<code>p1</code>**接收到<code>2f</code>个有效的视图切换消息以后，<code>p1</code>就会广播消息<code>&lt;NEW-VIEW, v#+1, V-set, Q-set&gt; (p)</code>：</p>
+<ol>
+<li><code>V-set</code>是<code>p1</code>收到的，包括自己发送的<code>view-change</code>的消息集合；</li>
+<li><code>Q-set</code>是<code>PRE-PREPARE</code>状态的消息集合，是从<code>P-set</code>转换过来的：
+<ul>
+<li>主节点根据最新<code>stable_checkpoint</code>的<code>seq#</code> s 和<code>P-set</code>的最大<code>seq#</code> t，将[s, t]间的所有<code>seq#</code>创建<code>pre-prepare</code>消息成为<code>Q-set</code>；</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>从节点接收到<code>NEW-VIEW</code>消息后，校验签名，<code>V</code>和<code>Q</code>中的消息是否合法，如验证通过，将执行<code>Q-set</code>中的请求，然后主节点和从节点都进入视图<code>v#+1</code>。</p>
+</li>
+</ul>
+<h4 id="cpq">C、P、Q</h4>
+<p>当<code>p1</code>接收到<code>2f</code>个<code>VIEW-CHANGE</code>消息以后，可以确定**<code>stable checkpoint</code>之前的消息在视图切换的过程中不会丢**。</p>
+<p>但是**[当前检查点，下一个检查点]<strong>间</strong>已经通过<code>PREPARE</code>阶段的消息**可能会被丢弃，所以在视图切换到<code>v+1</code>后，<code>PBFT</code>会把旧视图中已经<code>PREPARE</code>的消息变为<code>PRE-PREPARE</code>，组成<code>Q</code>然后广播。</p>
+<ul>
+<li>如果集合<code>P</code>为空，创建<code>&lt;PRE-PREPARE, v#+1, seq#, null&gt;</code>，接收节点就什么也不做；</li>
+<li>如果集合<code>P</code>不为空，创建<code>&lt;PRE-PREPARE, v#+1, seq#, d&gt;</code>。</li>
+</ul>
+<p>总结一下，在<code>view-change</code>中最重要的就是<code>C</code>，<code>P</code>，<code>Q</code>三个消息的集合：</p>
+<ul>
+<li><code>C</code>确保了视图变更的时候，<code>stable checkpoint</code>之前的状态安全；</li>
+<li><code>P</code>确保了视图变更前，已经<code>PREPARE</code>的消息的安全；</li>
+<li><code>Q</code>确保了视图变更后，<code>P-set</code>中的消息安全。</li>
+</ul>
+<p>回想一下<code>pre-prepare</code>和<code>prepare</code>阶段最重要的任务是保证<strong>同一个<code>主节点</code>发出的请求在同一个<code>视图(view)</code>中的顺序是一致的</strong>，而在视图切换过程中的<code>C</code>，<code>P</code>，<code>Q</code>三个集合就是解决这个问题的。</p>
+<h4 id="leader-选举-1">Leader 选举</h4>
+<p>在介绍 <code>view-change</code> 时，并没有说明在新的视图中，<strong>新主节点是如何选出来的</strong>，其实不同的系统做法不同：</p>
+<p>FISCO BCOS系统中，leader索引的计算公式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">leader_idx = (view + block_number) % node_num
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="主动恢复">主动恢复</h3>
+<p>区块链网络在运行过程中由于网络抖动、突然断电、磁盘故障等原因，可能会导致部分节点的执行速度落后于大多数节点。在这种场景下，节点需要能够做到自动恢复才能继续参与后续的共识流程。</p>
+<p>传统的<code>PBFT</code>并没有实现主动恢复的功能，但**<code>RBFT</code>提供了一种动态数据自动恢复的机制(recovery)<strong>，recovery 通过主动索取现有共识网络中</strong>所有节点的视图、最新区块高度<strong>等信息，更新自身的存储状态，最终</strong>同步至整个系统的最新状态**。</p>
+<p>在<strong>节点启动、节点重启或者节点落后的时候</strong>，节点将会自动进入 recovery，同步至整个系统的最新状态。</p>
+<p>比如，一个节点落后太多，这个时候它收到主节点发来的消息时，对消息进行<code>水位</code>检查会失败，当计时器超时，就会发送<code>view-change</code>的消息，但是由于只有自己发起<code>view-change</code>达不到<code>2f+1</code>个节点的数量，本来正常运行的节点就退化为一个拜占庭节点。</p>
+<h4 id="视图协商">视图协商</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230423220147320.png" alt="image-20230423220147320" style="zoom: 50%;" />
+<ul>
+<li>新增/落后节点<code>Replica 4</code>发起<code>NegotiateView</code>消息给其他节点；</li>
+<li>其余节点收到消息以后，返回<code>NegotiateViewResponse</code>消息，包含自己的<strong>视图信息</strong>，节点ID，节点总数N；</li>
+<li><code>Replica 4</code>收到<code>2f+1</code>个<code>NegotiateViewResponse</code>消息后，则更新<strong>本节点的视图信息</strong>；</li>
+<li><code>Replica 4</code>同步完视图后，广播<code>RecoveryInit</code>消息到其余节点，通知其他节点本节点需要进行自动恢复，<strong>请求其余节点的检查点信息和最新区块信息</strong>；</li>
+<li>其余节点收到<code>RecoveryInit</code>后将自身<strong>最新的检查点信息</strong>和<strong>区块信息</strong>返回给<code>Replica 4</code>;</li>
+<li><code>Replica 4</code>收到quorum个<code>RecoveryResponse</code>消息后，更新自己的检查点到<strong>最新</strong>；</li>
+<li>更新完成后，还要向正常节点索要<code>P-set</code>、<code>Q-set</code>和<code>C-set</code>的信息，同步至全网最新状态。</li>
+</ul>
+<h3 id="增删节点随便看看而已">增删节点(随便看看而已)</h3>
+<p><strong>传统的<code>PBFT</code>算法不支持节点的动态增删</strong>，<code>RBFT</code> 为了能够更加方便地控制联盟成员的准入和准出，添加了保持集群非停机的情况下<strong>动态增删节点</strong>的功能。</p>
+<h4 id="增加节点">增加节点</h4>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/1439869-20200119020242615-1189101776.png" alt="img" style="zoom:33%;" />
+<p><code>Replica 5</code>新节点加入的流程：</p>
+<ul>
+<li>新增节点<code>Replica 5</code>主动向现有的所有节点发起连接，确认所有节点连接成功后更新自身的路由表，并发起<code>recovery</code>；</li>
+<li>现有节点接收到<code>Replica 5</code>的连接请求后向全网广播<code>AddNode</code>消息，表明自己同意该新节点加入整个共识网络；</li>
+<li>当现有节点收到N条（N为现有区块链共识网络中节点总数）<code>AddNode</code>消息后，更新自身的路由表，随后开始回应新增节点的共识消息请求（在此之前，新增节点的所有共识消息是不予处理的）；</li>
+<li><code>Replica 5</code>完成<code>recovery</code>之后，向全网现有节点广播<code>ReadyForN</code>请求；</li>
+<li>现有节点在收到ReadyForN请求后，重新计算新增节点加入之后的N，view等信息，随后将其与PQC消息封装到AgreeUpdateN消息中，进行全网广播；</li>
+<li>Replica 5加入后的共识网络会产生一个新的主节点，该主节点在收到N-f个AgreeUpdateN消息后，以新的主节点的身份发送UpdateN消息；</li>
+<li>全网所有节点在收到UpdateN消息之后确认消息的正确性，进行VCReset；</li>
+<li>每个节点完成VCReset后，全网广播FinishUpdate消息；</li>
+<li>节点在收到N-f个FinishUpdate消息后，处理后续请求，完成新增节点流程。</li>
+</ul>
+<h2 id="五分布式id">五、分布式ID⭐</h2>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODYwMjI2MA==&amp;mid=2649771521&amp;idx=1&amp;sn=2eb712ed80826fb5e653af3de1a6f156&amp;chksm=beccdd7a89bb546c6d518d00372ff262a1b79bf57f568ff85577c371dee3e9a8c33b744b3354&amp;scene=126&amp;sessionid=1680509804&amp;subscene=7&amp;key=b163269b5f58236430c15fb8d9ee2ff42e95da2b406906d521dcd0113fc313a7c660a40a508ce2521bee02b70c6a2d41a7124a8960a52e5f2037814a9c0e520db5b18af5fd25645ae7c31282c34a75cf949818fce86d1e476b51e15e5d2aeadd3d69bd44db9436b0c8b7deb09463d91237e2f82ccaf914393639774f0ea2a6ff&amp;ascene=0&amp;uin=MjY0NTQ5ODYwNg%3D%3D&amp;devicetype=Windows&#43;11&#43;x64&amp;version=63090214&amp;lang=zh_CN&amp;countrycode=CN&amp;exportkey=n_ChQIAhIQWwMkARUN2JMmL60YuNvSeBLgAQIE97dBBAEAAAAAAECQB3vaIMEAAAAOpnltbLcz9gKNyK89dVj0MXx7BkD%2F4FU65dTUEGFzih8H1j%2FDuDpbXjAK1%2Ff9Res7lIy%2FBlQAWBFJtX16Kl13%2FtdeWK6pUrqDiVDjFuzTTPmjcbfrRyWtQYysGY16BZP%2BgJNYSYKGk%2F9H3NVmICkiZGTc1gH%2BsRSyYlxGkF7SvDSZVOnfvYkPvzxnkQqqt6JVAuBAT3izgyBjZovVZpvALHjzdfoT3cxITEGUvdOCqPXMWPaoo7bhzzYENzyl33mXPF19m%2FIUI089&amp;acctmode=0&amp;pass_ticket=k%2FzWru6X4JY95hsUybySkk2FQsPLl2jEUYqy15D2X6ciRIY%2BQILCODYgApytSowy1pcrU0yQ1J99A9aEzX87HQ%3D%3D&amp;wx_header=1" target="_blank" rel="noopener noreffer ">参考文章</a></p>
+<blockquote>
+<h4 id="问什么是分布式id">问：什么是分布式ID？</h4>
+</blockquote>
+<p>例如，多机 MySQL 中，也就是分库了，数据库的自增主键已经没办法满足生成的主键是唯一的了。<strong>如何在不同节点生成全局唯一的主键？</strong></p>
+<p>这个时候就需要 <strong>分布式ID</strong> 。</p>
+<blockquote>
+<h4 id="问分布式id-需要满足啥条件">问：分布式ID 需要满足啥条件？</h4>
+</blockquote>
+<p>其实最主要的就是 <strong>全局唯一</strong>。</p>
+<ul>
+<li>==<strong>全局唯一</strong>==：ID 的全局唯一性肯定是首先要满足的！</li>
+<li><strong>高性能</strong>：分布式 ID 的生成速度要快，对本地资源消耗要小。</li>
+<li><strong>高可用</strong>：生成分布式 ID 的服务要保证可用性无限接近于 100%。</li>
+</ul>
+<p>除了这些之外，一个比较好的分布式 ID 还应保证：</p>
+<ul>
+<li><strong>安全</strong>：ID 中不暴露系统和业务的信息。</li>
+<li><strong>有序递增</strong>：如果要把 ID 存放在数据库的话，ID 的有序性可以提升数据库写入速度。并且，很多时候，我们还很有可能会直接通过 ID 来进行排序。</li>
+<li><strong>有具体的业务含义</strong>：生成的 ID 如果能有具体的业务含义，可以让定位问题以及开发更透明化（通过 ID 就能确定是哪个业务）。</li>
+<li><strong>独立部署</strong>：也就是分布式系统单独有一个发号器服务，专门用来生成分布式 ID。这样就生成 ID 的服务可以和业务相关的服务解耦。不过，这样同样带来了网络调用消耗增加的问题。总的来说，如果需要用到分布式 ID 的场景比较多的话，独立部署的发号器服务还是很有必要的。</li>
+</ul>
+<blockquote>
+<h4 id="问分布式id-常见的解决方案">⭐问：分布式ID 常见的解决方案？</h4>
+</blockquote>
+<ol>
+<li>**==数据库主键自增==**⭐</li>
+</ol>
+<p>数据库自增 ID 是<strong>最常见</strong>的一种生成 ID 方式。优势是使用简单，满足基本业务需求，<strong>天然有序</strong>；缺点是强依赖 DB，会由于数据库部署的一些特性而存在<strong>单点故障、数据一致性</strong>等问题。</p>
+<p>以 MySQL 举例，我们通过下面的方式即可。</p>
+<ul>
+<li><strong>创建一个数据库表。</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">sequence_id</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">unsigned</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">stub</span><span class="o">`</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="o">`</span><span class="n">stub</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">stub</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>stub</code> 字段无意义，只是为了占位，便于我们插入或者修改数据。并且给 <code>stub</code> 字段创建了唯一索引，保证其唯一性。</p>
+<ul>
+<li><strong>通过 <code>replace into</code> 来插入数据。</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">BEGIN</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">REPLACE</span> <span class="n">INTO</span> <span class="nf">sequence_id</span> <span class="o">(</span><span class="n">stub</span><span class="o">)</span> <span class="n">VALUES</span> <span class="o">(</span><span class="err">&#39;</span><span class="n">stub</span><span class="err">&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">SELECT</span> <span class="nf">LAST_INSERT_ID</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">COMMIT</span><span class="o">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>插入数据这里，我们没有使用 <code>insert into</code> 而是使用 <code>replace into</code> 来插入数据，具体步骤是这样的：</p>
+<ul>
+<li>
+<p>第一步：尝试把数据插入到表中。</p>
+</li>
+<li>
+<p>第二步：如果主键或唯一索引字段出现重复数据错误而插入失败时，先从表中删除含有重复关键字值的冲突行，然后再次尝试把数据插入到表中。</p>
+</li>
+</ul>
+<p>**优点：**实现起来比较简单、ID 有序递增、存储消耗空间小</p>
+<p>**缺点：**支持的并发量不大、每次获取 ID 都要访问一次数据库</p>
+<ol start="2">
+<li>**==数据库号段模式==**⭐⭐</li>
+</ol>
+<p><strong>数据库主键自增模式</strong>的话，某个节点每次获取 ID 都要访问一次数据库，这肯定不太好。因此，<strong>数据库号段模式</strong>就<strong>批量</strong>获取一批 ID，存在该节点的内存中，这样就可以每次用的时候就从内存中慢慢获取了，不够用了就再申请一批，美滋滋~~</p>
+<p>以 MySQL 举例，我们通过下面的方式即可。</p>
+<ul>
+<li><strong>创建一个数据库表。</strong></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">sequence_id_generator</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">current_max_id</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;当前最大id&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">step</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;号段的长度&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="k">version</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;版本号&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="o">`</span><span class="n">biz_type</span><span class="o">`</span><span class="w">    </span><span class="nb">int</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;业务类型&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>current_max_id</code> 字段和<code>step</code>字段主要用于获取批量 ID，获取的批量 ID 为： <code>current_max_id ~ current_max_id+step</code>。</p>
+<ol start="3">
+<li><strong>==Redis 自增==</strong></li>
+</ol>
+<p>优势是不依赖于数据库，使用灵活，<strong>性能也优于数据库</strong>；而缺点则是可能要引入新的组件 Redis，如果 Redis 出现<strong>单点故障</strong>问题，则会影响序号服务的可用性。</p>
+<p>通过 Redis 的 <code>incr</code> 命令即可实现对 id 原子顺序递增。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">127.0.0.1:6379&gt; <span class="nb">set</span> sequence_id_biz_type <span class="m">1</span>
+</span></span><span class="line"><span class="cl">OK
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; incr sequence_id_biz_type
+</span></span><span class="line"><span class="cl"><span class="o">(</span>integer<span class="o">)</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl">127.0.0.1:6379&gt; get sequence_id_biz_type
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;2&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>**==UUID==**⭐</li>
+</ol>
+<p>UUID 由32位的16进制数组成，可以保证唯一性，有如下生成规则：</p>
+<ul>
+<li><strong>基于时间的 UUID</strong>：主要依赖<strong>当前的时间戳</strong>和<strong>机器 mac 地址</strong>。优势是能基本保证全球唯一性，缺点是由于使用了 mac 地址，会暴露 mac 地址和生成时间；</li>
+<li><strong>基于随机数的 UUID</strong>：<strong>基于随机数或伪随机数生成</strong>。优势是实现简单，缺点是重复几率可计算；</li>
+<li>基于名字空间的 UUID(MD5 版)：基于指定的名字空间/名字生成 MD5 散列值得到，优势是不同名字空间/名字下的 UUID 是唯一的，缺点是 MD5 碰撞问题；</li>
+</ul>
+<p>因为其<strong>生成规则</strong>包括 MAC 地址、时间戳、名字空间、随机或伪随机数、时序等元素，计算机基于这些规则生成的 UUID 是肯定不会重复的。</p>
+<p>很少使用 UUID。</p>
+<p>**优点：**生成速度快，简单易用；</p>
+<p>**缺点：**存储消耗空间太大(<strong>128位</strong>)、<strong>无序</strong>(非常影响MySQL的性能)、没有具体业务含义、有可能出现重复 ID、不安全(基于 MAC 地址生成的话，有可能会泄露 MAC地址)</p>
+<ol start="5">
+<li>**==雪花算法(Snowflake)==**⭐⭐⭐</li>
+</ol>
+<p>Snowflake 由 64 bit 的二进制数字组成，这 64bit 的二进制被分成了几部分，每一部分存储的数据都有特定的含义：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230420112206866.png" alt="image-20230420112206866" style="zoom: 40%;" />
+<ul>
+<li>
+<p><strong>第 0 位</strong>：<strong>符号位</strong>(标识正负)，始终为 0，没有用，不用管。</p>
+</li>
+<li>
+<p><strong>第 1~41 位</strong>：一共 41 位，用来表示<strong>时间戳</strong>，单位是<strong>毫秒</strong>，可以支撑 2 ^41 毫秒(约 69 年)</p>
+</li>
+<li>
+<p><strong>第 42~51 位</strong>：一共 10 位，<strong>机器编码</strong>，一般来说，前 5 位表示机房 ID，后 5 位表示机器 ID(实际项目中可以根据实际情况调整)。这样就可以区分不同集群/机房的节点。</p>
+</li>
+<li>
+<p><strong>第 52~63 位</strong>：一共 12 位，用来表示<strong>序列号</strong>。序列号为自增值，代表单台机器每毫秒能够产生的最大 ID 数(2^12 = 4096)，也就是说单台机器每毫秒最多可以生成 4096 个 唯一 ID。</p>
+</li>
+</ul>
+<p>**优点：**单机生成的 ID 有序递增、生成速度比较快、比较灵活(可根据业务需求调整bit位)；</p>
+<p><strong>缺点：<strong>重复 ID 问题(强依赖时间，当</strong>机器时间回拨</strong>的情况下，可能导致会产生重复 ID)、ID 可能不是全局递增，虽然 ID 在单机上是递增的，但是由于涉及到分布式环境下的每个机器节点上的时钟，可能会出现不是全局递增的场景。</p>
+<ol start="6">
+<li><strong>==利用Zookeeper==</strong></li>
+</ol>
+<p><code>zookeeper</code> 是通过 <strong>树形结构</strong> 来存储数据节点的，那也就是说，对于每个节点的 <strong>全路径</strong>，它必定是唯一的，我们可以使用节点的全路径作为命名方式了。</p>
+<h2 id="六分布式锁">六、分布式锁⭐</h2>
+<h4 id="概述-1">概述</h4>
+<p><strong>分布式锁示意图：</strong></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/distributed-lock.924e7216.png" alt="分布式锁" style="zoom: 67%;" />
+<p>一个最基本的分布式锁需要满足：</p>
+<ul>
+<li><strong>多进程可见</strong>⭐：你总得让人知道有锁的存在吧？</li>
+<li><strong>互斥</strong>⭐：任意一个时刻，锁只能被一个线程持有；</li>
+<li><strong>高可用</strong>：锁服务是高可用的。并且，即使客户端的释放锁的代码逻辑出现问题，锁最终一定还是会被释放，不会影响其他线程对共享资源的访问。</li>
+<li><strong>可重入</strong>：一个节点获取了锁之后，还可以再次获取锁。</li>
+</ul>
+<p><strong>分布式锁的实现，目前常用的方案</strong>有以下三类：</p>
+<ol>
+<li>数据库乐观锁；</li>
+<li>基于<strong>分布式缓存</strong>实现的锁服务，典型代表有 Redis 和基于 Redis 的 RedLock；</li>
+<li>基于<strong>分布式一致性服务</strong>实现的锁服务，典型代表有 ZooKeeper 和 ETCD。</li>
+</ol>
+<p>通常情况下，采用<code>ZooKeeper</code>或者<code>Redis</code>获得分布式锁，<strong><code>Redis</code>用的多一些</strong>。</p>
+<h4 id="基于-mysql-实现分布式锁">基于 Mysql 实现分布式锁</h4>
+<p>利用MySQL本身的互斥锁机制，主要是基于主键和唯一索引。比如说两个线程去同一个数据库表进行操作，利用主键冲突来保证。</p>
+<h4 id="基于-redis-实现分布式锁">基于 Redis 实现分布式锁</h4>
+<h5 id="加解锁流程">加解锁流程</h5>
+<ol>
+<li><strong>加锁</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SET lock_name my_random_value NX PX 30000	<span class="c1"># SETNX 获得锁	</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong>lock_name</strong>：锁名(key)，在分布式环境中，对于某一确定的公共资源，所有争用方（客户端）都应该知道对应锁的名字，<strong>全局可知</strong>；</li>
+<li><strong>my_random_value</strong>：随机字符串(value)，作为持有者的唯一标识，<strong>避免误删</strong>；</li>
+<li><strong>NX</strong>：只有当<code>lock_name</code>不存在的时候才能 SET 成功，从而保证只有一个客户端能获得锁，而其它客户端在锁被释放之前都无法获得锁，<strong>保证互斥</strong>；</li>
+<li><strong>PX 30000</strong>：表示这个锁节点有一个 30 秒的自动过期时间，<strong>避免死锁</strong>。</li>
+</ul>
+<ol start="2">
+<li><strong>释放锁</strong></li>
+</ol>
+<p>首先，向 Redis 节点发送命令，获取锁对应的 Value</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">GET lock_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果查询回来的 value 和客户端自身的 <code>my_random_value</code> 一致，则可确认自己是锁的持有者，可以发起解锁操作，即主动删除对应的 Key，发送命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">DEL lock_name
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="安全性分析">安全性分析</h5>
+<h6 id="死锁避免">死锁避免</h6>
+<blockquote>
+<p><strong>典型的死锁场景</strong>：获得锁的客户端，在释放锁之前崩溃了，导致锁一直无法被释放，进而导致死锁。</p>
+</blockquote>
+<p>为了解决该问题，对锁设置了<strong>过期时间</strong>，当锁到期后，Redis 会自动删除该锁对应的 key-value，也就释放了锁。</p>
+<blockquote>
+<p>但<strong>存在隐患</strong>，比如这个场景：</p>
+<ol>
+<li>客户端 A 获取锁成功；</li>
+<li>客户端 A 在某个操作上阻塞了很长时间；</li>
+<li>过期时间到，锁自动释放；</li>
+<li>客户端 B 获取到了对应同一个资源的锁；</li>
+<li>客户端 A 从阻塞中恢复过来，认为自己依旧持有锁，继续操作同一个资源，导致互斥性失效。</li>
+</ol>
+</blockquote>
+<p><strong>为了解决该问题，有如下方案</strong>：</p>
+<ul>
+<li><strong>有隐患的方案，但网上很多都是这样做的</strong>。第 5 步中，客户端 A 恢复后，可以<strong>比较下目前已经持有锁的时间</strong>，<strong>如果发现已经过期</strong>，则放弃对共享资源的操作，即可避免互斥性失效的问题。但<strong>分布式中，各节点的时钟不一定是强一致的</strong>，导致了一定的隐患。其实，任何依赖两个节点时间比较结果的互斥性算法，都存在隐患；</li>
+<li><strong>可取的方案</strong>。可以比较 <code>my_random_value</code>，即客户端 A 恢复后，在操作共享资源前应比较目前自身所持有锁的 <code>my_random_value</code> 与 Redis 中存储的 <code>my_random_value</code> 是否一致，如果不相同，说明已经不再持有锁，则放弃对共享资源的操作以避免互斥性失效的问题。</li>
+</ul>
+<h6 id="解锁操作的原子性">解锁操作的原子性</h6>
+<p>为了保证解锁的正确性，引入了<code>my_random_value</code>。具体的解锁过程就分成了两步：</p>
+<ul>
+<li>先查询(GET)锁对应的 Value，与自己加锁时设置的 <code>my_random_value</code> 进行对比；</li>
+<li>如果相同，则可确认这把锁是自己加的，然后再发起解锁(DEL)。</li>
+</ul>
+<p>但是，<strong>GET 和 DEL 是两个操作如果是非原子性的</strong>，那么解锁本身也会存在破坏互斥性的可能。</p>
+<blockquote>
+<p>比如在查询完，释放前，又阻塞了很长时间。下面是<strong>典型场景</strong>：</p>
+<ol>
+<li>客户端 A 获取锁成功；</li>
+<li>客户端 A 访问共享资源；</li>
+<li>客户端 A 为了释放锁，先执行 GET 操作获取锁对应的随机字符串的值；</li>
+<li>客户端 A 判断随机字符串的值，与预期的值相等；</li>
+<li>客户端 A 由于某个原因阻塞了很长时间；</li>
+<li>过期时间到了，锁自动释放了；</li>
+<li>客户端 B 获取到了对应同一个资源的锁；</li>
+<li>客户端 A 从阻塞中恢复过来，执行 DEL 操纵，释放掉了客户端 B 持有的锁。</li>
+</ol>
+</blockquote>
+<p><strong>为了解决该问题，有如下方案</strong>：</p>
+<ul>
+<li>Redis 支持 Lua 脚本并保证其原子性，使用 Lua 脚本实现锁校验与释放，并使用 Redis 的 eval 函数执行 Lua 脚本。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// Lua脚本，用于校验并释放锁     
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">String</span> <span class="n">script</span> <span class="o">=</span> <span class="s">&#34;if redis.call(&#39;get&#39;, KEYS[1]) == ARGV[1] then return redis.call(&#39;del&#39;, KEYS[1]) else return 0 end&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行Lua脚本，校验并释放锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">jedis</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="n">script</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="s">&#34;lock_name&#34;</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Collections</span><span class="o">.</span><span class="na">singletonList</span><span class="o">(</span><span class="s">&#34;my_random_value&#34;</span><span class="o">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h6 id="主备切换的一致性">主备切换的一致性</h6>
+<p>当主从切换时，由于 Redis 的主从复制是异步的，就可能导致切换过程中丧失锁的安全性。</p>
+<blockquote>
+<p><strong>典型场景</strong>：</p>
+<ol>
+<li>客户端 A 从 Master 获取了锁；</li>
+<li>Master 宕机了，存储锁的 Key 还没有来得及同步到 Slave 上；</li>
+<li>Slave 升级为 Master；</li>
+<li>客户端 B 从新的 Master 获取到了对应同一个资源的锁；</li>
+<li>客户端 A 和客户端 B 同时持有了同一个资源的锁，锁的安全性被打破。</li>
+</ol>
+</blockquote>
+<p><strong>可以通过 <code>RedLock</code> 来解决</strong>。</p>
+<p>运行 Redlock 算法的客户端依次执行以下步骤，来进行<strong>加锁的操作</strong>：</p>
+<ul>
+<li>
+<p><strong>获取当前系统时间</strong>（毫秒数）；</p>
+</li>
+<li>
+<p><strong>按顺序依次向 N 个 Redis 节点执行获取锁的操作</strong>。这个获取操作跟前面基于单 Redis 节点获取锁的过程相同，包含随机字符串 <code>my_random_value</code>，也包含过期时间（比如 PX 30000，即锁的有效时间）。为了保证在某个 Redis 节点不可用的时候算法能够继续运行，这个获取锁的操作还有一个超时时间（Time Out），它要远小于锁的有效时间（几十毫秒量级）。客户端在向某个 Redis 节点获取锁失败以后，应该立即尝试下一个 Redis 节点。这里的失败，应该包含任何类型的失败，比如该 Redis 节点不可用；</p>
+</li>
+<li>
+<p>计算获取锁的整个过程总共消耗了多长时间，计算方法是用当前时间减去第 1 步记录的时间。<strong>如果客户端从大多数 Redis 节点（<code>&gt;=N/2+1</code>）成功获取到了锁，并且获取锁总共消耗的时间没有超过锁的有效时间（Lock Validity Time）</strong>，那么这时客户端才认为最终获取锁成功；否则，认为最终获取锁失败；</p>
+<ul>
+<li><strong>如果最终获取锁成功了</strong>，就要重新计算这个锁的有效时间，等于最初的锁的有效时间减去第 3 步计算出来的获取锁消耗的时间；</li>
+<li><strong>如果最终获取锁失败了</strong>（可能由于获取到锁的 Redis 节点个数少于 <code>N/2+1</code>，或者整个获取锁的过程消耗的时间超过了锁的最初有效时间），那么客户端应该<strong>立即向所有 Redis 节点发起释放锁的操作</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>释放锁</strong>的过程比较简单：即<strong>客户端向所有 Redis 节点发起释放锁的操作，不管这些节点在获取锁的时候成功与否</strong>。</p>
+<hr>
+<p>但 <code>RedLock</code>也有缺陷(如下场景)，一般不建议用这种方式，真要用的话，<strong>真不如用<code>Zookeeper</code>来做</strong>。</p>
+<blockquote>
+<p>如下场景，假设一共有 5 个 Redis 节点：A、B、C、D、E。</p>
+<ol>
+<li>客户端 1 成功锁住了 A、B、C，<strong>获取锁成功</strong>（但 D 和 E 没有锁住）。</li>
+<li>节点 C 时间异常，导致 C 上的锁数据提前到期，而被释放。</li>
+<li>客户端 2 此时尝试获取同一把锁：锁住了C、D、E，<strong>获取锁成功</strong>。</li>
+</ol>
+</blockquote>
+<h6 id="可重入">可重入</h6>
+<blockquote>
+<h4 id="问如何实现可重入锁">问：如何实现可重入锁？⭐</h4>
+</blockquote>
+<p><strong>可重入锁</strong>指的是<strong>在一个线程中</strong>可以<strong>多次获取同一把锁</strong>，比如一个线程在执行一个带锁的方法，该方法中又调用了另一个需要<strong>相同锁</strong>的方法，则该线程可以<strong>直接执行调用的方法</strong>即可重入，而<strong>无需重新获得锁</strong>。</p>
+<p>可重入分布式锁的实现<strong>核心思路</strong>是线程在获取锁的时候判断是否为自己的锁，如果是的话，就不用再重新获取了。</p>
+<p><strong>实现思路：<strong>可以为</strong>每个锁</strong>关联一个<strong>可重入计数器</strong>和<strong>一个占有它的线程</strong>。若可重入计数器大于 0，则表示锁被占有，需要判断占有该锁的线程和请求获取锁的线程<strong>是否为同一个</strong>。每次获取锁时，计数器+1，每次释放锁时，计数器-1。</p>
+<blockquote>
+<h4 id="问如果对资源的操作还未结束锁就到期了咋办">问：如果对资源的操作还未结束，锁就到期了咋办？⭐</h4>
+</blockquote>
+<p>这就涉及到如何给锁优雅的<strong>续期</strong>了。有非常成熟的解决方案：Java-Redisson、Go-Redsync等。。。</p>
+<p>**原理简单来说就是：**提供了一个专门用来监控和续期锁的 <strong>Watch Dog（ 看门狗）</strong>，如果操作共享资源的线程还未执行完成的话，Watch Dog 会不断地延长锁的过期时间，进而保证锁不会因为超时而被释放。</p>
+<h4 id="基于-zookeeper-实现分布式锁">基于 Zookeeper 实现分布式锁</h4>
+<p>主要是利用<strong>临时顺序节点</strong>。</p>
+<blockquote>
+<h4 id="问怎么利用-zookeeper-实现分布式锁呢能实现共享锁和独占锁嘛">问：怎么利用 Zookeeper 实现分布式锁呢？能实现共享锁和独占锁嘛？</h4>
+</blockquote>
+<p>主要是利用创建节点的<strong>有序性</strong>。</p>
+<p>可以让多个客户端在指定节点(通常是持久节点)下创建<strong>临时顺序节点</strong>，判断自己创建的是否是有序节点中<strong>序号最小</strong>的那个，若是就获得锁；若不是，就<strong>通过<code>Watcher</code>进行监听</strong>，若自己前边的序号都失效了，就说明锁释放了，就可以通过回调函数尝试得到该锁。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png"
+        data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png, https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png 1.5x, https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png 2x"
+        data-sizes="auto"
+        alt="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png"
+        title="img" /></p>
+<p>同时实现<strong>共享锁和独占锁</strong>：</p>
+<ul>
+<li><strong>读请求：<strong>如果 <strong>没有比自己更小的节点，或比自己小的节点都是读请求</strong>，则可以获取</strong>读锁</strong>；</li>
+<li><strong>写请求：<strong>如果 <strong>没有比自己更小的节点</strong>，则可以获得</strong>写锁</strong>。</li>
+</ul>
+<p>为避免羊群效应，可以让 <strong>读请求监听比自己小的最后一个写请求节点，写请求只监听比自己小的最后一个节点</strong>。</p>
+<hr>
+<p>给一个帮助理解的示例：</p>
+<p><strong>获取锁：</strong></p>
+<ol>
+<li>首先我们要有一个持久节点<code>/locks</code>，客户端获取锁就是在<code>locks</code>下创建临时顺序节点。</li>
+<li>假设客户端 1 创建了<code>/locks/lock1</code>节点，创建成功之后，会判断 <code>lock1</code>是否是 <code>/locks</code> 下最小的子节点。</li>
+<li>如果<code>lock1</code>是最小的子节点，则获取锁成功。否则，获取锁失败。</li>
+<li>如果获取锁失败，则说明有其他的客户端已经成功获取锁。客户端 1 并不会不停地循环去尝试加锁，而是在前一个节点比如<code>/locks/lock0</code>上注册一个事件监听器。这个监听器的作用是当前一个节点释放锁之后通知客户端 1（避免无效自旋），这样客户端 1 就加锁成功了。</li>
+</ol>
+<p><strong>释放锁：</strong></p>
+<ol>
+<li>成功获取锁的客户端在执行完业务流程之后，会将对应的子节点删除。</li>
+<li>成功获取锁的客户端在出现故障之后，对应的子节点由于是临时顺序节点，也会被自动删除，避免了锁无法被释放。</li>
+<li>我们前面说的事件监听器其实监听的就是这个子节点删除事件，子节点删除就意味着锁被释放。</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/distributed-lock-zookeeper.f476fb11.png" alt="img" style="zoom: 67%;" />
+<blockquote>
+<h4 id="问为啥要使用临时节点来实现分布式锁">问：为啥要使用临时节点来实现分布式锁？</h4>
+</blockquote>
+<p>这样的话，就算获得锁的节点宕机了，临时节点也会自动删除，避免死锁。</p>
+<blockquote>
+<h4 id="问如何实现可重入锁-1">问：如何实现可重入锁？</h4>
+</blockquote>
+<p>线程获得锁的时候，会创建临时顺序节点，将该线程与该临时节点绑定，每当要获得锁的时候，就判断当前线程是否和锁绑定的线程相等，若相等就对锁计数器+1，否则就创建个新的节点在后边等待。</p>
+<h4 id="基于-etcd-实现分布式锁">基于 ETCD 实现分布式锁</h4>
+<h5 id="主要机制">主要机制</h5>
+<ul>
+<li><strong>Lease 机制</strong>：即租约机制（TTL，Time To Live），Etcd 可以为存储的 Key-Value 对设置<strong>租约</strong>，当租约到期，Key-Value 将失效删除；同时也支持<strong>续约</strong>，通过客户端可以在租约到期之前续约，以避免 Key-Value 对过期失效。
+<ul>
+<li>Lease 机制可以<strong>保证分布式锁的安全性</strong>，为锁对应的 Key 配置租约，即使锁的持有者因故障而不能主动释放锁，锁也会因租约到期而自动释放。</li>
+</ul>
+</li>
+<li><strong>Revision 机制</strong>：每个 Key 带有一个 Revision 号，每进行一次事务便加一，因此它是全局唯一的，如初始值为 0，进行一次 <code>put(key, value)</code>，Key 的 Revision 变为 1，同样的操作，再进行一次，Revision 变为 2；换成 key1 进行 put(key1, value) 操作，Revision 将变为 3。
+<ul>
+<li>这种机制有一个作用：通过 Revision 的大小就可以知道写操作的顺序。在实现分布式锁时，多个客户端同时抢锁，根据 Revision 号大小依次获得锁，可以<strong>避免 “羊群效应”</strong> （也称“惊群效应”），实现公平锁。</li>
+</ul>
+</li>
+<li><strong>Prefix 机制</strong>：即前缀机制，也称<strong>目录机制</strong>。
+<ul>
+<li>例如，一个名为 <code>/mylock</code> 的锁，两个争抢它的客户端进行写操作，实际写入的 Key 分别为：<code>key1=&quot;/mylock/UUID1&quot;,key2=&quot;/mylock/UUID2&quot;</code>，其中，UUID 表示全局唯一的 ID，确保两个 Key 的唯一性。很显然，写操作都会成功，但返回的 Revision 不一样，那么，如何判断谁获得了锁呢？通过前缀“/mylock” 查询，返回包含两个 Key-Value 对的 Key-Value 列表，同时也包含它们的 Revision，通过 Revision 大小，客户端可以判断自己是否获得锁，如果抢锁失败，则等待锁释放（对应的 Key 被删除或者租约过期），然后再判断自己是否可以获得锁。</li>
+</ul>
+</li>
+<li><strong>Watch 机制</strong>：即<strong>监听</strong>机制，Watch 机制支持监听某个固定的 Key，也支持监听一个范围（前缀机制），当被监听的 Key 或范围发生变化，客户端将收到通知。
+<ul>
+<li>在实现分布式锁时，如果抢锁失败，可通过 Prefix 机制返回的 Key-Value 列表获得 Revision 比自己小且相差最小的 Key（称为 Pre-Key），<strong>对 Pre-Key 进行监听</strong>，因为只有它释放锁，自己才能获得锁，如果监听到 Pre-Key 的 DELETE 事件，则说明 Pre-Key 已经释放，自己已经持有锁。</li>
+</ul>
+</li>
+</ul>
+<h5 id="实现流程">实现流程</h5>
+<p>假设对某个共享资源设置的<strong>锁名</strong>为：<code>/lock/mylock</code></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230503221359359.png" alt="image-20230503221359359" style="zoom:50%;" />
+<p><strong>步骤1：准备</strong></p>
+<p>客户端连接 Etcd，以 <code>/lock/mylock</code> 为前缀创建全局唯一的 Key，假设第一个客户端对应的 <code>Key=&quot;/lock/mylock/UUID1&quot;</code>，第二个为 <code>Key=&quot;/lock/mylock/UUID2&quot;</code>；客户端分别为自己的 Key 创建租约 Lease，租约的长度根据业务耗时确定，假设为 15s。</p>
+<p><strong>步骤2：创建定时任务作为租约的“心跳”</strong></p>
+<p>在一个客户端持有锁期间，其它客户端只能等待，为了避免<strong>等待期间</strong>租约失效，客户端需创建一个定时任务作为“心跳”进行<strong>续约</strong>。此外；如果<strong>持有锁</strong>期间客户端崩溃，心跳停止，Key 将因租约到期而被删除，从而锁释放，避免死锁。</p>
+<p><strong>步骤3：客户端将自己全局唯一的 Key 写入 Etcd</strong></p>
+<p>进行 Put 操作，将步骤 1 中创建的 Key 绑定租约写入 Etcd，根据 Etcd 的 Revision 机制，假设两个客户端 Put 操作返回的 Revision 分别为1、2，客户端需记录 Revision 用以接下来判断自己是否获得锁。</p>
+<p><strong>步骤4：客户端判断是否获得锁</strong></p>
+<p>客户端以前缀 <code>/lock/mylock</code> 读取 Key-Value 列表（Key-Value 中带有 Key 对应的 Revision），判断自己 Key 的 Revision 是否为当前列表中<strong>最小</strong>的，如果是则认为<strong>获得锁</strong>；否则监听列表中<strong>前一个 Revision 比自己小的 Key 的删除事件</strong>，一旦监听到删除事件或者因租约失效而删除的事件，则自己<strong>获得锁</strong>。</p>
+<p><strong>步骤5：执行业务</strong></p>
+<p>获得锁后，操作共享资源，执行业务代码。</p>
+<p><strong>步骤6：释放锁</strong></p>
+<p>完成业务流程后，<strong>删除对应的 Key 释放锁</strong>。</p>
+<hr>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%AE%9E%E8%B7%B5%E4%B9%8B%E8%B7%AF%EF%BC%88%E5%AE%8C%EF%BC%89/10%20%E5%9F%BA%E4%BA%8E%20Etcd%20%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%8F%8A%E6%96%B9%E6%A1%88.md" target="_blank" rel="noopener noreffer ">ETCD 实现分布式锁</a></li>
+</ul>
+<h2 id="七分布式事务">七、分布式事务</h2>
+<p>分布式事务指事务的参与者、支持事务的服务器、资源服务器、事务管理器分别位于不同的分布式系统的不同节点上，分布式事务要保证这些操作要么全部成功要么全部失败。**本质上：**就是为了保证不同数据库的一致性。</p>
+<h2 id="八zookeeper">八、Zookeeper</h2>
+<h4 id="zookeeper-基础理论">Zookeeper 基础理论</h4>
+<blockquote>
+<h4 id="问zookeeper-是什么">问：Zookeeper 是什么？</h4>
+</blockquote>
+<p>Zookeeper 是一个<strong>分布式一致性解决方案集</strong>，保证了 <strong>CP</strong>，可用来<strong>实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。</strong></p>
+<p><strong>ZooKeeper 将数据保存在内存中</strong>。</p>
+<blockquote>
+<h4 id="问zookeeper-具有哪些特性">问：Zookeeper 具有哪些特性？⭐</h4>
+</blockquote>
+<ul>
+<li><strong>顺序一致性⭐：<strong>从一个客户端发起的事务请求，最终都会</strong>严格按照其发起顺序</strong>被应用到 ZooKeeper 中。<strong>实现原理：原子广播</strong>。</li>
+<li>**原子性⭐：**所有事务请求的处理结果在整个集群中所有机器上的应用情况是一致的，即整个集群要么都成功应用了某个事务，要么都没有应用。<strong>实现原理：事务</strong>。</li>
+<li><strong>单一视图⭐：<strong>无论客户端连接的是哪个 Zookeeper 服务器，其看到的</strong>服务端数据模型都是一致的</strong>。</li>
+<li>**高可用⭐：**基于副本机制实现，此外 ZooKeeper 支持故障恢复。<strong>实现原理：选举 Leader</strong>。</li>
+<li>**高性能：**ZooKeeper 将数据全量存储在内存中，所以其性能很高。</li>
+</ul>
+<blockquote>
+<h4 id="问zookeeper-有哪些数据类型">问：Zookeeper 有哪些数据类型？⭐</h4>
+</blockquote>
+<p><code>zookeeper</code> 数据模型采用<strong>树形结构</strong>，<strong>使用了 <code>znode</code> 作为数据节点</strong>。</p>
+<p><code>znode</code> 是 <code>zookeeper</code> 中的<strong>最小数据单元</strong>，每个 <code>znode</code> 上都可以保存数据，同时还可以挂载子节点，形成一个树形化命名空间。</p>
+<ul>
+<li><strong>持久节点：<strong>一旦创建就一直存在(即使 ZooKeeper 集群宕机)，直到</strong>主动</strong>将其删除；</li>
+<li>**临时节点：**临 <strong>客户端会话（session）结束则节点消失</strong> 。并且，<strong>临时节点只能做叶子节点</strong>，不能创建子节点；</li>
+<li><strong>持久顺序节点：<strong>除了具有持久节点的特性外，节点ID还具有</strong>顺序性</strong>，如/node1/app0000000001、/node1/app0000000002</li>
+<li>**临时顺序节点：**除了具有临时节点特性外，节点ID还具有顺序性。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/8f35dba8c44c4a10d81e3395df971ce7.png" alt="zk数据模型" style="zoom:50%;" />
+<p>每个 znode 由 2 部分组成:</p>
+<ul>
+<li><strong>stat</strong>：状态信息；</li>
+<li><strong>data</strong>：节点存放的数据的具体内容。</li>
+</ul>
+<blockquote>
+<h4 id="问zookeeper-集群中有哪些角色">问：Zookeeper 集群中有哪些角色？⭐</h4>
+</blockquote>
+<p>共有 <code>Leader</code>、<code>Follower</code> 和 <code>Observer</code> 三种角色：</p>
+<ul>
+<li><strong><code>Leader</code>：</strong>
+<ul>
+<li>负责发起并维护与各 Follower 及 Observer 间的心跳；</li>
+<li><strong>所有的写操作</strong>必须要通过 Leader 完成再由 Leader 将写操作<strong>广播</strong>给其它服务器；</li>
+<li>一个 Zookeeper 集群<strong>同一时间只会有一个</strong>实际工作的 Leader。</li>
+</ul>
+</li>
+<li><strong><code>Follower</code>：</strong>
+<ul>
+<li>响应 Leader 的心跳；</li>
+<li>Follower 可<strong>直接处理</strong>并返回客户端的<strong>读请求</strong>，同时会将<strong>写请求转发给 Leader 处理</strong>，并且负责在 Leader 处理写请求时对请求进行<strong>投票</strong>；</li>
+<li>一个 Zookeeper 集群可能同时存在<strong>多个 Follower</strong>。</li>
+</ul>
+</li>
+<li><strong>Observer：<strong>角色与 Follower 类似，但是</strong>无投票权</strong>。</li>
+</ul>
+<h4 id="zookeeper-工作原理">Zookeeper 工作原理</h4>
+<h5 id="读操作">读操作</h5>
+<p><strong>Leader/Follower/Observer 都可直接处理读请求</strong>，从本地内存中读取数据并返回给客户端即可。</p>
+<p>由于处理读请求不需要服务器之间的交互，<strong>Follower/Observer 越多，整体系统的读请求吞吐量越大</strong>，也即读性能越好。</p>
+<h5 id="写操作">写操作</h5>
+<p><strong>所有的写请求实际上都要交给 Leader 处理。<strong>Leader 将写请求以事务形式发给所有 Follower 并等待 ACK，一旦收到半数以上 Follower 的 ACK，即认为写操作成功。Follower/Observer 均可接受写请求，但不能直接处理，而需要</strong>将写请求转发给 Leader 处理</strong>。</p>
+<blockquote>
+<h4 id="问watcher事件监听器-有啥用">问：Watcher(事件监听器) 有啥用？⭐</h4>
+</blockquote>
+<p>客户端注册监听它关心的 znode，当 znode 状态发生变化(数据变化、子节点增减变化)时，<strong>ZooKeeper 服务会推送给客户端</strong>。</p>
+<p>Watcher 可以实现<strong>分布式锁</strong>、<strong>发布订阅</strong>等功能。</p>
+<blockquote>
+<h4 id="问会话机制zookeeper-是咋推送给客户端的呢">问：会话机制？(Zookeeper 是咋推送给客户端的呢？)</h4>
+</blockquote>
+<p>客户端通过<strong>TCP 长连接</strong>与 ZooKeeper 服务集群建立会话(Session)，之后通过<strong>心跳检测机制</strong>来保持有效的会话状态。通过这个连接，<strong>客户端可以发送请求并接收响应</strong>，同时也可以<strong>接收到 Watch 事件的通知</strong>。</p>
+<p>每个会话都会有一个<strong>超时时间</strong>，客户端通过<strong>心跳方式(ping)<strong>来保持会话不过期，若服务器在超时时间内</strong>没有收到任何请求或心跳</strong>，则相应会话被视为过期。</p>
+<h4 id="zab-协议">ZAB 协议</h4>
+<p>ZAB 协议主要定义了两个可以<strong>无限循环</strong>的流程：</p>
+<ul>
+<li><strong>崩溃恢复：<strong>用于</strong>故障恢复</strong>。当主节点出现故障时，选举 Leader，从而保证<strong>高可用</strong>。</li>
+<li><strong>原子广播：<strong>用于</strong>主从同步</strong>，从而保证<strong>数据一致性</strong>。</li>
+</ul>
+<p>在 ZAB 中很重要的字段：</p>
+<ul>
+<li>**zxid：**是一个 64 位长度的 Long 类型。其中高 32 位表示 epoch，低 32 表示 xid；</li>
+</ul>
+<p>$$
+zxid = (epoch, xid)
+$$</p>
+<ul>
+<li>
+<p><strong>epoch：<strong>每个 Leader 都会具有一个不同的 epoch，用于区分不同的</strong>时期</strong>（可以理解为朝代的年号）；</p>
+</li>
+<li>
+<p><strong>xid：<strong>事务 id，是一个流水号。每次朝代更替，即 leader 更换时，会</strong>重新从 0 开始递增</strong>；</p>
+</li>
+</ul>
+<p>每当选举产生一个新的 Leader ，就会从这个 Leader 服务器上取出本地事务日志中最大编号 Proposal 的 zxid，并从 zxid 中解析得到<strong>对应的 epoch 编号</strong>，然后再对其加 1，之后该编号就作为新的 epoch 值，并将低 32 位数字归零，由 0 开始重新生成 zxid。</p>
+<ul>
+<li>**myid：**节点id。</li>
+</ul>
+<blockquote>
+<h4 id="问zookeeper-如何实现高可用崩溃恢复选举过程是啥样的">问：Zookeeper 如何实现高可用？崩溃恢复/选举过程是啥样的？⭐⭐</h4>
+</blockquote>
+<p>Zookeeper 通过副本机制，副本机制通过<strong>原子广播</strong>实现，当 Leader 出现故障时，会进行<strong>崩溃恢复</strong>来保证高可用。</p>
+<p>关键点：保证选举出的新 Leader 拥有集群中所有节点中<strong>最大编号(zxid)的事务</strong>！！</p>
+<p><strong>崩溃恢复的过程</strong>大致是这样的：</p>
+<ol>
+<li>
+<p>**自增选举轮次：**每个服务器在开始新一轮投票时，会先对自己维护的 logicClock 进行自增操作；</p>
+</li>
+<li>
+<p><strong>初始投票：<strong>每个服务器最开始都通过</strong>广播</strong>把票<strong>投给自己</strong>，投票内容为所投票服务器的 myid 和 zxid；</p>
+</li>
+<li>
+<p><strong>接收外部投票：<strong>每个服务器都会接收其它服务器的投票，并记入自己的</strong>投票箱</strong>内；</p>
+</li>
+<li>
+<p>**判断选举轮次：**收到外部投票后，首先会根据投票信息中的 logicClock 进行判断：</p>
+<ul>
+<li>若外部投票的 logicClock <strong>大于</strong>自己的，说明自己落后，会立即清空并更新自己的投票箱；</li>
+<li>若外部投票的 logicClock <strong>小于</strong>自己的，直接忽略该选票；</li>
+<li>若<strong>等于</strong>，就将该选票存入投票箱，之后进行<strong>投票 PK</strong>；</li>
+</ul>
+</li>
+<li>
+<p>**投票 PK：**每个节点都只有一票，这步就是确定最终投给谁。**优先选择 zxid 大的，然后选择 myid 大的。**然后将最终投票广播出去；</p>
+</li>
+<li>
+<p>**统计选票：**若某个 Server 的投票数大于半数以上，则该 Server 就成为了 Leader；</p>
+</li>
+<li>
+<p>**同步状态：**利用 leader 前一阶段获得的最新提议，同步集群中所有的副本。同步完成之后，就可以对外提供服务了。</p>
+</li>
+</ol>
+<blockquote>
+<h4 id="问zookeeper-如何实现分布式数据一致性">问：Zookeeper 如何实现分布式数据一致性？⭐⭐</h4>
+</blockquote>
+<p>Zookeeper 主要依赖 <strong>ZAB 协议</strong>来实现<strong>分布式数据一致性</strong>，ZAB协议是<strong>顺序一致性</strong>的。主要是通过<strong>原子广播</strong>来保证。</p>
+<p><strong>详细过程：</strong></p>
+<p>ZooKeeper 中<strong>所有的写请求</strong>都由 Leader 节点来处理：</p>
+<ol>
+<li>客户端的写请求进来之后，Leader 会将写请求<strong>包装成 Proposal 事务</strong>，并添加一个递增事务 ID，也就是 Zxid。Zxid 是单调递增的，以保证每个消息的先后顺序；</li>
+<li><strong>广播这个 Proposal 事务</strong>。Leader 会为每一个 Follower 服务器分配一个单独的 FIFO 队列，然后把 Proposal 放到队列中；</li>
+<li>Follower 节点收到对应的 Proposal 之后会把它持久到磁盘上，当完全写入之后，<strong>发一个 ACK 给 Leader</strong>；</li>
+<li>当 Leader 收到<strong>超过半数 Follower 的 ACK</strong> 之后，会提交本地机器上的事务，同时开始广播 commit；</li>
+<li>Follower 收到 commit 之后，完成各自的<strong>事务提交</strong>。</li>
+</ol>
+<blockquote>
+<h4 id="问zookeeper-如何保证事务proposal发送的顺序性">问：Zookeeper 如何保证事务(Proposal)发送的顺序性？⭐⭐</h4>
+</blockquote>
+<p>如果<code>Follower</code>收到事务的顺序不同，那么会造成数据不一致的。</p>
+<p>主要是靠**<code>Zxid</code><strong>和</strong>队列**：</p>
+<ul>
+<li>
+<p><code>Leader</code>会为每个事务分配一个<strong>全局递增的事务ID(Zxid)</strong>，生成事务后，按照该 ID 进行排序，以保证顺序；</p>
+</li>
+<li>
+<p>Leader会为每一个Follower分配一个<strong>单独的队列</strong>，然后将事务 Proposal 依次放入队列中，并根据 FIFO(先进先出) 的策略进行消息发送。</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="问为啥集群中的机器最好是奇数台">问：为啥集群中的机器最好是奇数台？</h4>
+</blockquote>
+<p><strong>Zookeeper集群中，<code>存活主机数目 &gt; 宕机数目</code> 时，才能继续提供服务。</strong></p>
+<p>也就是说，2n 和 2n-1 的容忍度是一样的，都是 n-1。既然多出一台也一样，那何必呢？</p>
+<blockquote>
+<h4 id="问zookeeper-集群如何防止脑裂现象">问：Zookeeper 集群如何防止脑裂现象？⭐</h4>
+</blockquote>
+<p>==采用<strong>过半机制</strong>。==在收到<strong>大于一半</strong>的选票才能成为 Leader。</p>
+<p>ZooKeeper 的过半机制导致<strong>不可能产生 2 个 leader</strong>，因为<strong>少于等于</strong>一半是不可能产生 leader 的，这就使得不论机房的机器如何分配都不可能发生脑裂。</p>
+<h4 id="zookeeper-应用">Zookeeper 应用</h4>
+<p><a href="https://www.cnblogs.com/vivotech/p/14193549.html" target="_blank" rel="noopener noreffer ">参考链接</a></p>
+<p>因为<code>Zookeeper</code>的强一致性，可以保证<strong>在高并发情况下创建全局唯一的节点</strong>。</p>
+<h5 id="分布式id">分布式ID</h5>
+<p>在分布式系统中，通常需要一个全局唯一的名字，如生成全局唯一的订单号等，ZooKeeper 可以通过<strong>顺序节点</strong>的特性来生成全局唯一 ID，从而可以对分布式系统提供命名服务。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/7e775fc4d8b35f30f5ead3389fa1da31.png" alt="img" style="zoom: 50%;" />
+<h5 id="分布式锁">分布式锁⭐</h5>
+<p>示例过程：</p>
+<p>可以让多个客户端在指定节点(通常是持久节点)下创建<strong>临时顺序节点</strong>，判断自己创建的是否是有序节点中<strong>序号最小</strong>的那个，若是就获得锁；若不是，就<strong>通过<code>Watcher</code>进行监听</strong>，若自己前边的序号都失效了，就说明锁释放了，就可以通过回调函数得到该锁。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png"
+        data-srcset="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png, https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png 1.5x, https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png 2x"
+        data-sizes="auto"
+        alt="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/e0edfab2ec426b3ea45765d931b10a8b.png"
+        title="img" /></p>
+<p><strong>改进：</strong></p>
+<p>比如当一个锁得到释放它会通知所有等待的客户端从而造成 <strong>羊群效应</strong> ，此时可以通过让等待的节点<strong>只监听他们前面的节点</strong>。</p>
+<h5 id="集群管理和注册中心">集群管理和注册中心⭐</h5>
+<p>对于<strong>集群管理</strong>，如果我们想知道有多少机器在工作，可以为每个机器创建一个临时节点，并监控其父节点，当父节点的状态改变，就能知道机器变动状态。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/6115820219c35c68bcb2c9a855ebace3.png" alt="集群管理" style="zoom: 67%;" />
+<p>对于<strong>注册中心</strong>，可以：</p>
+<ul>
+<li>
+<p>让<strong>服务提供者</strong>在<code>Zookeeper</code>中创建一个临时节点，并将自己的<code>ip、port、调用方式</code> 写入节点；</p>
+</li>
+<li>
+<p>当<strong>服务消费者</strong>需要进行调用的时候会 <strong>通过注册中心找到相应服务的地址列表(IP端口什么的)</strong>。之后可以缓存到本地(方便以后调用)，当消费者再次调用服务时，不会再去请求注册中心，而是直接通过<strong>负载均衡算法</strong>从地址列表中取一个服务提供者的服务器调用服务。</p>
+</li>
+</ul>
+<p>当<strong>服务提供者</strong>的某台服务器<strong>宕机</strong>或<strong>下线</strong>时，<strong>相应的地址会从服务提供者地址列表中移除</strong>。同时，<strong>注册中心</strong>会将<strong>新的服务地址列表</strong>发送给<strong>服务消费者</strong>的机器并缓存在消费者本机（当然你可以让消费者进行节点监听，我记得 <code>Eureka</code> 会先试错，然后再更新）。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/0b5b3911a7c2dae23391d17c91416b29.png" alt="注册中心" style="zoom:67%;" />
+<h5 id="选主">选主</h5>
+<p>示例过程：</p>
+<p>可以让多个客户端同时创建一个<strong>指定的临时顺序节点</strong>，成为主节点。若该主节点挂了，就相当于会话结束，可以通过**<code>Watcher</code><strong>来监听这个节点的</strong>状态**，发现挂了就<strong>触发回调</strong>函数重新选举。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/a94707028c5581c815f72fba0f50f43a.png" alt="选主" style="zoom: 67%;" />
+<h2 id="九etcd">九、Etcd</h2>
+<p><strong>主要参考：</strong></p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA" target="_blank" rel="noopener noreffer ">深入解读RAFT算法与ETCD工程实现</a></li>
+<li><a href="https://wingsxdu.com/posts/database/etcd/#top" target="_blank" rel="noopener noreffer ">ETCD原理与实现</a></li>
+</ul>
+<hr>
+<p>Etcd 是一个<strong>基于 Raft 共识算法</strong>实现的<strong>分布式键值存储服务</strong>，是 K8s 的<strong>核心存储</strong>。在项目结构上采用了模块化设计，其中最主要的三个部分是实现分布式共识的 <strong>Raft 模块</strong>、实现数据持久化的 <strong>WAL 模块</strong>和实现状态机存储的 <strong>MVCC 模块</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/etcd-Architecture@2x.png" alt="/posts/database/etcd/etcd-Architecture@2x.png" style="zoom:50%;" />
+<p>更详细的架构图如下：</p>
+<ul>
+<li>api 接口支持 http 协议和 grpc 协议；</li>
+<li>node 主要负责 raft 算法的实现；</li>
+<li>storage 主要负责 raft 日志以及 snap 快照文件的存储；</li>
+<li>transport 主要负责集群节点间的通信；</li>
+<li>kvstore 分为 v2 和 v3 两个版本数据库，主要负责业务数据的存储，其中 v3 版本数据库的实现采用 lboltdb 和 keyIndex，支持 mvcc 机制。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230404151032958.png" alt="image-20230404151032958" style="zoom: 50%;" />
+<h4 id="raft-模块">RAFT 模块</h4>
+<h5 id="日志复制-1">==日志复制==</h5>
+<p>在分布式环境中，如果我们要让一个服务具有容错能力，最常用的方法就是让一个服务的多个副本同时运行在多个节点上。为了保证多个副本在运行时的状态都是同步的，<strong>即客户端无论将请求发送到哪一个节点中，最后都能得到相同的结果</strong>，通常采用<strong>状态机复制（State Machine Replication）方法</strong>。</p>
+<p>Etcd使用<strong>日志复制</strong>实现。Etcd 将日志实例化为 Entry 日志，每个节点会存储一系列 Entry 日志，<strong>每个节点的 Entry 日志都相同并且顺序也一致</strong>，状态机按顺序执行 Entry 中的命令，因此每个状态机处理相同的命令序列，这样就能得到相同的数据状态和输出序列。</p>
+<p>RAFT 就是用来保证<strong>复制日志</strong>的<strong>一致性</strong>。服务器节点上的<code>Consensus</code>模块接收来自客户端的写请求，将它们添加到 WAL (Write Ahead Log，预写日志）中。随后该服务器与其他服务器上的<code>Consensus</code>模块通信，以确保每个服务器上具有相同的日志序列。每个服务器上的状态机按顺序执行命令，并将执行结果返回给客户端，这样就形成了高可用的复制状态机。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/State-Machine-Replication@2x.png" alt="/posts/database/etcd/State-Machine-Replication@2x.png" style="zoom: 50%;" />
+<h5 id="数据通道">数据通道</h5>
+<p>为了网络层能够高效地处理不同数据量的消息，etcd 采取分类处理的方式，它抽象出 2 种类型的消息传输通道：</p>
+<ul>
+<li>**Stream 通道：**用于处理数据量较少、发送比较频繁的消息，例如心跳消息、追加日志消息等，节点与节点之间只维护 1 个 HTTP 长连接，交替向连接中写入数据；</li>
+<li>**Pipeline 通道：**用于处理数据量大的消息，比如传输快照消息。这种类型的消息需要与心跳消息等分开处理，否则会阻塞心跳包的传输，进而影响集群的稳定性。Pipeline 通道只通过短连接传输数据，用完即关闭。</li>
+</ul>
+<p>这两种消息传输通道都使用 gRPC 传输数据。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/etcd-Data-Channel@2x.png" alt="/posts/database/etcd/etcd-Data-Channel@2x.png" style="zoom:50%;" />
+<h5 id="leader-选举-2">==Leader 选举==</h5>
+<p>Raft 通过『leader 选举机制』选举出一个 Leader，由它全权管理日志复制来实现一致性。</p>
+<p>Raft 算法论文规定了三种节点身份：Leader、Follower 和 Candidate，<strong>Etcd 的实现中又添加了 PreCandidate 和 Learner 这两种身份。</strong></p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/Node-State-Change@2x.png" alt="/posts/database/etcd/Node-State-Change@2x.png" style="zoom:50%;" />
+<ul>
+<li>
+<p>集群启动时所有节点初始状态均为 <strong>Follower</strong>，随后会有一个节点选举成功成为 <strong>Leader</strong>，在绝大多数时间里集群内的节点会处于这两种身份之一；</p>
+</li>
+<li>
+<p>当一个 Follower 节点的<strong>选举计时器</strong>超时后，会切换为 <strong>PreCandidate</strong> 身份，进行**<code>preVote</code>**，<strong>不自增任期号仅发起预投票</strong>，也就是询问集群中其他节点是否愿意参与选举：</p>
+<ul>
+<li>如果集群中的其它节点<strong>能够正常收到 Leader 的心跳消息</strong>，那么会拒绝参与选举；</li>
+<li><strong>如果有超过法定人数的节点响应并表示参与新一轮选举</strong>，该节点会从 PreCandidate 身份切换到 <strong>Candidate</strong>，<strong>自增任期号</strong>并投票给自己，并向其他节点广播竞选投票信息；</li>
+</ul>
+</li>
+<li>
+<p>当节点收到其他节点的竞选消息后，首先判断<strong>竞选节点的任期号大于本节点</strong>，则可以投票给竞选节点，否则拒绝投票。</p>
+</li>
+<li>
+<p>当一个节点成为 Leader 后会立即提交一条空日志，将自身携带的所有日志都设置为提交状态，包括由其它 Leader 创建但还没有提交的日志条目，然后向集群内的其它节点同步。这样就可以保证集群数据的一致性，防止 Leader 节点切换过程中发生数据丢失。</p>
+</li>
+<li>
+<p>当一个新节点刚进入集群，此时就是 <strong>Learner</strong> 身份，主要是因为需要花费很长时间来同步日志，这可能<strong>导致集群无法处理新的请求</strong>，为了避免这种间隔，所以 <code>Learner</code> 不具有投票权，接收 <code>Leader</code> 发来的快照以快速赶上日志，当和<code>Leader</code>日志一致后会转变身份为 Follower。</p>
+</li>
+</ul>
+<h5 id="entry">Entry</h5>
+<p>Raft 模块维护的**所有数据（键值对）**都被实例化为 <strong>Entry 日志</strong>表示。</p>
+<p>Raft 算法中<strong>所有写请求</strong>都是由 Leader 节点处理的，如果收到提案的节点是 Follower，它会转发给 Leader。</p>
+<p>Leader 收到提案后，需要对客户端发送的数据封装为 Entry 日志：</p>
+<ul>
+<li><code>Data</code>字段是客户端发送的键值对；</li>
+<li><code>Term</code>字段是当前集群的任期；</li>
+<li><code>Index</code>字段是该 Entry 日志的索引，相当于全局唯一标识 ID。</li>
+</ul>
+<p>封装完数据后会将这些 Entry 日志追加到 Raft Log 中。</p>
+<h5 id="写请求流程">写请求流程</h5>
+<ol>
+<li>client 通过负载均衡算法选择一个 Etcd 节点，发起 gRPC 调用，发送 <code>K-V</code> 请求；</li>
+<li>经过检验之后，传递提案给上层，RAFT 模块收到提案后，若当前节点是 <code>Follower</code>，就会转发给 <code>Leader</code>，<strong>只有 <code>Leader</code> 才能处理写请求</strong>；</li>
+<li><code>Leader</code> 收到提案后，通过 <code>RAFT</code> 模块生成 <code>Entry</code>，并保存到 <code>unstable</code>中；</li>
+<li><code>Leader</code> 获得 <code>Entry</code> 后，会将其写入 <code>WAL</code> 文件，同时将其广播给集群中的其他节点；</li>
+<li>然后 <code>Leader</code> 的 <code>RAFT</code> 模块会把该 <code>Entry</code> 移到 <code>MemoryStorage</code>；</li>
+<li>待该 <code>Entry</code> 日志被复制到集群半数以上的节点时，该 <code>Entry</code> 日志会被 <code>Leader</code> 节点确认为己提交，<code>Leader</code> 会回复客户端写请求操作成功；</li>
+<li>然后 <code>Leader</code> 将该 <code>Entry</code> 应用到状态机。</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/etcd-Write-Request@2x.png" alt="/posts/database/etcd/etcd-Write-Request@2x.png" style="zoom:50%;" />
+<h5 id="线性一致读">线性一致读</h5>
+<p>ETCD 中，<strong>所有的写请求都只由Leader处理</strong>，再通过日志复制的方法同步给其他Follower。</p>
+<p><strong>但所有的节点(Leader+Follower)都可以处理读请求</strong>。由于以下原因，<strong>从不同的节点读数据可能会出现不一致</strong>:</p>
+<ul>
+<li>Etcd <strong>应用日志</strong>的过程是<strong>异步</strong>的，Follower的状态总的落后于Leader，且Follower之间的状态也可能存在差异；</li>
+<li>若出现网络分区，进而出现脑裂，新旧Leader的状态也会不一致。</li>
+</ul>
+<p>也就是说，各个节点并非是 <strong>实时</strong> 一致，所以读取数据很有可能读取到不一致的旧数据。</p>
+<blockquote>
+<h4 id="问怎么解决线性一致读问题">问：怎么解决线性一致读问题？⭐</h4>
+</blockquote>
+<p>Etcd 采用 ReadIndex 机制实现线性一致读，<strong>基本原理</strong>：</p>
+<ul>
+<li>Leader首先通过某种机制<strong>确认自己依然是Leader</strong>；</li>
+<li>Leader需要给客户端返回最近已应用的数据：即<strong>最新被应用到状态机的数据</strong>。</li>
+</ul>
+<p><strong>流程如下：</strong></p>
+<ul>
+<li>当 Follower 节点收到一个<strong>线性读请求</strong>时，它首先会向 Leader <strong>请求获取</strong>集群<strong>最新的、已提交的日志索引，记为<code>ReadIndex</code></strong>；</li>
+<li>Leader 收到 ReadIndex 请求时，会向 Follower 发送心跳消息，如果超过法定人数的节点响应了心跳消息，就说明自己是合法的 Leader，然后才能将读时<strong>已提交的索引</strong>返回给请求节点；</li>
+<li>Follower 拿到后，等待状态机『至少』应用到<code>ReadIndex</code>，即 <code>AppliedIndex</code> &gt;= <code>ReadIndex</code>，然后执行读请求，<strong>将结果返回给 Client</strong>。</li>
+</ul>
+<h4 id="日志存储">日志存储</h4>
+<p>RAFT 共有两类数据需要持久化存储：</p>
+<ul>
+<li>**RAFT 日志：**已提交的日志是不能丢失的；</li>
+<li><strong>节点的状态：<strong>包括</strong>当前的任期 term</strong>、<strong>当前的投票目标 vote</strong>、<strong>已提交的最后一条日志索引</strong>。前两个字段是 leader 选举流程中的承诺，第三个字段是节点在重启恢复时用来控制日志回放到哪一条日志。</li>
+</ul>
+<h5 id="wal">WAL</h5>
+<blockquote>
+<h4 id="问什么是-wal-">问：什么是 WAL ？</h4>
+</blockquote>
+<p>ETCD 使用 <strong>WAL(Write Ahead Log，预写日志)</strong> 保存上面两种数据。</p>
+<ul>
+<li>
+<p>所有数据在提交之前都要<strong>先写入 WAL 中</strong>；</p>
+</li>
+<li>
+<p>然后定期对数据进行<strong>快照备份</strong>，快照文件存储了某一时刻 ETCD 的所有数据，<strong>数据已经存储在快照中的 WAL 文件就可以删除</strong>。</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="问wal-如何工作">问：WAL 如何工作？</h4>
+</blockquote>
+<p>WAL 的工作过程非常像区块链：</p>
+<ul>
+<li>首个 WAL 文件的文件开头 crc32 初始值为 0，之后每个记录(raft 日志或者节点状态)的 <code>crc32值 = calc(pre_crc32, 本记录的二进制值)</code>；</li>
+<li>对于第二个及以后的 WAL 文件，文件开头的<code>初始 crc32 值 = 上一个 wal 文件最后一条记录的 crc32 值</code>。</li>
+</ul>
+<p>这样的话，所有 WAL 文件，其所有记录的 crc32 值可以形成一个可进行<strong>强校验的链表</strong>。这样在重启恢复的时候，ETCD 就可以对 WAL 文件的内容进行<strong>精细化的校验</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230404153256659.png" alt="image-20230404153256659" style="zoom: 50%;" />
+<h5 id="日志压缩-2">日志压缩</h5>
+<p>WAL 是一种 Append Only 的日志文件，<strong>只会在文件结尾不断地添加新日志</strong>。当数据量越来越大，WAL 文件就会越来越大，会占用大量空间，并且，通过这么大的 WAL 文件进行数据恢复时，也会耗费很长时间。因此，<strong>同 Redis 一样</strong>，会<strong>定期创建快照</strong>，将整个节点的状态进行序列化，然后写入稳定的快照文件中，在该快照文件之前的日志记录就可以全部丢弃掉。</p>
+<p><strong>在 RATF 日志中，首先定义几个概念：</strong></p>
+<ol>
+<li>**log_index：**最新的日志位置索引。</li>
+<li>**commit_index：**已达成多数派一致，<strong>可提交</strong>的最大日志位置索引。</li>
+<li><strong>apply_index：已应用</strong>到业务状态机的最大日志位置索引。</li>
+<li>**compact_index：**RAFT 日志清理的临界位置索引，在该索引之前的所有 RAFT 日志，都可以清掉。</li>
+<li>**last_snap_index：**上一个 snap 快照文件的日志索引，代表 snap 快照文件生成时刻的 apply_index。</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230404154816559.png" alt="image-20230404154816559" style="zoom:50%;" />
+<p><strong>共分为两种快照：</strong></p>
+<ul>
+<li><strong>数据快照：<strong>用来</strong>日志压缩</strong>。当<code> apply_index - last_snap_index &gt; Cfg.SnapshotCount</code>(默认值为 10w)时，会触发 snap 快照文件的生成，即判断 <strong>已应用日志的索引</strong>与<strong>上次快照保存的最后一条日志的索引值</strong>之间的差距 <strong>是否大于设定值</strong>，若超过了，就快照一下；此时 apply_index 之前的所有 raft 日志都可以清掉了；</li>
+<li><strong>RPC快照：<strong>用来</strong>快速恢复</strong>。Leader 会为每一个 Follower 维护一个 <code>Next</code>值，表示该 Follower 节点下一个待复制的 Entry 记录的索引值。<strong>为了让落后的节点尽快地追赶上集群</strong>，Leader 会将从<code>Next</code>开始的日志打包成快照，发送给 Follower。</li>
+</ul>
+<h5 id="日志读写性能的优化">日志读写性能的优化</h5>
+<blockquote>
+<h4 id="问ectd-怎么提高日志存储效率">问：ECTD 怎么提高日志存储效率？</h4>
+</blockquote>
+<p>每一个写请求都会生成一条 RAFT 日志，而 RAFT 日志是需要<strong>刷盘</strong>的。如果每生成一条 RAFT 日志就刷盘一次，那 ETCD 的写入性能必然很低，因此 ETCD 采用<strong>异步批量刷盘</strong>的方式来优化写入性能，如下图所示。</p>
+<ol>
+<li>外部的写请求先由 go routine 1 写入到 propc 通道；</li>
+<li>go routine 2 消费 propc 通道中的请求，将其转化为 <strong>unstable_log</strong> (保存在内存中，表示尚未达成多数一致的 RAFT 日志)，也会在待发送消息的缓冲区中<strong>生成日志复制请求</strong>；</li>
+<li>go routine 3 会将 unstable_log、待发送的日志复制请求打包成一个 ready 结构，写入道 readyc 通道；</li>
+<li>go routine 4 消费 readyc 中的数据，将 RAFT 日志<strong>刷盘到 WAL 文件</strong>以及<strong>追加到 stable_log</strong> (保存在内存中，可理解为 WAL 文件中的 RAFT 日志在内存中的副本)，同时<strong>将日志复制请求发送给 Follower 节点</strong>；</li>
+<li>对于<strong>已达成多数一致</strong>的那些日志，unstable_log 缓冲区就可以清理掉了。</li>
+</ol>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230404155824344.png" alt="image-20230404155824344" style="zoom: 50%;" />
+<p><strong>好处就是：</strong></p>
+<ul>
+<li>
+<p>将多次写请求合并为一次刷盘优化了<strong>写入</strong>性能；</p>
+</li>
+<li>
+<p>而且通过在 stable_log 内存缓冲区中额外维护一份 WAL 文件中日志的副本，从而优化了 RAFT 日志的<strong>读取</strong>性能。</p>
+</li>
+</ul>
+<h4 id="mvcc-机制">MVCC 机制</h4>
+<blockquote>
+<h4 id="问了解-mvcc-吗什么是-mvcc-机制">问：了解 MVCC 吗？什么是 MVCC 机制？</h4>
+</blockquote>
+<p><strong>多版本并发控制（Multi-Version Concurrency Control , MVCC）<strong>是一种</strong>无锁事务机制</strong>，能最大化地实现高效地<strong>读写并发</strong>，尤其是高效地读，非常适合<strong>读多写少</strong>的场景。</p>
+<p>MVCC 的每一个<strong>写操作</strong>都会创建一个<strong>新版本的数据</strong>，<strong>读操作</strong>会从有限多个版本的数据中<strong>挑选一个最合适</strong>(要么是最新版本，要么是指定版本)的结果<strong>直接返回</strong>。通过这种方式，我们就<strong>不需要关注读写操作之间的数据冲突</strong>。</p>
+<p>因此，如何管理和高效地<strong>选取数据的版本</strong>就成了 MVCC 需要解决的<strong>主要问题</strong>。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/MVCC-Read@2x.png" alt="/posts/database/etcd/MVCC-Read@2x.png" style="zoom:50%;" />
+<blockquote>
+<h4 id="问etcd-如何存储数据以支持-mvcc-机制">问：ETCD 如何存储数据以支持 MVCC 机制？</h4>
+</blockquote>
+<p>ETCD 使用 <code>B-Tree</code> 维护 key 与 reversion 之间的映射关系。<code>B-Tree</code> 的键存储了原始的 key，值存储了一个 keyIndex 实例。</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230404161616775.png" alt="image-20230404161616775" style="zoom:50%;" />
+<blockquote>
+<h4 id="问etcd-如何维护-key-的版本号数据">问：ETCD 如何维护 key 的版本号数据？</h4>
+</blockquote>
+<p><strong>一个 keyIndex 实例维护了该 key 全部的历史版本信息。</strong></p>
+<p>keyIndex 用代<code>generation</code>表示同一个 Key 在某一个生命周期内的数据变化情况：</p>
+<ul>
+<li>每代中可以存储**多个修订版本(version)**的信息；</li>
+<li>当遇到删除操作时，会加入墓碑，并创建一个新的 <code>generation</code>。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/KeyIndex-Format@2x.png" alt="/posts/database/etcd/KeyIndex-Format@2x.png" style="zoom:50%;" />
+<p>这样设计的好处就是：</p>
+<ul>
+<li>存储的时候不用区分<strong>修改的版本号</strong>与<strong>删除的版本号</strong>。在判断 key 是否存在时，我们只需要判断 keyIndex 是否存在或者<strong>其最后一代 generation 是否为空</strong>；</li>
+<li>在查找 key 的指定版本号数据时，可以先查找 generation，然后再在 generation 中查找具体的 version，相当于将一个大数组的查找划分为两个小数组的查找，加快了查找速度。==不是很理解这个说法==</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405174016265.png" alt="image-20230405174016265" style="zoom: 50%;" />
+<blockquote>
+<h4 id="问如何利用该结构查找到给定-key-的某个历史版本信息">问：如何利用该结构，查找到给定 key 的某个历史版本信息？</h4>
+</blockquote>
+<p>客户端在查找指定键值对时，会先通过内存中维护的 B 树查找到对应的 keyIndex 实例，然后通过 keyIndex 查找到对应的 revision 信息，最后通过 revision 从 BoltDB 中查找真正的键值对数据。</p>
+<blockquote>
+<h4 id="问etcd-如何存储每个版本号的数据">问：ETCD 如何存储每个版本号的数据？</h4>
+</blockquote>
+<p>etcd 底层默认采用 boltdb 来存储每个版本号对应的 value，boltdb 是采用 B+ 树来存储数据的，每个 key-value 键值对必须存储在 bucket 桶中，每一个 bucket 桶的数据都由一个独立的 B+ 树来维护。</p>
+<p>==// TODO: 没理解清楚，先这样吧。。。==</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405195714649.png" alt="image-20230405195714649" style="zoom:50%;" />
+<h4 id="watch-机制">Watch 机制</h4>
+<p>ETCD 允许客户端<strong>监听</strong>某个 key 或者某段 key 范围区间的变化。如果监听范围内的某个 key，其数据发生变化，则 watch 的客户端会立刻收到通知。</p>
+<hr>
+<p>客户端发出 watch 请求后，服务端首先创建一个 serverWatchStream，该 serverWatchStream 包含一个 <strong>recv loop 协程</strong>和 <strong>send loop 协程</strong>：</p>
+<ul>
+<li><strong>recv loop 协程</strong>：负责监听客户端对具体 key 的 watch 请求，一旦收到 watch 请求就创建一个 watcher；</li>
+<li><strong>send loop 协程</strong>：负责将相关事件发送给客户端。</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230405201633881.png" alt="image-20230405201633881" style="zoom: 40%;" />
+<h4 id="lease-租约">Lease 租约</h4>
+<p>可以简单理解为 key 的有效期。</p>
+<blockquote>
+<h4 id="问key-如何关联一个-lease">问：Key 如何关联一个 Lease?</h4>
+</blockquote>
+<p>大致分为两步：</p>
+<ul>
+<li>1）创建 Lease</li>
+<li>2）将 key 与 lease 关联</li>
+</ul>
+<h5 id="续期">续期</h5>
+<p>在正常情况下，节点存活时，需要<strong>定期发送 KeepAlive 请求</strong>给 etcd 续期健康状态的 Lease，否则你的 Lease 和关联的数据就会被删除。</p>
+<blockquote>
+<h4 id="问如何高效的淘汰过期的-lease">问：如何高效的淘汰过期的 Lease？</h4>
+</blockquote>
+<p>Etcd 基于<strong>最小堆</strong>来管理 Lease，会定时轮询堆顶的元素，若已过期则加入到待淘汰列表，直到堆顶的 Lease 过期时间大于当前，则结束本轮轮询。然后执行删除 Lease 和其关联的 key 列表数据的任务。</p>
+<blockquote>
+<h4 id="问怎么通知其他-follower-淘汰它们呢">问：怎么通知其他 Follower 淘汰它们呢？</h4>
+</blockquote>
+<ul>
+<li>
+<p>Lessor 模块会将已确认过期的 LeaseID，保存在一个 channel 中，Etcd 会定期从 channel 中获取 LeaseID 并传递给 Follower 节点。</p>
+</li>
+<li>
+<p>各个节点收到请求后，获取关联到此 Lease 上的 key 列表，执行删除操作即可。</p>
+</li>
+</ul>
+<h4 id="应用场景">应用场景</h4>
+<h5 id="服务注册与发现">服务注册与发现</h5>
+<p>服务启动后向注册中心(Etcd)登记自己的IP与端口信息，服务的消费方通过查看登记信息，可以直接找到对应的服务，并发起请求。并且可以通过设置<code>Lease</code>，定时发送<code>keepLive</code>来达到<strong>健康监控</strong>的效果。</p>
+<h5 id="消息发布与订阅">消息发布与订阅</h5>
+<p>配置一个消息共享中心，生产者在这个中心发布消息，而消费者则订阅他们关心的主题，一旦有关主题有消息发布，就会实时通知订阅者。比如：</p>
+<ul>
+<li><strong>应用中用到的一些配置信息存放在etcd上进行集中管理</strong>。这类场景的使用方式通常是这样的：应用在启动的时候主动从etcd获取一次配置信息，同时，在etcd节点上注册一个Watcher并等待，以后每次配置有更新的时候，etcd都会实时通知订阅者，以此达到获取最新配置信息的目的。</li>
+<li>**分布式日志收集系统。**核心工作是收集分布在不同机器上的日志。收集器通常按照应用（或主题）来分配收集任务单元，因此可以在etcd上创建一个以应用（或主题）命名的目录P，并将这个应用（或主题）相关的所有机器ip，以子目录的形式存储在目录P下。</li>
+</ul>
+<h5 id="负载均衡">负载均衡</h5>
+<p><strong>利用etcd维护一个负载均衡节点表</strong>。etcd可以监控一个集群中多个节点的状态，当有一个请求发过来后，可以轮询式地把请求转发给存活着的多个节点。</p>
+<h5 id="分布式锁-1">分布式锁</h5>
+<p>Etcd提供**分布式锁原子操作CAS（<code>ComparaAndSwap</code>）**的API，可以保证在多个节点同时创建某个目录时，只有一个成功，操作成功即可认为是获得了锁。</p>
+<h5 id="分布式队列">分布式队列</h5>
+<p>所有试图获得锁的进程都会进入等待队列，获得锁的顺序全局唯一，进而保证了队列的执行顺序。</p>
+<h4 id="关键总结">==关键总结==</h4>
+<blockquote>
+<h4 id="问为什么-etcd-v3-版本的-keyindex-使用-b-tree-而不使用哈希表平衡二叉树">问：为什么 etcd v3 版本的 KeyIndex 使用 B-tree 而不使用哈希表、平衡二叉树？</h4>
+</blockquote>
+<p>答：从功能特性上分析， 因 etcd 需要支持范围查询，因此保存索引的数据结构也必须支持范围查询才行。所以哈希表不适合，而 B-tree 支持范围查询。从性能上分析，平横二叉树每个节点只能容纳一个数据、导致树的高度较高，而 B-tree 每个节点可以容纳多个数据，树的高度更低，更扁平，涉及的查找次数更少，具有优越的增、删、改、查性能。</p>
+<blockquote>
+<h4 id="问etcd-v3-版本数据是采用-boltdb-存储的boltdb-对于每一个写事务都会进行一次刷盘那-etcd-为了优化写入性能做了什么样的处理">问：etcd v3 版本数据是采用 boltdb 存储的，boltdb 对于每一个写事务都会进行一次刷盘，那 etcd 为了优化写入性能，做了什么样的处理？</h4>
+</blockquote>
+<p>答：采用批量提交的，也就是用底层 boltdb 的单个写事务来处理上层业务 api 接口的多次写入请求。</p>
+<blockquote>
+<h4 id="问采用批量提交在尚未达到提交条件而系统宕机会不会导致-v3-版本的部分数据丢失呢">问：采用批量提交，在尚未达到提交条件而系统宕机，会不会导致 v3 版本的部分数据丢失呢？</h4>
+</blockquote>
+<p>答：不会，因为宕机后重启恢复的时候，可以通过<strong>回放 raft 日志来恢复数据</strong>，而 v3 版本的存储数据是支持 raft 日志可重入回放的，在将 raft 日志应用到 v3 版本数据的时候，会更新 consistentIndex，而这个 consistentIndex 在批量提交的时候也会 commit 到 boltdb 中。在系统宕机时，consistentIndex 的值也没有刷盘，boltdb 底层保存的还是旧的 consistentIndex，这样宕机后就可以通过重启后的日志回放来恢复数据。</p>
+<blockquote>
+<h4 id="问etcd-如何实现线性一致读">问：ETCD 如何实现线性一致读？⭐</h4>
+</blockquote>
+<ul>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/31050303" target="_blank" rel="noopener noreffer ">etcd-raft 的线性一致读方法一：ReadIndex</a></p>
+</li>
+<li>
+<p><a href="https://zhuanlan.zhihu.com/p/31118381" target="_blank" rel="noopener noreffer ">etcd-raft 的线性一致读方法二：LeaseRead</a></p>
+</li>
+</ul>
+<blockquote>
+<h4 id="问zookeeper-和-etcd-有哪些不同">问：Zookeeper 和 ETCD 有哪些不同？</h4>
+</blockquote>
+<ul>
+<li>
+<p>zookeeper 使用 ZAB 协议，保证<strong>顺序一致性</strong>；etcd 使用 Raft 协议，保证<strong>线性一致性</strong>。顺序一致性是可能返回旧数据的。</p>
+</li>
+<li>
+<p><strong>zookeeper从逻辑上来看是一种目录结构，而etcd从逻辑上来看就是一个k-v结构</strong>。</p>
+</li>
+<li>
+<p>在实现服务发现时，我们一般都会用到zookeeper的临时节点。当客户端掉线一段时间，对应的zookeeper session会过期，那么对应的临时节点就会被自动删除；在etcd中对应的是<code>lease租约机制</code>，通过该机制实现了key的自动删除。</p>
+</li>
+<li>
+<p>zookeeper 官方只提供了java和C两种语言的接口；etcd 使用HTTP作为接口，适用性更广泛。</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/09-%E5%88%86%E5%B8%83%E5%BC%8F/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" data-title=""><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/" class="prev" rel="prev" title=""><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i></a>
+            <a href="/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="next" rel="next" title=""><i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -4,15 +4,87 @@
         <link>https://blog.seucy.me/</link>
         <description>😁</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
-            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Thu, 27 Jul 2023 18:30:20 &#43;0800</lastBuildDate>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Thu, 27 Jul 2023 18:21:46 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.seucy.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>First</title>
-    <link>https://blog.seucy.me/first/</link>
-    <pubDate>Thu, 27 Jul 2023 18:30:20 &#43;0800</pubDate>
+    <title></title>
+    <link>https://blog.seucy.me/01-%E7%AE%80%E5%8E%86%E6%8A%95%E9%80%92%E8%AE%B0%E5%BD%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
     <author>Chuyu</author>
-    <guid>https://blog.seucy.me/first/</guid>
-    <description><![CDATA[hello hugo 附录 参考文章 版权信息 本文原载于seucy.me，复制请保留原文出处。]]></description>
+    <guid>https://blog.seucy.me/01-%E7%AE%80%E5%8E%86%E6%8A%95%E9%80%92%E8%AE%B0%E5%BD%95/</guid>
+    <description><![CDATA[公司 投递状态 进度 携程 2023/03/13 已投递 😢测评挂 03/17 米哈游 2023/03/13 已投递 😢笔试挂 03/28 拼多多 2023/03/08 已投递 😢笔试挂 03/16 美团 2023/03/10 已投递 😢一面挂 03/28 快手 2023/03/21 已投递 😢简历挂 极智嘉 2023/04/05 已投]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/02-%E7%AC%94%E8%AF%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/02-%E7%AC%94%E8%AF%95/</guid>
+    <description><![CDATA[Go 读取超长的单行非常有病，看这个链接吧：https://aimuke.github.io/go/2020/06/18/go-readline]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/03-%E9%9D%A2%E8%AF%95/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/03-%E9%9D%A2%E8%AF%95/</guid>
+    <description><![CDATA[一、华为 主管面 问：如何看待互联网行业？ 互联网行业是一个极具创新和变革的行业，它不断地推出新的产品和服务，打破传统产业的边界，给人们带来更加便]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[[toc] 一、TCP 与 UDP 问：TCP 与 UDP 的区别⭐ 是否面向连接：UDP 在传送数据之前不需要先建立连接；而 TCP 提供面向连接的服务，在传送数据之前必须先建立连]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/05-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/05-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+    <description><![CDATA[[toc] 一、进程、线程、协程 问：什么是系统调用？ 进程的运行分为两个级别： 用户态(user mode)：用户态运行的进程可以直接读取用户程序的数据。 系]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+    <description><![CDATA[[toc] 常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B+树和B-树的区别？G B+]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/07-redis/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/07-redis/</guid>
+    <description><![CDATA[[toc] 常见面试题 记录一下常见的面试题，用于自测~~ 🚩：代表被问过 Redis 数据类型和结构（必问⭐⭐） Redis常见的数据类型，使用场景？G 各数据类型的底]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/08-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</guid>
+    <description><![CDATA[[toc] 参考文章： 开源消息引擎系统 Kafka 3 新特性 https://juejin.cn/post/7176576097205616700 https://mp.weixin.qq.com/s/vzvmOXGcsX7rwY4J_--onw 20道经典的Kafka面试题详解 《深入理解Kafka：核心设计与实践原理》 一、消息队列 这里的消息队]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/09-%E5%88%86%E5%B8%83%E5%BC%8F/</guid>
+    <description><![CDATA[[toc] 一些比较好的文档： https://tanxinyu.work/raft/ https://github.com/OneSizeFitsQuorum/raft-thesis-zh_cn/blob/master/raft-thesis-zh_cn.md https://tanxinyu.work/consistency-and-consensus/ https://tanxinyu.work/zookeeper-thesis/ Zookeeper Etcd https://mp.weixin.qq.com/s/x-AdmN0UN5KT58XWO1BCOA(未) 常见]]></description>
+</item>
+<item>
+    <title></title>
+    <link>https://blog.seucy.me/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/</guid>
+    <description><![CDATA[前言：**用来记录Go的语言特性，主要参考为B站《幼麟实验室》及《深度探索Go语言》。 一、基础知识 1.1 数据结构 1.1.1 String 编码：定长编码非常浪费内存，]]></description>
 </item>
 </channel>
 </rss>
