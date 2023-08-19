@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>面试 - Category - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/categories/%E9%9D%A2%E8%AF%95/</link>
+        <description>面试 - Category - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Sat, 25 Mar 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/categories/%E9%9D%A2%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
+    <title>面试记录</title>
+    <link>https://blog.seucy.me/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+    <pubDate>Sat, 25 Mar 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+    <description><![CDATA[==yzb学长==： 腾讯IEG-光子工作室群-区块链研发工程师 一面面经 1、自我介绍 2、20分钟项目面，比如FISCO BCOS中的交易有哪些字]]></description>
+</item>
+</channel>
+</rss>
