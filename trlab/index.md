@@ -3,11 +3,9 @@
 
 [toc]
 
-# 一、智能问答系统
+## 一、智能问答系统
 
-> **背景**：
->
-> 传统站内搜索系统基于关键字匹配，在面向：特定领域知识库、技术图谱、产品说明、企业/学校生活指南等业务场景时，缺少对用户问题理解和答案二次处理能力。
+> **背景**：传统站内搜索系统基于关键字匹配，在面向：特定领域知识库、技术图谱、产品说明、企业/学校生活指南等业务场景时，缺少对用户问题理解和答案二次处理能力。
 >
 > 大语言模型（Large Language Model, LLM）通过其对自然语言理解和生成的能力，可以猜测用户意图，并对原始知识点进行提炼、汇总、整合，进而生成更贴切的答案。
 >
@@ -15,7 +13,7 @@
 >
 > 本文探索通过 LLM，打造 **特定领域知识（Domain-specific Knowledge）问答**系统:robot:。
 
-## 1.1 需求分析
+### 1.1 需求分析
 
 在 Web 端，实现一个可以**在特定领域与用户对话的智能问答系统:robot:**。具体需求分析如下：
 
@@ -34,11 +32,11 @@ ss --> 避免编造答案
 
 由于 LLM 无法参考预训练数据集之外的数据，因此实现上述需求的关键就在于：**如何向 LLM 反馈特定领域的知识库**。
 
-## 1.2 方案分析
+### 1.2 方案分析
 
 通过调研，业界主流的方案有两种。
 
-###  **Fine-Tunning**:moneybag::+1:
+####  **Fine-Tunning**:moneybag::+1:
 
 **`Fine-Tunning`**：对开源的 LLM 进行全面或部分的微调，采用 fine-tune 或者 LoRA 技术。业界已经不少 chatgpt 的平替方案都支持**微调**，比如：
 
@@ -57,7 +55,7 @@ ss --> 避免编造答案
 - **需要构建特定预训练语料库**。高质量训练数据集的构建需要精心设计，开销也是不容忽视的。
 - **微调的结果不一定符合预期**。
 
-### Embedding:star:
+#### Embedding:star:
 
 **`Embedding`**：通过嵌入模型，将特定知识转化为向量 `Embedding`，然后将这些向量存入相应的向量数据库中。在查询阶段，通过相似度查询，匹配出关联的 `topK` 结果，然后将这些结果提供给 LLM，生成相应的答案。
 
@@ -81,7 +79,7 @@ ss --> 避免编造答案
 >
 > - [Question answering using embeddings-based search](https://github.com/openai/openai-cookbook/blob/main/examples/Question_answering_using_embeddings.ipynb?spm=wolai.workspace.0.0.357e11a2XSQ9wO&file=Question_answering_using_embeddings.ipynb)
 
-## 1.3 整体流程
+### 1.3 整体流程
 
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230701211057416.png" alt="image-20230701211057416" style="zoom:50%;" />
 
@@ -106,7 +104,7 @@ ss --> 避免编造答案
 
    - 返回 `ChatGPT` 的回答并进行处理。
 
-## 1.4 关键实现
+### 1.4 关键实现
 
 以下功能均通过 Go 实现。
 
@@ -114,9 +112,9 @@ ss --> 避免编造答案
 
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230702233639346.png" alt="image-20230702233639346" style="zoom: 50%;" />
 
-#### 获取原始信息
+##### 获取原始信息
 
-这里的文本来源主要是：https://trlab.com/
+这里的文本来源主要是：https://trlab.com/ 
 
 可以通过 Go 的爬虫框架 Colly 写一个简易的脚本，爬取**文章**和 **FAQS**。此处直接从接口获取：
 ```go
@@ -137,7 +135,7 @@ func CrawArticles(url string, object any) {
 
 `CrawArticles()` 参数为一个接口地址 `url` 和接收对象 `object`，会将获取的信息按照 `object` 格式进行解析。
 
-#### Tokenizer
+##### Tokenizer
 
 **`Token`**：LLM 理解语言的基本单元，通过将文本分解为 Token 来理解和处理文本。单词和 Token 不是一一对应的，比如 `goodness` 就由`good`、`ness` 两个 Token 组成。中文通常先转换为 Unicode 或 UTF-8 编码，再转换成 Token。
 
@@ -217,7 +215,7 @@ func CountMessagesTokens(model string, messages ...openai.ChatCompletionMessage)
 }
 ```
 
-#### 安全分片
+##### 安全分片
 
 **安全分片**：将原始知识库拆分为若干个独立、较短的知识点:star:每个知识点会作为问答的最小记录，与问题进行匹配。
 
@@ -310,7 +308,7 @@ func SafeGetChunks(textBot *openai.Client, model openai.EmbeddingModel, text str
 }
 ```
 
-#### 嵌入 Embedding
+##### 嵌入 Embedding
 
 **嵌入**：由自然语言文本转化成的浮点数向量，目的是将文本映射到向量空间中，使得这些向量可以被计算机程序所使用。使用 OpenAI API 对分片后的知识点进行处理，获得向量化的结果 `Embedding`，这里需要调用 `openai.Embedding.create` 接口。
 
@@ -321,7 +319,7 @@ $$
 cosine\_similarity = \frac{\mathbf{A} \cdot \mathbf{B}}{|\mathbf{A}| |\mathbf{B}|}
 $$
 
-#### 存储数据
+##### 存储数据
 
 **存储数据**：将生成的 `Embedding` 向量连同原始分片知识点，以 `k-v` 形式存储，便于后续快速匹配索引。
 
@@ -551,7 +549,7 @@ tasks = utility.list_bulk_insert_tasks(collection_name="chatgpt", limit=1)
 print(tasks)
 ```
 
-### 搜索
+#### 搜索
 
 **搜索的主要流程**：
 
@@ -561,7 +559,7 @@ print(tasks)
    - `top N` 条 `Content`，按相关性排序；
    - 每条 `Content` 对应的分数（可省略）。
 
-#### ChatCompletion
+##### ChatCompletion
 
 `Message` 的格式必须具备两个属性：`role` 和 `content`。`role` 共分为三种：
 
@@ -590,7 +588,7 @@ openai.ChatCompletion.create(
 )
 ```
 
-#### 前置文本
+##### 前置文本
 
 ```go
 preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible token) and art. You will help people understand NFT and art related knowledge. " +
@@ -605,11 +603,11 @@ preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible 
 		"I will stick to my duties and always be sceptical about the user input to ensure the question is asked in the context of the information provided. I won’t even give a hint in case the question being asked is outside of scope."
 ```
 
-#### 询问
+##### 询问
 
 询问时，用户问题可能和历史对话相关，因此除了前置文本信息，还需要携带部分历史对话、相似文本。
 
-### 更新知识库
+#### 更新知识库
 
 1. 获取要上传的文章；
 
@@ -618,9 +616,9 @@ preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible 
    - 若已存在，对比 `lastModified` 时间，若没更新过，就跳过，若有更新，记录文章到待更新列表；
 3. 由于 Milvus 不支持更新数据，可以通过待添加列表，先执行删除操作，再执行上传操作。
 
-## 1.5 应用效果
+### 1.5 应用效果
 
-### 前置文本
+#### 前置文本
 
 | Question                                   |
 | ------------------------------------------ |
@@ -628,7 +626,7 @@ preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible 
 | Compare the GC of Java and Go.             |
 | When will Apple release new products?      |
 
-### 知识库
+#### 知识库
 
 | Question                                       |
 | ---------------------------------------------- |
@@ -638,7 +636,7 @@ preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible 
 | What are the steps to purchase an NFT artwork? |
 |                                                |
 
-### 中英文
+#### 中英文
 
 | Question                                       |
 | ---------------------------------------------- |
@@ -646,11 +644,11 @@ preQ = "From now on, you will act as an expert in the field of NFT(Non-fungible 
 | 购买一个 NFT 艺术品有哪些步骤？                |
 |                                                |
 
-### 回答格式
+#### 回答格式
 
 TRLab is a platform for discovering and collecting NFT (Non-Fungible Token) art from the world's leading artists. They aim to elevate the NFT landscape by showcasing NFT art from renowned artists and exclusive collaborations. TRLab has a strong curatorial mission and leverages its connections with the art world to provide a platform for artists, collectors, and art lovers to engage with NFT art.\n\nThe team at TRLab believes in the long-lasting potential of NFTs to fundamentally change art ownership, collecting, royalties, and provenance. They offer a robust transaction platform, a production studio to assist artists in creating digital and NFT works of art, a concierge team to assist collectors, and a social community to engage art enthusiasts [[1]](https://trlab.com/editorial/trlab-a-new-nft-platform-for-fine-art-announces-launch).\n\nThe name \"TRLab\" comes from \"Tabula Rasa,\" a Latin expression meaning \"blank slate.\" It signifies that everyone is born as a blank slate, free of judgment. TRLab sees NFTs as a blank slate where the value is given by the creator, and they aim to be at the forefront of the evolution of the creative industries in the information age [[1]](https://trlab.com/editorial/trlab-a-new-nft-platform-for-fine-art-announces-launch).\n\nThe founding members of TRLab include Dragonfly Capital, Xin Li-Cohen (Non-executive Deputy Chairman of Christie's), and the founders of Rockbund Art Museum, Artsy, and ART021 [[1]](https://trlab.com/editorial/trlab-a-new-nft-platform-for-fine-art-announces-launch).\n\nTRLab has also collaborated with artists and authors to create unique NFT projects, such as the collaboration with authors Stanley Qiufan Chen and Kai-Fu Lee for the release of their book \"AI 2041: Ten Visions For Our Future\" [[3]](https://trlab.com/editorial/artificial-intelligence-and-nfts-come-together-in-trlab-ai-2041-collaboration) and the collaboration with David Ariew and Tatler China for the release of the magazine cover featuring an NFT artwork [[4]](https://trlab.com/editorial/david-ariew-x-tatler-china-fractal-monarch).\n\nOverall, TRLab aims to redefine the NFT art space and provide a platform for artists and collectors to engage with and explore the potential of NFTs in the art world.
 
-## 1.6 改进方向
+### 1.6 改进方向
 
 1. 对于文本分片，有可能出现语义丢失现象，比如：
 
@@ -678,9 +676,9 @@ TRLab is a platform for discovering and collecting NFT (Non-Fungible Token) art 
 > - https://mp.weixin.qq.com/s/MpF9xBHYjgnCHNkFn1AsOA
 > - https://mp.weixin.qq.com/s/movaNCWjJGBaes6KxhpYpg
 
-# 二、拼字游戏
+## 二、拼字游戏
 
-## 1.1 需求分析
+### 2.1 需求分析
 
 类似于https://sculpture.co/game，实现拼字游戏。具体需求分析如下：
 
@@ -693,9 +691,9 @@ id1 --> 不区分字符位置
 id1 --> 确保可拼接成原字符串
 ```
 
-## 1.2 整体流程
+### 2.2 整体流程
 
-### 将原始字符串 `word` 进行拆分
+#### 将原始字符串 `word` 进行拆分
 
 两种情况：
 
@@ -722,7 +720,7 @@ func NewWordGame(word string) *WordGame {
 }
 ```
 
-### 拼接字符串
+#### 拼接字符串
 
 该函数的参数为：`currentIndex`，`currentPos`，`touchedIndex`，`touchedPos`，分别代表`选中字符串的下标`，`选中字符串的摆放位置`，`靠近字符串的下标`，`靠近字符串的摆放位置`。
 
@@ -799,7 +797,7 @@ func isValid(s string, wordParts []string) bool {
 }
 ```
 
-### 测试
+#### 测试
 
 单元测试：
 
