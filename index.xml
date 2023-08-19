@@ -7,7 +7,7 @@
             <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</lastBuildDate>
             <atom:link href="https://blog.seucy.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>实习-ChatGPT</title>
+    <title>实习-Trlab</title>
     <link>https://blog.seucy.me/trlab/</link>
     <pubDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</pubDate>
     <author>Chuyu</author>
@@ -55,7 +55,7 @@
     <description><![CDATA[[toc] 一、概述 问：如何理解高并发系统？ 所谓设计高并发系统，就是设计一个系统，保证它整体可用的同时，能够处理很高的并发用户请求，能够承受很大的流量]]></description>
 </item>
 <item>
-    <title>项目记录</title>
+    <title>个人项目</title>
     <link>https://blog.seucy.me/11-%E9%A1%B9%E7%9B%AE/</link>
     <pubDate>Mon, 01 May 2023 20:13:28 &#43;0800</pubDate>
     <author>Chuyu</author>

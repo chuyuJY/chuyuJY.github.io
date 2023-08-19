@@ -1,4 +1,4 @@
-# Go-GMP
+# Go浅析-GMP
 
 
 [toc]

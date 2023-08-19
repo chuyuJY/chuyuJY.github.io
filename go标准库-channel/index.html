@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Go-Channel - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="Go-Channel" />
+        <title>Go浅析-Channel - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="Go浅析-Channel" />
 <meta property="og:description" content="[toc] 参考文章： Golang Channel 实现原理 一、核心数据结构 1.1 hchan 1 2 3 4 5 6 7 8 9 10 11 12 13 14 type hchan struct { qcount uint // total data in the queue dataqsiz uint // size of the circular queue buf unsafe.Pointer // points to an array of dataqsiz elements elemsize uint16 closed uint32" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
@@ -13,16 +13,16 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
 
-<meta name="twitter:title" content="Go-Channel"/>
+<meta name="twitter:title" content="Go浅析-Channel"/>
 <meta name="twitter:description" content="[toc] 参考文章： Golang Channel 实现原理 一、核心数据结构 1.1 hchan 1 2 3 4 5 6 7 8 9 10 11 12 13 14 type hchan struct { qcount uint // total data in the queue dataqsiz uint // size of the circular queue buf unsafe.Pointer // points to an array of dataqsiz elements elemsize uint16 closed uint32"/>
 <meta name="application-name" content="Chuyu&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" /><link rel="prev" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-atomic/" /><link rel="next" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-context/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" /><link rel="prev" href="https://blog.seucy.me/go%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" /><link rel="next" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-atomic/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Go-Channel",
+        "headline": "Go浅析-Channel",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -99,10 +99,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go-Channel</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>学习&笔记</a></span></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go浅析-Channel</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-18">2023-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;614 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;<span id="/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" class="leancloud_visitors" data-flag-title="Go-Channel">
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;<span id="/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" class="leancloud_visitors" data-flag-title="Go浅析-Channel">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -265,7 +265,7 @@
                             <a class="link-to-markdown" href="/go%E6%A0%87%E5%87%86%E5%BA%93-channel/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go-Channel" data-hashtags="Go,并发编程,同步"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go-Channel"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go-Channel"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go-Channel"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go浅析-Channel" data-hashtags="Go,并发编程,同步"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go浅析-Channel"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go浅析-Channel"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-channel/" data-title="Go浅析-Channel"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -277,8 +277,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/go%E6%A0%87%E5%87%86%E5%BA%93-atomic/" class="prev" rel="prev" title="Go浅析-Atomic"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go浅析-Atomic</a>
-            <a href="/go%E6%A0%87%E5%87%86%E5%BA%93-context/" class="next" rel="next" title="Go-Context">Go-Context<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/go%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="prev" rel="prev" title="Go浅析-基础操作"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go浅析-基础操作</a>
+            <a href="/go%E6%A0%87%E5%87%86%E5%BA%93-atomic/" class="next" rel="next" title="Go浅析-Atomic">Go浅析-Atomic<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

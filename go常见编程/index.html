@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Go-常见编程操作 - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="Go-常见编程操作" />
+        <title>Go浅析-常见编程操作 - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="Go浅析-常见编程操作" />
 <meta property="og:description" content="使用方法名字符串，调用方法 思路：通过 reflect。 1 2 3 4 5 6 7 8 9 10 11 12 type animal struct { name string } func (a *animal) Eat() { println(&#34;animal eat&#34;) } func main() { a := animal{&#34;cat&#34;} reflect.ValueOf(&amp;a).MethodByName(&#34;Eat&#34;).Call([]reflect.Value{}) } 3个 goroutine 按照顺序分别" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
 
-<meta name="twitter:title" content="Go-常见编程操作"/>
+<meta name="twitter:title" content="Go浅析-常见编程操作"/>
 <meta name="twitter:description" content="使用方法名字符串，调用方法 思路：通过 reflect。 1 2 3 4 5 6 7 8 9 10 11 12 type animal struct { name string } func (a *animal) Eat() { println(&#34;animal eat&#34;) } func main() { a := animal{&#34;cat&#34;} reflect.ValueOf(&amp;a).MethodByName(&#34;Eat&#34;).Call([]reflect.Value{}) } 3个 goroutine 按照顺序分别"/>
 <meta name="application-name" content="Chuyu&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" /><link rel="prev" href="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" /><link rel="next" href="https://blog.seucy.me/go%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Go-常见编程操作",
+        "headline": "Go浅析-常见编程操作",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -99,10 +99,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go-常见编程操作</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>学习&笔记</a></span></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go浅析-常见编程操作</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-25">2023-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;843 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;<span id="/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Go-常见编程操作">
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;<span id="/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Go浅析-常见编程操作">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
                     </span>&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -533,7 +533,7 @@
                             <a class="link-to-markdown" href="/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go-常见编程操作" data-hashtags="Go,基础编程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go-常见编程操作"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go-常见编程操作"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go-常见编程操作"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go浅析-常见编程操作" data-hashtags="Go,基础编程"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go浅析-常见编程操作"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go浅析-常见编程操作"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" data-title="Go浅析-常见编程操作"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -545,8 +545,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="prev" rel="prev" title="Go-GMP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go-GMP</a>
-            <a href="/go%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" class="next" rel="next" title="Go-内存逃逸">Go-内存逃逸<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="prev" rel="prev" title="Go浅析-GMP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go浅析-GMP</a>
+            <a href="/go%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90/" class="next" rel="next" title="Go浅析-内存逃逸">Go浅析-内存逃逸<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="valine" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.

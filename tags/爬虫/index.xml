@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>爬虫 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E7%88%AC%E8%99%AB/</link>
+        <description>爬虫 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Mon, 18 Jul 2022 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E7%88%AC%E8%99%AB/" rel="self" type="application/rss+xml" /><item>
+    <title>爬虫</title>
+    <link>https://blog.seucy.me/%E7%88%AC%E8%99%AB/</link>
+    <pubDate>Mon, 18 Jul 2022 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/%E7%88%AC%E8%99%AB/</guid>
+    <description><![CDATA[爬虫 一、概述 1.1 requests入门 安装requests 1 conda install requests 1 2 3 # windows 需要加上 encoding=&#34;utf-8&#34;, mac是默认的 with open(&#34;mybaidu.html&#34;, mode=&#34;w&#34;, encoding=&#34;utf-8&#34;) as f: f.write(resp.read().decode(&#34;utf-8&#34;)) 在地址栏中输入搜索的内容，这种]]></description>
+</item>
+</channel>
+</rss>

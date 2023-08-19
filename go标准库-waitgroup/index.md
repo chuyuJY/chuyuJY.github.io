@@ -1,4 +1,4 @@
-# Go-WaitGroup
+# Go浅析-WaitGroup
 
 
 ## 一、结构
