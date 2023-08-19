@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>基础编程 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/</link>
+        <description>基础编程 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Sat, 25 Feb 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>Go-常见编程操作</title>
+    <link>https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/</link>
+    <pubDate>Sat, 25 Feb 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/</guid>
+    <description><![CDATA[使用方法名字符串，调用方法 思路：通过 reflect。 1 2 3 4 5 6 7 8 9 10 11 12 type animal struct { name string } func (a *animal) Eat() { println(&#34;animal eat&#34;) } func main() { a := animal{&#34;cat&#34;} reflect.ValueOf(&amp;a).MethodByName(&#34;Eat&#34;).Call([]reflect.Value{}) } 3个 goroutine 按照顺序分别]]></description>
+</item>
+</channel>
+</rss>

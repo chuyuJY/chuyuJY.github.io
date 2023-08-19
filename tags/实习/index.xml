@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>实习 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E5%AE%9E%E4%B9%A0/</link>
+        <description>实习 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E5%AE%9E%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>实习-ChatGPT</title>
+    <link>https://blog.seucy.me/trlab/</link>
+    <pubDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/trlab/</guid>
+    <description><![CDATA[[toc] 一、智能问答系统 背景： 传统站内搜索系统基于关键字匹配，在面向：特定领域知识库、技术图谱、产品说明、企业/学校生活指南等业务场景时，缺少对用]]></description>
+</item>
+</channel>
+</rss>

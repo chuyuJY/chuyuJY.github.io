@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>代理 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E4%BB%A3%E7%90%86/</link>
+        <description>代理 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Sun, 23 Apr 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E4%BB%A3%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>代理</title>
+    <link>https://blog.seucy.me/%E4%BB%A3%E7%90%86/</link>
+    <pubDate>Sun, 23 Apr 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/%E4%BB%A3%E7%90%86/</guid>
+    <description><![CDATA[前言：本节描述正向代理和反向代理，及其之间的对比。 一、正向代理 1.1 概念 **正向代理（forward proxy）：**是一个位于客户端和目标服务]]></description>
+</item>
+</channel>
+</rss>

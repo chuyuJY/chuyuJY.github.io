@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>身份认证 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/</link>
+        <description>身份认证 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Mon, 19 Jun 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" rel="self" type="application/rss+xml" /><item>
+    <title>JWT认证</title>
+    <link>https://blog.seucy.me/12-jwt%E8%AE%A4%E8%AF%81/</link>
+    <pubDate>Mon, 19 Jun 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/12-jwt%E8%AE%A4%E8%AF%81/</guid>
+    <description><![CDATA[问：什么是 JWT ？ JWT（JSON Web Token）是目前最流行的跨域认证解决方案，是一种基于 Token 的认证授权机制。从 JWT 的全称可以看出，JWT 本身也是 T]]></description>
+</item>
+</channel>
+</rss>

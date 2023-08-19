@@ -1,6 +1,7 @@
-# 
+# Protobuf浅析
 
-Protobuf 的编码是基于变种的 Base 128。因此，按照 `Base 64 --> Base 128 --> Protobuf` 的顺序来学习比较好~
+
+> **前言**：Protobuf 的编码是基于变种的 Base 128。因此，按照 `Base 64 --> Base 128 --> Protobuf` 的顺序来学习比较好~
 
 [原文链接](https://mp.weixin.qq.com/s/enDUynhZ1Pnzg_4xEjR21A)
 

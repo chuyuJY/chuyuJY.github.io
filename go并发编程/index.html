@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go-GMP - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="Go-GMP" />
+<meta property="og:description" content="[toc] 参考文章： Go语言设计与实现 深入了解 Go 语言与并发编程 从 bug 中学习：六大开源项目告诉你 go 并发编程的那些坑 一、Go 并发机制 Go 的调度器使用 G、M、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-22T20:13:28+08:00" />
+<meta property="article:modified_time" content="2023-02-22T20:13:28+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
+
+<meta name="twitter:title" content="Go-GMP"/>
+<meta name="twitter:description" content="[toc] 参考文章： Go语言设计与实现 深入了解 Go 语言与并发编程 从 bug 中学习：六大开源项目告诉你 go 并发编程的那些坑 一、Go 并发机制 Go 的调度器使用 G、M、"/>
+<meta name="application-name" content="Chuyu&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" /><link rel="prev" href="https://blog.seucy.me/go%E6%A0%87%E5%87%86%E5%BA%93-waitgroup/" /><link rel="next" href="https://blog.seucy.me/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go-GMP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/blog.seucy.me\/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B\/"
+        },"genre": "posts","keywords": "Go, 并发编程, 同步, GMP","wordcount":  4426 ,
+        "url": "https:\/\/blog.seucy.me\/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B\/","datePublished": "2023-02-22T20:13:28+08:00","dateModified": "2023-02-22T20:13:28+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Chuyu"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 笔记 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chuyu&#39;s Blog">ᓫ (°⌑°) ǃ</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">笔记</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go-GMP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>学习&笔记</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-22">2023-02-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4426 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;<span id="/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Go-GMP">
+                        <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
+                    </span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一go-并发机制">一、Go 并发机制</a>
+      <ul>
+        <li><a href="#gmp-模型">GMP 模型</a>
+          <ul>
+            <li><a href="#g">G</a></li>
+            <li><a href="#m">M</a></li>
+            <li><a href="#p">P</a></li>
+            <li><a href="#调度器">调度器</a>
+              <ul>
+                <li><a href="#g0-和-m0">g0 和 m0</a></li>
+                <li><a href="#核心元素的容器"><strong>核心元素的容器</strong></a></li>
+                <li><a href="#调度循环">调度循环</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#二从-bug-中学习">二、从 Bug 中学习</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#无缓冲-channel由于-receiver-退出导致-sender-侧阻塞">无缓冲 channel，由于 receiver 退出导致 sender 侧阻塞</a></li>
+            <li><a href="#问channel-被关闭多次引发的-bug">问：channel 被关闭多次引发的 bug</a></li>
+            <li><a href="#waitgroup-误用导致阻塞">WaitGroup 误用导致阻塞</a></li>
+            <li><a href="#context-误用导致资源泄漏">context 误用导致资源泄漏</a></li>
+            <li><a href="#问多个-goroutine-同时读写共享变量导致的-bug">问：多个 goroutine 同时读写共享变量导致的 bug</a></li>
+            <li><a href="#问timer-误用产生的-bug">问：timer 误用产生的 bug</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>[toc]</p>
+<p><strong>参考文章</strong>：</p>
+<ul>
+<li><a href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-goroutine/#65-%E8%B0%83%E5%BA%A6%E5%99%A8" target="_blank" rel="noopener noreffer ">Go语言设计与实现</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MjM5ODYwMjI2MA==&amp;mid=2649770126&amp;idx=1&amp;sn=023a7c9af7828479b991168392cec15c&amp;chksm=beccdbf589bb52e39586d2c8294b56ebfa36c73562d666421432974758d15c27d59d36fee76a&amp;scene=126&amp;sessionid=1681283099&amp;subscene=227&amp;key=83c848a1d31eeadc00ea32d2a9cb25e5ad9047c23185e70b8595cc4aabbb009a8a81a71499c769fe90b7b1f9305962aa18887026fc21b14d28c12c1d07cedd6ebdcdd8417b3c1612309593cfc769e5034a18ce3b062c1bf40779e78dbb60fa81b76a784010f80ea0992390542f215c27bc864980b80be9a3e64325e3b123f2a3&amp;ascene=0&amp;uin=MjY0NTQ5ODYwNg%253D%253D&amp;devicetype=Windows&#43;11&#43;x64&amp;version=63090214&amp;lang=zh_CN&amp;countrycode=CN&amp;exportkey=n_ChQIAhIQw2EM0040jHSF5T68i9K3khLgAQIE97dBBAEAAAAAAOuOLjTIOloAAAAOpnltbLcz9gKNyK89dVj0batp40C3fMe2Y1xla%252FROFU4%252FE2kE77fx1Nm09aK%252F7ZGyaYEDVtl911%252Bj2AuSPxjLz9ZwTOzGjKCWI0V3j8AGaVSfZ%252FrxGFc4aSec96EkABq00oN0VXzpyZbO%252FIgKaQ%252B%252BhjliGY4JP6UJaoIlRg8rs6x0EVFWjvrFwqcueT2Jj%252B011iyBgCh26c02JEW4RhhFxpdBdxH759JCQtC5PW4G5GObnWPWACmdsmsJx2fKwff927daEtyRlbPH&amp;acctmode=0&amp;pass_ticket=7i96p0GGGPYUcWwVrJeEM%252FDiyTqOBKyr8%252ByDrCc1oxUlC3hgx%252F%252Bt2hb3g0O33WO59gJQbSn2GTfW1KKHZvtdbg%253D%253D&amp;wx_header=1" target="_blank" rel="noopener noreffer ">深入了解 Go 语言与并发编程</a></li>
+<li><a href="https://mp.weixin.qq.com/s/FDV77dO9nwtPltmx5cB7Lw" target="_blank" rel="noopener noreffer ">从 bug 中学习：六大开源项目告诉你 go 并发编程的那些坑</a></li>
+</ul>
+<h2 id="一go-并发机制">一、Go 并发机制</h2>
+<p>Go 的调度器使用 G、M、P 三个结构体来实现 Goroutine 的调度，也称之为 <strong>GMP 模型</strong>。</p>
+<h3 id="gmp-模型">GMP 模型</h3>
+<p><strong>G</strong>：表示 Goroutine。<strong>每个 Goroutine 对应一个 G 结构体，G 存储 Goroutine 的运行堆栈、状态以及任务函数，可重用</strong>。当 Goroutine 被调离 CPU 时，调度器代码负责把 CPU 寄存器的值保存在 G 对象的成员变量之中，当 Goroutine 被调度起来运行时，调度器代码又负责把 G 对象的成员变量所保存的寄存器的值恢复到 CPU 的寄存器；</p>
+<p><strong>M</strong>：OS 底层线程的抽象，它本身就与一个内核线程进行绑定，每个工作线程都有唯一的一个 M 结构体的实例对象与之对应，它代表着真正执行计算的资源，由操作系统的调度器调度和管理。<strong>M 结构体对象除了记录着工作线程的诸如栈的起止位置、当前正在执行的 Goroutine 以及是否空闲等等状态信息之外，还通过指针维持着与 P 结构体的实例对象之间的绑定关系</strong>；</p>
+<p><strong>P</strong>：表示逻辑处理器。对 G 来说，P 相当于 CPU 核，G 只有绑定到 P(在 P 的 local runq 中)才能被调度。对 M 来说，P 提供了相关的执行环境(Context)，如内存分配状态(mcache)，任务队列(G)等。它维护一个局部 Goroutine 可运行 G 队列，工作线程优先使用自己的局部运行队列，只有必要时才会去访问全局运行队列，这可以大大减少锁冲突，提高工作线程的并发性，并且可以良好的运用程序的局部性原理。</p>
+<p>一个 G 的执行需要 P 和 M 的支持。一个 M 在与一个 P 关联之后，就形成了一个有效的 G 运行环境（内核线程+上下文）。每个 P 都包含一个可运行的 G 的队列（runq）。该队列中的 G 会被依次传递给与本地 P 关联的 M，并获得运行时机。</p>
+<p>M 与 KSE 之间总是一一对应的关系，一个 M 仅能代表一个内核线程。M 与 KSE 之间的关联非常稳固，一个 M 在其生命周期内，会且仅会与一个 KSE 产生关联，而 M 与 P、P 与 G 之间的关联都是可变的，M 与 P 也是一对一的关系，P 与 G 则是一对多的关系。</p>
+<h4 id="g">G</h4>
+<p>运行时，G 在调度器中的地位与线程在操作系统中差不多，但是它占用了更小的内存空间，也降低了上下文切换的开销。它是 Go 语言<strong>在用户态提供的线程</strong>，作为一种粒度更细的资源调度单元。</p>
+<p>g 结构体部分源码(src/runtime/runtime2.go)：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">g</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stack</span>    <span class="nx">stack</span>  		<span class="c1">// Goroutine的栈内存范围[stack.lo, stack.hi)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">stackguard0</span>   <span class="kt">uintptr</span> 	<span class="c1">// 用于调度器抢占式调度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">m</span>     <span class="o">*</span><span class="nx">m</span>  				<span class="c1">// Goroutine占用的线程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">sched</span>    <span class="nx">gobuf</span>  		<span class="c1">// Goroutine的调度相关数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">atomicstatus</span>  <span class="kt">uint32</span> 	<span class="c1">// Goroutine的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">gobuf</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sp</span>  <span class="kt">uintptr</span>  			<span class="c1">// 栈指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">pc</span>  <span class="kt">uintptr</span>  			<span class="c1">// 程序计数器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">g</span>  <span class="nx">guintptr</span>  			<span class="c1">// gobuf对应的Goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">ret</span>  <span class="nx">sys</span><span class="p">.</span><span class="nx">Uintewg</span> 		<span class="c1">// 系统调用的返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>gobuf 中保存的内容会在调度器保存或恢复上下文时使用，其中栈指针和程序计数器会用来存储或恢复寄存器中的值，改变程序即将执行的代码。</p>
+</li>
+<li>
+<p>atomicstatus 字段存储了当前 Goroutine 的状态，Goroutine 主要可能处于以下几种状态：</p>
+<ul>
+<li>等待中：Goroutine 正在等待某些条件满足，例如：系统调用结束等，包括_Gwaiting、_Gsyscall 和_Gpreempted 几个状态</li>
+<li>可运行：Goroutine 已经准备就绪，可以在线程运行，如果当前程序中有非常多的 Goroutine，每个 Goroutine 就可能会等待更多的时间，即_Grunnable</li>
+<li>运行中：Goroutine 正在某个线程上运行，即_Grunning</li>
+</ul>
+</li>
+</ul>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230429154517629.png" alt="image-20230429154517629" style="zoom:33%;" />
+<p>G 常见状态转换图：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230429154803958.png" alt="image-20230429154803958" style="zoom:40%;" />
+<h4 id="m">M</h4>
+<p>Go 语言并发模型中的 M 是操作系统线程。调度器最多可以创建 10000 个线程，但是<strong>最多只会有 GOMAXPROCS(P 的数量)个活跃线程能够正常运行</strong>。在默认情况下，<strong>运行时会将 GOMAXPROCS 设置成当前机器的核数</strong>，我们也可以在程序中使用 runtime.GOMAXPROCS 来改变最大的活跃线程数。</p>
+<p>m 结构体源码(部分)：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">m</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g0</span>   <span class="o">*</span><span class="nx">g</span>   		<span class="c1">// 一个特殊的goroutine，执行一些运行时任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">gsignal</span>  <span class="o">*</span><span class="nx">g</span>   	<span class="c1">// 处理signal的G
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">curg</span>  <span class="o">*</span><span class="nx">g</span>   		<span class="c1">// 当前M正在运行的G的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">p</span>   <span class="nx">puintptr</span> 	<span class="c1">// 正在与当前M关联的P
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">nextp</span>  <span class="nx">puintptr</span> <span class="c1">// 与当前M潜在关联的P
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">oldp</span>  <span class="nx">puintptr</span> 	<span class="c1">// 执行系统调用之前使用线程的P
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">spinning</span> <span class="kt">bool</span>  	<span class="c1">// 当前M是否正在寻找可运行的G
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">lockedg</span>  <span class="o">*</span><span class="nx">g</span>   	<span class="c1">// 与当前M锁定的G
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="p">P</h4>
+<p>调度器中的处理器 P 是线程和 Goroutine 的中间层，它能提供线程需要的上下文环境，也会负责调度线程上的等待队列，通过处理器 P 的调度，每一个内核线程都能够执行多个 Goroutine，它能在 Goroutine 进行一些 I/O 操作时及时让出计算资源，提高线程的利用率。</p>
+<p><strong>P 的数量等于 GOMAXPROCS，设置 GOMAXPROCS 的值只能限制 P 的最大数量，对 M 和 G 的数量没有任何约束</strong>。当 M 上运行的 G 进入系统调用导致 M 被阻塞时，运行时系统会把该 M 和与之关联的 P 分离开来，这时，如果该 P 的可运行 G 队列上还有未被运行的 G，那么运行时系统就会找一个空闲的 M，或者新建一个 M 与该 P 关联，满足这些 G 的运行需要。<strong>因此，M 的数量很多时候都会比 P 多</strong>。</p>
+<p>p 结构体源码（部分）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">p</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span>   <span class="kt">uint32</span>			<span class="c1">// p 的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">m</span>        <span class="nx">muintptr</span> 		<span class="c1">// 对应关联的 M
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">runqhead</span> <span class="kt">uint32</span> 		<span class="c1">// 可运行的Goroutine队列，可无锁访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">runqtail</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">runq</span>     <span class="p">[</span><span class="mi">256</span><span class="p">]</span><span class="nx">guintptr</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">runnext</span>  <span class="nx">guintptr</span> 		<span class="c1">// 缓存可立即执行的G
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">gFree</span> <span class="kd">struct</span> <span class="p">{</span> 			<span class="c1">// 可用的G列表，G状态等于Gdead
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    	<span class="nx">gList</span>
+</span></span><span class="line"><span class="cl">    	<span class="nx">n</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>P 可能处于的状态如下：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230429155959520.png" alt="image-20230429155959520" style="zoom:40%;" />
+<h4 id="调度器">调度器</h4>
+<p><strong>调度的主要对象就是 G、M 和 P 的实例</strong>。每个 M(即每个内核线程)在运行过程中都会执行一些调度任务，他们共同实现了 Go 调度器的调度功能。</p>
+<h5 id="g0-和-m0">g0 和 m0</h5>
+<p>运行时系统中的每个 M 都会拥有一个特殊的 G，一般<strong>称为 M 的 g0</strong>。M 的 g0 不是由 Go 程序中的代码间接生成的，而是<strong>由 Go 运行时系统在初始化 M 时创建并分配给该 M 的。M 的 g0 一般用于执行调度、垃圾回收、栈管理等方面的任务</strong>。M 还会拥有一个专用于处理信号的 G，称为 gsignal。</p>
+<p>除了 g0 和 gsignal 之外，其他由 M 运行的 G 都可以视为用户级别的 G，简称用户 G，g0 和 gsignal 可称为系统 G。Go 运行时系统会进行切换，以使每个 M 都可以交替运行用户 G 和它的 g0。这就是前面所说的“每个 M 都会运行调度程序”的原因。</p>
+<p>除了每个 M 都拥有属于它自己的 g0 外，<strong>还存在一个 runtime.g0</strong>。runtime.g0 用于执行引导程序，它运行在 Go 程序拥有的第一个内核线程之中，这个线程也称为 <strong>runtime.m0</strong>，<strong>runtime.m0 的 g0 就是 runtime.g0</strong>。</p>
+<h5 id="核心元素的容器"><strong>核心元素的容器</strong></h5>
+<p>上面讲了 Go 的线程实现模型中的 3 个核心元素——G、M 和 P，下面看看承载这些元素实例的容器：</p>
+<img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230429160858236.png" alt="image-20230429160858236" style="zoom:40%;" />
+<h5 id="调度循环">调度循环</h5>
+<p>调用 <a href="https://draveness.me/golang/tree/runtime.schedule" target="_blank" rel="noopener noreffer "><code>runtime.schedule</code></a> 进入调度循环：</p>
+<ol>
+<li>为了保证公平，当全局运行队列中有待执行的 Goroutine 时，通过 <code>schedtick</code> 保证有一定几率会从全局的运行队列中查找对应的 Goroutine；</li>
+<li>从处理器本地的运行队列中查找待执行的 Goroutine；</li>
+<li>如果前两种方法都没有找到 Goroutine，会通过 <a href="https://draveness.me/golang/tree/runtime.findrunnable" target="_blank" rel="noopener noreffer "><code>runtime.findrunnable</code></a> 进行阻塞地查找 Goroutine；</li>
+</ol>
+<p><a href="https://draveness.me/golang/tree/runtime.findrunnable" target="_blank" rel="noopener noreffer "><code>runtime.findrunnable</code></a> 的实现非常复杂，这个 300 多行的函数通过以下的过程获取可运行的 Goroutine：</p>
+<ol>
+<li>从本地运行队列、全局运行队列中查找；</li>
+<li>从网络轮询器中查找是否有 Goroutine 等待运行；</li>
+<li>通过 <a href="https://draveness.me/golang/tree/runtime.runqsteal" target="_blank" rel="noopener noreffer "><code>runtime.runqsteal</code></a> 尝试从其他随机的处理器中窃取待运行的 Goroutine，该函数还可能窃取处理器的计时器；</li>
+</ol>
+<p>因为函数的实现过于复杂，上述的执行过程是经过简化的，总而言之，当前函数一定会返回一个可执行的 Goroutine，如果当前不存在就会阻塞等待。</p>
+<p>接下来由 <a href="https://draveness.me/golang/tree/runtime.execute" target="_blank" rel="noopener noreffer "><code>runtime.execute</code></a> 执行获取到的 Goroutine，做好准备工作后，它会通过 <a href="https://draveness.me/golang/tree/runtime.gogo" target="_blank" rel="noopener noreffer "><code>runtime.gogo</code></a> 将 Goroutine 调度到当前线程上；</p>
+<p>最终在当前线程的 g0 的栈上调用 <a href="https://draveness.me/golang/tree/runtime.goexit0" target="_blank" rel="noopener noreffer "><code>runtime.goexit0</code></a> 函数，该函数会将 Goroutine 转换会 <code>_Gdead</code> 状态；</p>
+<p>在最后 <a href="https://draveness.me/golang/tree/runtime.goexit0" target="_blank" rel="noopener noreffer "><code>runtime.goexit0</code></a> 会重新调用 <a href="https://draveness.me/golang/tree/runtime.schedule" target="_blank" rel="noopener noreffer "><code>runtime.schedule</code></a> 触发新一轮的 Goroutine 调度，Go 语言中的运行时调度循环会从 <a href="https://draveness.me/golang/tree/runtime.schedule" target="_blank" rel="noopener noreffer "><code>runtime.schedule</code></a> 开始，最终又回到 <a href="https://draveness.me/golang/tree/runtime.schedule" target="_blank" rel="noopener noreffer "><code>runtime.schedule</code></a>，我们可以认为调度循环永远都不会返回。</p>
+<h2 id="二从-bug-中学习">二、从 Bug 中学习</h2>
+<blockquote>
+<h4 id="无缓冲-channel由于-receiver-退出导致-sender-侧阻塞">无缓冲 channel，由于 receiver 退出导致 sender 侧阻塞</h4>
+</blockquote>
+<p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">finishReq</span><span class="p">(</span><span class="nx">timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="nx">ob</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">ob</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">result</span> <span class="o">:=</span> <span class="nf">fn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">result</span> <span class="c1">// block
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">result</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">timeout</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本意是想在调用 fn() 时，加上超时的功能，如果 fn()在超时时间没有返回，则返回 nil。但是当超时发生的时候，针对无缓冲的 ch 来说，由于已经没有 receiver 了，第 5 行将会被 block 住，导致这个 goroutine 永远不会退出。</p>
+<p>这个 bug 的修复方式也是非常的简单，把 unbuffered channel 修改成 buffered channel。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">finishReq</span><span class="p">(</span><span class="nx">timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="nx">ob</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">ob</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">result</span> <span class="o">:=</span> <span class="nf">fn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">result</span> <span class="c1">// block
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">result</span> <span class="p">=</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">timeout</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>思考</strong>：在上面的例子中，虽然这样不会 block 了，但是 channel 一直没有被关闭，channel 保持不关闭是否会导致资源的泄漏呢？</p>
+</blockquote>
+<blockquote>
+<h4 id="问channel-被关闭多次引发的-bug">问：channel 被关闭多次引发的 bug</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="o">&lt;-</span><span class="nx">c</span><span class="p">.</span><span class="nx">closed</span><span class="p">:</span>	
+</span></span><span class="line"><span class="cl"><span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面这块代码可能会被多个 goroutine 同时执行，这段代码的逻辑是，case 这个分支判断 closed 这个 channel 是否被关闭了，如果被关闭的话，就什么都不做；如果 closed 没有被关闭的话，就执行 default 分支关闭这个 channel，多个 goroutine 并发执行的时候，有可能会导致这个 channel 被关闭多次。</p>
+<blockquote>
+<p>For a channel c, the built-in function close(c) records that no more values will be sent on the channel. It is an error if c is a receive-only channel. Sending to or closing a closed channel causes a run-time panic.</p>
+</blockquote>
+<p>这个 bug 的修复方式是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">Once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">closed</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把整个 select 语句块换成 Once.Do，保证 channel 只关闭一次。</p>
+<blockquote>
+<h4 id="waitgroup-误用导致阻塞">WaitGroup 误用导致阻塞</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">group</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl"><span class="nx">group</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">plugins</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">pm</span><span class="p">.</span><span class="nx">plugins</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">plugin</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">defer</span> <span class="nx">group</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">group</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当 <code>len(pm.plugins) &gt;= 2</code> 时，第 7 行将会被卡住，因为这个时候只启动了一个异步的 goroutine，group.Done()只会被调用一次，group.Wait()将会永久阻塞。修复如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">group</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl"><span class="nx">group</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">pm</span><span class="p">.</span><span class="nx">plugins</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">pm</span><span class="p">.</span><span class="nx">plugins</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">plugin</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">defer</span> <span class="nx">group</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">group</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<h4 id="context-误用导致资源泄漏">context 误用导致资源泄漏</h4>
+</blockquote>
+<p>如下面的代码所示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">timeout</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一行 context.WithCancel(ctx) 有可能会创建一个 goroutine，来等待 ctx 是否 Done，如果 parent 的 ctx.Done()的话，cancel 掉 child 的 context。也就是说 hcancel 绑定了一定的资源，不能直接覆盖。</p>
+<blockquote>
+<p>Canceling this context releases resources associated with it, so code should call cancel as soon as the operations running in this Context complete.</p>
+</blockquote>
+<p>这个 bug 的修复方式是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">hctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">hcancel</span> <span class="nx">context</span><span class="p">.</span><span class="nx">CancelFunc</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">timeout</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="o">:=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithCancel</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">timeout</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hcancel</span><span class="p">.</span><span class="nf">Cancel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">hctx</span><span class="p">,</span> <span class="nx">hcancel</span> <span class="p">=</span> <span class="nx">context</span><span class="p">.</span><span class="nf">WithTimeout</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<h4 id="问多个-goroutine-同时读写共享变量导致的-bug">问：多个 goroutine 同时读写共享变量导致的 bug</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">17</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">21</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// write
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="cm">/* Create a new goroutine */</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">apiVersion</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;v1.%d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="c1">// read
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第二行中的匿名函数形成了一个闭包(closures)，在闭包内部可以访问定义在外面的变量，如上面的例子中，第 1 行在写 i 这个变量，在第 3 行在读 i 这个变量。这里的关键的问题是对同一个变量的读写是在两个 goroutine 里面同时进行的，因此是不安全的。</p>
+<p>其实这里会把 i 逃逸到堆上，然后都指向堆上同一个 i。因此，如下程序会输出很多个 6：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// write
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>	<span class="c1">// 等一下
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%d\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="c1">// read
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Function literals are closures: they may refer to variables defined in a surrounding function. Those variables are then shared between the surrounding function and the function literal, and they survive as long as they are accessible.</p>
+</blockquote>
+<p>可以修改成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">17</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">21</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span> <span class="c1">// write
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* Create a new goroutine */</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">apiVersion</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;v1.%d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="c1">// read
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过<code>passed by value</code>的方式规避了并发读写的问题。</p>
+<blockquote>
+<h4 id="问timer-误用产生的-bug">问：timer 误用产生的 bug</h4>
+</blockquote>
+<p>如下面的例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">timer</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">dur</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">timer</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="nx">dur</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="o">&lt;-</span><span class="nx">timer</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原意是想 dur 大于 0 的时候，设置 timer 超时时间，但是 timer := time.NewTimer(0)导致 timer.C 立即触发。修复后：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">timeout</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">dur</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">timeout</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">NewTimer</span><span class="p">(</span><span class="nx">dur</span><span class="p">).</span><span class="nx">C</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="o">&lt;-</span><span class="nx">timeout</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ctx</span><span class="p">.</span><span class="nf">Done</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>A nil channel is never ready for communication.</p>
+</blockquote>
+<p>上面的代码中第一个 case 分支 timeout 有可能是个 nil 的 channel，select 在 nil 的 channel 上，这个分支不会被触发，因此不会有问题。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-title="Go-GMP" data-hashtags="Go,并发编程,同步,GMP"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-title="Go-GMP"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-title="Go-GMP"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" data-title="Go-GMP"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="/tags/%E5%90%8C%E6%AD%A5/">同步</a>,&nbsp;<a href="/tags/gmp/">GMP</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/go%E6%A0%87%E5%87%86%E5%BA%93-waitgroup/" class="prev" rel="prev" title="Go-WaitGroup"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go-WaitGroup</a>
+            <a href="/go%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B/" class="next" rel="next" title="Go-常见编程操作">Go-常见编程操作<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="valine" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://valine.js.org/">Valine</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.115.1">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Chuyu</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

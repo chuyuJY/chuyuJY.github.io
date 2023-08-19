@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>学习&amp;笔记 - Category - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <description>学习&amp;笔记 - Category - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>实习-ChatGPT</title>
+    <link>https://blog.seucy.me/trlab/</link>
+    <pubDate>Tue, 01 Aug 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/trlab/</guid>
+    <description><![CDATA[[toc] 一、智能问答系统 背景： 传统站内搜索系统基于关键字匹配，在面向：特定领域知识库、技术图谱、产品说明、企业/学校生活指南等业务场景时，缺少对用]]></description>
+</item>
+<item>
+    <title>Git-代码冲突</title>
+    <link>https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/</link>
+    <pubDate>Sun, 23 Jul 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/20-%E4%BB%A3%E7%A0%81%E5%86%B2%E7%AA%81/</guid>
+    <description><![CDATA[[toc] 一、基本流程 拉取最新代码——创建分支——提交分支至云端——分支代码完成后查看状态——将代码添加至暂存区——本地提交代码——推送至云端——切]]></description>
+</item>
+<item>
+    <title>微服务基础知识 </title>
+    <link>https://blog.seucy.me/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+    <pubDate>Mon, 03 Jul 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+    <description><![CDATA[一、微服务 1.1 微服务技术栈 先给出微服务的架构： 分类： 1.2 认识微服务 单体架构：将业务的所有功能集中在一个项目中开发，打包成一个部署。 优点：架构简单]]></description>
+</item>
+<item>
+    <title>Protobuf浅析</title>
+    <link>https://blog.seucy.me/13-protobuf/</link>
+    <pubDate>Wed, 21 Jun 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/13-protobuf/</guid>
+    <description><![CDATA[前言：Protobuf 的编码是基于变种的 Base 128。因此，按照 Base 64 --&gt; Base 128 --&gt; Protobuf 的顺序来学习比较好~ 原文链接 一、Base 64 计算机之间传输数据时，数]]></description>
+</item>
+<item>
+    <title>JWT认证</title>
+    <link>https://blog.seucy.me/12-jwt%E8%AE%A4%E8%AF%81/</link>
+    <pubDate>Mon, 19 Jun 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/12-jwt%E8%AE%A4%E8%AF%81/</guid>
+    <description><![CDATA[问：什么是 JWT ？ JWT（JSON Web Token）是目前最流行的跨域认证解决方案，是一种基于 Token 的认证授权机制。从 JWT 的全称可以看出，JWT 本身也是 T]]></description>
+</item>
+<item>
+    <title>高并发系统设计</title>
+    <link>https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</link>
+    <pubDate>Thu, 25 May 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/17-%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</guid>
+    <description><![CDATA[[toc] 一、概述 问：如何理解高并发系统？ 所谓设计高并发系统，就是设计一个系统，保证它整体可用的同时，能够处理很高的并发用户请求，能够承受很大的流量]]></description>
+</item>
+<item>
+    <title>项目记录</title>
+    <link>https://blog.seucy.me/11-%E9%A1%B9%E7%9B%AE/</link>
+    <pubDate>Mon, 01 May 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/11-%E9%A1%B9%E7%9B%AE/</guid>
+    <description><![CDATA[[toc] 一、Gin 框架 问：为什么需要 Web框架？ net/http提供了基础的Web功能，即监听端口，映射静态路由，解析HTTP报文。一个实例： 1 2]]></description>
+</item>
+<item>
+    <title>负载均衡算法</title>
+    <link>https://blog.seucy.me/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Thu, 27 Apr 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95/</guid>
+    <description><![CDATA[前言：本文记录常见的负载均衡算法。 1. Power of 2 random choice P2C算法是一种工业中运用较多的负载均衡算法，它的原理很简单，它有两条基本定律： 若请求IP为空]]></description>
+</item>
+<item>
+    <title>深度探索Go语言</title>
+    <link>https://blog.seucy.me/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/</link>
+    <pubDate>Tue, 25 Apr 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/10-%E6%B7%B1%E5%BA%A6%E6%8E%A2%E7%B4%A2go%E8%AF%AD%E8%A8%80/</guid>
+    <description><![CDATA[前言：用来记录Go的语言特性，主要参考为B站《幼麟实验室》及《深度探索Go语言》。 一、基础知识 1.1 数据结构 1.1.1 String 编码：定长编码非常浪费内存，所以]]></description>
+</item>
+<item>
+    <title>代理</title>
+    <link>https://blog.seucy.me/%E4%BB%A3%E7%90%86/</link>
+    <pubDate>Sun, 23 Apr 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/%E4%BB%A3%E7%90%86/</guid>
+    <description><![CDATA[前言：本节描述正向代理和反向代理，及其之间的对比。 一、正向代理 1.1 概念 **正向代理（forward proxy）：**是一个位于客户端和目标服务]]></description>
+</item>
+</channel>
+</rss>

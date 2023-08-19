@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>序列化 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+        <description>序列化 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Wed, 21 Jun 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="self" type="application/rss+xml" /><item>
+    <title>Protobuf浅析</title>
+    <link>https://blog.seucy.me/13-protobuf/</link>
+    <pubDate>Wed, 21 Jun 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/13-protobuf/</guid>
+    <description><![CDATA[前言：Protobuf 的编码是基于变种的 Base 128。因此，按照 Base 64 --&gt; Base 128 --&gt; Protobuf 的顺序来学习比较好~ 原文链接 一、Base 64 计算机之间传输数据时，数]]></description>
+</item>
+</channel>
+</rss>

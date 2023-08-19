@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>微服务 - Tag - Chuyu&#39;s Blog</title>
+        <link>https://blog.seucy.me/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+        <description>微服务 - Tag - Chuyu&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>1205667742@qq.com (Chuyu)</managingEditor>
+            <webMaster>1205667742@qq.com (Chuyu)</webMaster><lastBuildDate>Mon, 03 Jul 2023 20:13:28 &#43;0800</lastBuildDate><atom:link href="https://blog.seucy.me/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="self" type="application/rss+xml" /><item>
+    <title>微服务基础知识 </title>
+    <link>https://blog.seucy.me/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/</link>
+    <pubDate>Mon, 03 Jul 2023 20:13:28 &#43;0800</pubDate>
+    <author>Chuyu</author>
+    <guid>https://blog.seucy.me/14-%E5%BE%AE%E6%9C%8D%E5%8A%A1/</guid>
+    <description><![CDATA[一、微服务 1.1 微服务技术栈 先给出微服务的架构： 分类： 1.2 认识微服务 单体架构：将业务的所有功能集中在一个项目中开发，打包成一个部署。 优点：架构简单]]></description>
+</item>
+</channel>
+</rss>
