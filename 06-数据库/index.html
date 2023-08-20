@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>数据库 - Chuyu&#39;s Blog</title><meta name="Description" content="😁"><meta property="og:title" content="数据库" />
-<meta property="og:description" content="[toc] 常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B&#43;树和B-树的区别？G B&#43;" />
+<meta property="og:description" content="常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B&#43;树和B-树的区别？G B&#43;树" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" /><meta property="og:image" content="https://blog.seucy.me/images/avatar.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-04-20T20:13:28+08:00" />
@@ -14,7 +14,7 @@
 <meta name="twitter:image" content="https://blog.seucy.me/images/avatar.jpg"/>
 
 <meta name="twitter:title" content="数据库"/>
-<meta name="twitter:description" content="[toc] 常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B&#43;树和B-树的区别？G B&#43;"/>
+<meta name="twitter:description" content="常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B&#43;树和B-树的区别？G B&#43;树"/>
 <meta name="application-name" content="Chuyu&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chuyu&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" /><link rel="prev" href="https://blog.seucy.me/05-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" /><link rel="next" href="https://blog.seucy.me/07-redis/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.seucy.me\/06-%E6%95%B0%E6%8D%AE%E5%BA%93\/"
-        },"genre": "posts","keywords": "计算机基础","wordcount":  27880 ,
+        },"genre": "posts","keywords": "计算机基础","wordcount":  27839 ,
         "url": "https:\/\/blog.seucy.me\/06-%E6%95%B0%E6%8D%AE%E5%BA%93\/","datePublished": "2023-04-20T20:13:28+08:00","dateModified": "2023-04-20T20:13:28+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -101,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">数据库</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-20">2023-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;27880 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-20">2023-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;27839 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;56 minutes&nbsp;<span id="/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" class="leancloud_visitors" data-flag-title="数据库">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
                     </span>&nbsp;</div>
@@ -112,51 +112,59 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#常见面试题">常见面试题</a>
       <ul>
-        <li><a href="#常见面试题">常见面试题</a>
+        <li><a href="#mysql-索引必问">MySQL 索引(⭐⭐必问)</a></li>
+        <li><a href="#mysql-事务必问">MySQL 事务(⭐⭐必问)</a></li>
+        <li><a href="#mysql-锁必问">MySQL 锁(⭐⭐必问)</a></li>
+        <li><a href="#mysql-日志常问">MySQL 日志(⭐⭐常问)</a></li>
+        <li><a href="#mysql-架构常问">MySQL 架构(⭐常问)</a></li>
+        <li><a href="#mysql-数据类型">MySQL 数据类型</a></li>
+        <li><a href="#面试问的">面试问的</a></li>
+      </ul>
+    </li>
+    <li><a href="#一事务">一、事务</a>
+      <ul>
+        <li><a href="#11-概念及原理">1.1 概念及原理</a>
           <ul>
-            <li>
-              <ul>
-                <li><a href="#mysql-索引必问">MySQL 索引(⭐⭐必问)</a></li>
-                <li><a href="#mysql-事务必问">MySQL 事务(⭐⭐必问)</a></li>
-                <li><a href="#mysql-锁必问">MySQL 锁(⭐⭐必问)</a></li>
-                <li><a href="#mysql-日志常问">MySQL 日志(⭐⭐常问)</a></li>
-                <li><a href="#mysql-架构常问">MySQL 架构(⭐常问)</a></li>
-                <li><a href="#mysql-数据类型">MySQL 数据类型</a></li>
-                <li><a href="#面试问的">面试问的</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#一事务">一、事务</a>
-          <ul>
-            <li><a href="#11-概念及原理">1.1 概念及原理</a></li>
             <li><a href="#问什么是事务">问：什么是事务？</a></li>
             <li><a href="#问事务的四大特性acid-是什么">问：事务的四大特性？ACID 是什么？</a></li>
             <li><a href="#问mysql中各有什么机制保证以上四个属性">问：MySQL中，各有什么机制保证以上四个属性？</a></li>
             <li><a href="#问a-id25持久性是怎么保证的a">问：<a id="2.5">持久性是怎么保证的？</a></a></li>
-            <li><a href="#12-并发事务">1.2 并发事务</a></li>
+          </ul>
+        </li>
+        <li><a href="#12-并发事务">1.2 并发事务</a>
+          <ul>
             <li><a href="#问并发事务会带来哪些问题">问：并发事务会带来哪些问题？</a></li>
             <li><a href="#问不可重复读和幻读的区别">问：不可重复读和幻读的区别？</a></li>
             <li><a href="#问并发事务的控制方式有哪些">问：并发事务的控制方式有哪些？</a></li>
-            <li><a href="#13-事务隔离级别">1.3 事务隔离级别</a></li>
+          </ul>
+        </li>
+        <li><a href="#13-事务隔离级别">1.3 事务隔离级别</a>
+          <ul>
             <li><a href="#问a-id21都有哪些事务隔离级别a">问：<a id="2.1">都有哪些事务隔离级别？</a></a></li>
             <li><a href="#问a-id22可重复读下如何避免幻读a">问：<a id="2.2">可重复读下，如何避免幻读？</a></a></li>
             <li><a href="#问a-id241可重复读的实现原理a">问：<a id="2.4.1">可重复读的实现原理？⭐</a></a></li>
             <li><a href="#问a-id242读已提交的实现原理a">问：<a id="2.4.2">读已提交的实现原理？</a></a></li>
           </ul>
         </li>
-        <li><a href="#二存储引擎">二、存储引擎</a>
+      </ul>
+    </li>
+    <li><a href="#二存储引擎">二、存储引擎</a>
+      <ul>
+        <li>
           <ul>
             <li><a href="#问mysql存储引擎架构">问：MySQL存储引擎架构？</a></li>
             <li><a href="#问myisam-和-innodb-有何区别">问：MyISAM 和 InnoDB 有何区别？</a></li>
             <li><a href="#问如何选择-myisam-和-innodbmemory">问：如何选择 MyISAM 和 InnoDB、MEMORY？</a></li>
           </ul>
         </li>
-        <li><a href="#三索引">三、索引⭐</a>
+      </ul>
+    </li>
+    <li><a href="#三索引">三、索引⭐</a>
+      <ul>
+        <li><a href="#31-索引结构">3.1 索引结构</a>
           <ul>
-            <li><a href="#31-索引结构">3.1 索引结构</a></li>
             <li><a href="#问a-id13b-树-和-b树-有何异同a">问：<a id="1.3">B-树 和 B+树 有何异同？</a></a></li>
             <li><a href="#问b-tree-相比于-b--tree-的优点">问：B+ Tree 相比于 B- Tree 的优点？</a></li>
             <li><a href="#问a-id14hash-索引相比于-b-树的优缺点a">问：<a id="1.4">Hash 索引相比于 B+ 树的优缺点？</a></a></li>
@@ -164,129 +172,138 @@
             <li><a href="#问b-tree-索引一个元素的过程">问：B+ Tree 索引一个元素的过程？</a></li>
             <li><a href="#问为什么-innodb-存储引擎选用-btree-索引结构">问：为什么 InnoDB 存储引擎选用 B+Tree 索引结构？</a></li>
             <li><a href="#问b-树不同高度的数据存储">问：B+ 树不同高度的数据存储？</a></li>
-            <li><a href="#32-索引类型">3.2 索引类型</a></li>
           </ul>
         </li>
-        <li><a href="#思考以下-sql语句哪个执行效率高为什么">思考：以下 SQL语句，哪个执行效率高？为什么？</a>
+        <li><a href="#32-索引类型">3.2 索引类型</a>
           <ul>
+            <li><a href="#思考以下-sql语句哪个执行效率高为什么">思考：以下 SQL语句，哪个执行效率高？为什么？</a></li>
             <li><a href="#问a-id11索引类型a">问：<a id="1.1">索引类型？</a></a></li>
             <li><a href="#问innodb-主键索引的-btree-高度有多高">问：InnoDB 主键索引的 B+Tree 高度有多高？</a></li>
             <li><a href="#问a-id17聚集索引选取规则a">问：<a id="1.7">聚集索引选取规则？</a></a></li>
             <li><a href="#问sql性能分析方法">问：SQL性能分析方法？</a></li>
-            <li><a href="#33-索引使用">3.3 索引使用</a>
-              <ul>
-                <li><a href="#索引法则">索引法则</a></li>
-              </ul>
-            </li>
+          </ul>
+        </li>
+        <li><a href="#33-索引使用">3.3 索引使用</a>
+          <ul>
+            <li><a href="#索引法则">索引法则</a></li>
             <li><a href="#问a-id16索引失效的情况a即使用索引时需要的注意事项">问：<a id="1.6">索引失效的情况？</a>即，使用索引时需要的注意事项？⭐⭐🚩</a></li>
             <li><a href="#问如何查看-mysql-是否用到了索引">问：如何查看 MySQL 是否用到了索引？🚩</a></li>
-            <li><a href="#问优化数据库查询操作的做法即-优化索引的方法">问：优化数据库查询操作的做法？即 优化索引的方法？</a>
-              <ul>
-                <li><a href="#覆盖索引回表查询">覆盖索引、回表查询⭐🚩</a></li>
-              </ul>
-            </li>
+            <li><a href="#问优化数据库查询操作的做法即-优化索引的方法">问：优化数据库查询操作的做法？即 优化索引的方法？</a></li>
+            <li><a href="#覆盖索引回表查询">覆盖索引、回表查询⭐🚩</a></li>
             <li><a href="#问a-id110什么是回表查询什么时候会触发回表查询a">问：<a id="1.10">什么是回表查询？什么时候会触发回表查询？</a></a></li>
             <li><a href="#问a-id111联合索引应用场景为什么要建联合索引a">问：<a id="1.11">联合索引应用场景？为什么要建联合索引？</a>⭐🚩</a></li>
-            <li><a href="#问一张表有四个字段id-username-password-status由于数据量大需要对以下-sql-语句进行优化该如何进行才是最优方案">问：一张表，有四个字段(id, username, password, status)，由于数据量大，需要对以下 SQL 语句进行优化，该如何进行才是最优方案？</a>
-              <ul>
-                <li><a href="#前缀索引">前缀索引</a></li>
-              </ul>
-            </li>
-            <li><a href="#问a-id18前缀索引是什么a">问：<a id="1.8">前缀索引是什么？</a></a>
-              <ul>
-                <li><a href="#索引下推">索引下推</a></li>
-              </ul>
-            </li>
-            <li><a href="#问什么是索引下推">问：什么是索引下推？</a>
-              <ul>
-                <li><a href="#索引设计原则">索引设计原则</a></li>
-              </ul>
-            </li>
+            <li><a href="#问一张表有四个字段id-username-password-status由于数据量大需要对以下-sql-语句进行优化该如何进行才是最优方案">问：一张表，有四个字段(id, username, password, status)，由于数据量大，需要对以下 SQL 语句进行优化，该如何进行才是最优方案？</a></li>
+            <li><a href="#前缀索引">前缀索引</a></li>
+            <li><a href="#问a-id18前缀索引是什么a">问：<a id="1.8">前缀索引是什么？</a></a></li>
+            <li><a href="#索引下推">索引下推</a></li>
+            <li><a href="#问什么是索引下推">问：什么是索引下推？</a></li>
+            <li><a href="#索引设计原则">索引设计原则</a></li>
             <li><a href="#问a-id15索引设计原则有哪些a">问：<a id="1.5">索引设计原则有哪些？</a></a></li>
             <li><a href="#问索引越多越好吗">问：索引越多越好吗？</a></li>
             <li><a href="#问a-id19uuid-和-自增id-做索引有什么区别a">问：<a id="1.9">uuid 和 自增id 做索引有什么区别？</a></a></li>
           </ul>
         </li>
-        <li><a href="#四sql优化">四、SQL优化</a>
+      </ul>
+    </li>
+    <li><a href="#四sql优化">四、SQL优化</a>
+      <ul>
+        <li><a href="#41-插入数据">4.1 插入数据</a></li>
+        <li><a href="#42-主键优化">4.2 主键优化</a></li>
+        <li><a href="#43-order-by-优化">4.3 order by 优化</a></li>
+        <li><a href="#44-group-by-优化">4.4 group by 优化</a></li>
+        <li><a href="#45-limit-优化">4.5 limit 优化</a></li>
+        <li><a href="#46-count-优化">4.6 count 优化</a>
           <ul>
-            <li><a href="#41-插入数据">4.1 插入数据</a></li>
-            <li><a href="#42-主键优化">4.2 主键优化</a></li>
-            <li><a href="#43-order-by-优化">4.3 order by 优化</a></li>
-            <li><a href="#44-group-by-优化">4.4 group by 优化</a></li>
-            <li><a href="#45-limit-优化">4.5 limit 优化</a></li>
-            <li><a href="#46-count-优化">4.6 count 优化</a></li>
             <li><a href="#问count-是什么">问：count() 是什么？</a></li>
             <li><a href="#问a-id73count1countcount字段哪个效率最高a">问：<a id="7.3">count(1)、count(*)、count(字段)，哪个效率最高？</a>⭐🚩</a></li>
-            <li><a href="#47-update-优化">4.7 update 优化</a></li>
           </ul>
         </li>
-        <li><a href="#五视图--存储过程--触发器未">五、视图 &amp; 存储过程 &amp; 触发器（未）</a>
+        <li><a href="#47-update-优化">4.7 update 优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#五视图--存储过程--触发器未">五、视图 &amp; 存储过程 &amp; 触发器（未）</a>
+      <ul>
+        <li><a href="#51-视图">5.1 视图</a>
           <ul>
-            <li><a href="#51-视图">5.1 视图</a>
-              <ul>
-                <li><a href="#视图的作用">视图的作用</a></li>
-              </ul>
-            </li>
-            <li><a href="#52-存储过程">5.2 存储过程</a>
-              <ul>
-                <li><a href="#语法">语法</a></li>
-              </ul>
-            </li>
-            <li><a href="#53-存储函数">5.3 存储函数</a></li>
+            <li><a href="#视图的作用">视图的作用</a></li>
           </ul>
         </li>
-        <li><a href="#六锁">六、锁</a>
+        <li><a href="#52-存储过程">5.2 存储过程</a>
           <ul>
-            <li><a href="#61-全局锁">6.1 全局锁</a></li>
+            <li><a href="#语法">语法</a></li>
+          </ul>
+        </li>
+        <li><a href="#53-存储函数">5.3 存储函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#六锁">六、锁</a>
+      <ul>
+        <li><a href="#61-全局锁">6.1 全局锁</a>
+          <ul>
             <li><a href="#问全局锁的应用场景">问：全局锁的应用场景？</a></li>
-            <li><a href="#62-表级锁">6.2 表级锁</a></li>
+          </ul>
+        </li>
+        <li><a href="#62-表级锁">6.2 表级锁</a>
+          <ul>
             <li><a href="#问意向锁有什么作用">问：意向锁有什么作用？</a></li>
             <li><a href="#问共享锁和排他锁">问：共享锁和排他锁？</a></li>
-            <li><a href="#63-行级锁">6.3 行级锁</a></li>
+          </ul>
+        </li>
+        <li><a href="#63-行级锁">6.3 行级锁</a>
+          <ul>
             <li><a href="#问临键锁的范围">问：临键锁的范围？</a></li>
             <li><a href="#问a-id32为什么会产生死锁a">问：<a id="3.2">为什么会产生死锁？</a></a></li>
             <li><a href="#问a-id33如何避免死锁a">问：<a id="3.3">如何避免死锁？</a></a></li>
           </ul>
         </li>
-        <li><a href="#七mvcc">七、MVCC</a>
+      </ul>
+    </li>
+    <li><a href="#七mvcc">七、MVCC</a>
+      <ul>
+        <li><a href="#71-概念">7.1 概念</a>
           <ul>
-            <li><a href="#71-概念">7.1 概念</a></li>
             <li><a href="#问当前读和快照读有什么区别">问：当前读和快照读有什么区别？</a></li>
             <li><a href="#问什么是mvcc">问：什么是MVCC？</a></li>
-            <li><a href="#72-mvcc实现">7.2 MVCC实现</a>
-              <ul>
-                <li><a href="#721-隐藏字段">7.2.1 隐藏字段</a></li>
-                <li><a href="#722-undo-log">7.2.2 undo log</a></li>
-                <li><a href="#723-readview">7.2.3 readview</a></li>
-              </ul>
-            </li>
+          </ul>
+        </li>
+        <li><a href="#72-mvcc实现">7.2 MVCC实现</a>
+          <ul>
+            <li><a href="#721-隐藏字段">7.2.1 隐藏字段</a></li>
+            <li><a href="#722-undo-log">7.2.2 undo log</a></li>
+            <li><a href="#723-readview">7.2.3 readview</a></li>
             <li><a href="#问a-id23mvcc的实现原理a">问：<a id="2.3">MVCC的实现原理？</a>⭐⭐</a></li>
             <li><a href="#问rc和rr隔离级别下mvcc的差异">问：RC和RR隔离级别下MVCC的差异？</a></li>
             <li><a href="#问mvcc临键锁-防止幻读">问：MVCC+临键锁 防止幻读？</a></li>
           </ul>
         </li>
-        <li><a href="#八数据类型">八、数据类型</a>
+      </ul>
+    </li>
+    <li><a href="#八数据类型">八、数据类型</a>
+      <ul>
+        <li><a href="#81-表空间的文件结构">8.1 表空间的文件结构</a>
           <ul>
-            <li><a href="#81-表空间的文件结构">8.1 表空间的文件结构</a>
-              <ul>
-                <li><a href="#行">行</a></li>
-                <li><a href="#页">页</a></li>
-                <li><a href="#区">区</a></li>
-                <li><a href="#段">段</a></li>
-              </ul>
-            </li>
-            <li><a href="#82-行格式">8.2 行格式</a></li>
+            <li><a href="#行">行</a></li>
+            <li><a href="#页">页</a></li>
+            <li><a href="#区">区</a></li>
+            <li><a href="#段">段</a></li>
           </ul>
         </li>
-        <li><a href="#九日志">九、日志</a>
+        <li><a href="#82-行格式">8.2 行格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#九日志">九、日志</a>
+      <ul>
+        <li><a href="#undo-log-和-redo-log">undo log 和 redo log</a>
           <ul>
-            <li><a href="#undo-log-和-redo-log">undo log 和 redo log</a></li>
             <li><a href="#问a-id41undo-log-是啥有啥用a">问：<a id="4.1">undo log 是啥？有啥用？</a></a></li>
             <li><a href="#问wal-技术">问：WAL 技术？</a></li>
             <li><a href="#问a-id42redo-log是啥有啥用a">问：<a id="4.2">redo log是啥？有啥用？</a></a></li>
             <li><a href="#问a-id43undo-log-和-redo-log-有啥区别a">问：<a id="4.3">undo log 和 redo log 有啥区别？</a>⭐⭐</a></li>
             <li><a href="#问redo-log-会满吗">问：redo log 会满吗？</a></li>
-            <li><a href="#bin-log">bin log</a></li>
+          </ul>
+        </li>
+        <li><a href="#bin-log">bin log</a>
+          <ul>
             <li><a href="#问什么是-bin-log">问：什么是 bin log？</a></li>
             <li><a href="#问a-id44为什么有了-bin-log-还要有-redo-log这俩有啥区别a">问：<a id="4.4">为什么有了 bin log 还要有 redo log？这俩有啥区别？</a></a></li>
             <li><a href="#问如果不小心整个数据库的数据被删除了能使用-redo-log-文件恢复数据吗">问：如果不小心整个数据库的数据被删除了，能使用 redo log 文件恢复数据吗？</a></li>
@@ -296,36 +313,52 @@
             <li><a href="#问两阶段提交有啥缺点">问：两阶段提交有啥缺点？</a></li>
           </ul>
         </li>
-        <li><a href="#十内存">十、内存</a>
+      </ul>
+    </li>
+    <li><a href="#十内存">十、内存</a>
+      <ul>
+        <li><a href="#基础">基础</a>
           <ul>
-            <li><a href="#基础">基础</a></li>
             <li><a href="#问为啥要有-buffer-pool">问：为啥要有 Buffer Pool？</a></li>
             <li><a href="#问buffer-pool-缓存了什么">问：Buffer Pool 缓存了什么？</a></li>
             <li><a href="#问查询一条数据只需要缓存一条数据吗">问：查询一条数据，只需要缓存一条数据吗？</a></li>
-            <li><a href="#管理">管理</a></li>
+          </ul>
+        </li>
+        <li><a href="#管理">管理</a>
+          <ul>
             <li><a href="#问如何管理空闲页">问：如何管理空闲页？</a></li>
             <li><a href="#问如何管理脏页">问：如何管理脏页？</a></li>
             <li><a href="#问缓存更新策略">问：缓存更新策略？</a></li>
             <li><a href="#问脏页什么时候会被刷盘">问：脏页什么时候会被刷盘？⭐⭐</a></li>
           </ul>
         </li>
-        <li><a href="#十一集群架构">十一、集群架构</a>
+      </ul>
+    </li>
+    <li><a href="#十一集群架构">十一、集群架构</a>
+      <ul>
+        <li><a href="#主从复制">主从复制</a>
           <ul>
-            <li><a href="#主从复制">主从复制</a></li>
             <li><a href="#问为什么要集群">问：为什么要集群？</a></li>
             <li><a href="#问a-id51主从复制是如何实现的a">问：<a id="5.1">主从复制是如何实现的？</a></a></li>
             <li><a href="#问a-id52从库是越多越好吗a">问：<a id="5.2">从库是越多越好吗？</a></a></li>
             <li><a href="#问a-id53主从复制有哪些模型如何保持主从间的数据一致性a">问：<a id="5.3">主从复制有哪些模型？/如何保持主从间的数据一致性？</a></a></li>
-            <li><a href="#分库分表">分库分表</a></li>
+          </ul>
+        </li>
+        <li><a href="#分库分表">分库分表</a>
+          <ul>
             <li><a href="#问为什么要分库为什么要分表">问：为什么要分库？为什么要分表？</a></li>
             <li><a href="#问什么时候就要进行分库分表了">问：什么时候就要进行分库分表了？</a></li>
             <li><a href="#问a-id54有哪些分库分表方式a">问：<a id="5.4">有哪些分库、分表方式？</a></a></li>
             <li><a href="#问a-id55水平分片的规则有哪些a">问：<a id="5.5">水平分片的规则有哪些？</a></a></li>
-            <li><a href="#读写分离">读写分离</a></li>
-            <li><a href="#分布式-id">分布式 ID</a></li>
           </ul>
         </li>
-        <li><a href="#十二面试题">十二、面试题</a>
+        <li><a href="#读写分离">读写分离</a></li>
+        <li><a href="#分布式-id">分布式 ID</a></li>
+      </ul>
+    </li>
+    <li><a href="#十二面试题">十二、面试题</a>
+      <ul>
+        <li>
           <ul>
             <li><a href="#问a-id71执行一条mysql语句非常慢可能的原因a">问：<a id="7.1">执行一条MySQL语句，非常慢，可能的原因？</a></a></li>
             <li><a href="#问通过-select-from-limit-查询数据时查询-0-10-和-990-1000-的效率一样吗">问：通过 select from limit 查询数据时，查询 0-10 和 990-1000 的效率一样吗？</a></li>
@@ -336,10 +369,9 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>[toc]</p>
-<h3 id="常见面试题">常见面试题</h3>
+            </div><div class="content" id="content"><h2 id="常见面试题">常见面试题</h2>
 <p>用于自测，点击 <a href="" rel="">G</a> 即可跳转到相应答案~~</p>
-<h5 id="mysql-索引必问">MySQL 索引(⭐⭐必问)</h5>
+<h3 id="mysql-索引必问">MySQL 索引(⭐⭐必问)</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 索引的类型有哪些？<a href="#1.1" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 索引的数据结构有哪些？<a href="#1.2" rel="">G</a></li>
@@ -353,7 +385,7 @@
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 什么是回表查询？什么时候会触发回表查询？<a href="#1.10" rel="">G</a>⭐🚩</li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 联合索引应用场景？为什么要建联合索引？<a href="#1.11" rel="">G</a>⭐🚩</li>
 </ul>
-<h5 id="mysql-事务必问">MySQL 事务(⭐⭐必问)</h5>
+<h3 id="mysql-事务必问">MySQL 事务(⭐⭐必问)</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 事务隔离级别？<a href="#2.1" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 可重复读下，如何避免幻读？<a href="#2.2" rel="">G</a></li>
@@ -361,13 +393,13 @@
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 各事务隔离级别是如何实现的？可重复读：<a href="#2.4.1" rel="">G</a>；读已提交：<a href="#2.4.2" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 事务实现原理？ACID 是怎么保证的？<a href="#2.5" rel="">未</a></li>
 </ul>
-<h5 id="mysql-锁必问">MySQL 锁(⭐⭐必问)</h5>
+<h3 id="mysql-锁必问">MySQL 锁(⭐⭐必问)</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 行级锁，表级锁；排它锁，共享锁；记录锁、间隙锁，临键锁；两阶段锁；</li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 死锁的原因？<a href="#3.2" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 如何避免死锁？<a href="#3.3" rel="">G</a></li>
 </ul>
-<h5 id="mysql-日志常问">MySQL 日志(⭐⭐常问)</h5>
+<h3 id="mysql-日志常问">MySQL 日志(⭐⭐常问)</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> undo log 是啥？有啥用？<a href="#4.1" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> redo log 是啥？有啥用？<a href="#4.2" rel="">G</a></li>
@@ -376,7 +408,7 @@
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 执行 update 的过程？⭐<a href="#4.5" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 事务提交过程：什么是两阶段提交？<a href="#4.6.1" rel="">G</a> 为啥要两阶段提交？<a href="#4.6.2" rel="">G</a></li>
 </ul>
-<h5 id="mysql-架构常问">MySQL 架构(⭐常问)</h5>
+<h3 id="mysql-架构常问">MySQL 架构(⭐常问)</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 主从复制是咋实现的？<a href="#5.1" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 从库是越多越好吗？<a href="#5.2" rel="">G</a></li>
@@ -384,7 +416,7 @@
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 分库、分表的方式有哪些？<a href="#5.4" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 水平分片有哪些规则？<a href="#5.5" rel="">G</a></li>
 </ul>
-<h5 id="mysql-数据类型">MySQL 数据类型</h5>
+<h3 id="mysql-数据类型">MySQL 数据类型</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> MySQL有哪些数据类型？</li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> varchar 与 char 的区别？int 和 int (11) 区别？tinyint 与 int 区别？</li>
@@ -393,15 +425,15 @@
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> varchar(n) 中 n 最大取值为多少？</li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 行溢出后，MySQL 是怎么处理的？</li>
 </ul>
-<h5 id="面试问的">面试问的</h5>
+<h3 id="面试问的">面试问的</h3>
 <ul>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> 执行MySQL语句特别慢，可能的原因？<a href="#7.1" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> drop 和 delete 有啥区别？<a href="#7.2" rel="">G</a></li>
 <li><i class="far fa-square fa-fw" aria-hidden="true"></i> count(1)、count(*)、count(字段)，哪个效率最高？<a href="#7.3" rel="">G</a>⭐🚩</li>
 </ul>
 <p><a id="4.4"></a></p>
-<h3 id="一事务">一、事务</h3>
-<h4 id="11-概念及原理">1.1 概念及原理</h4>
+<h2 id="一事务">一、事务</h2>
+<h3 id="11-概念及原理">1.1 概念及原理</h3>
 <blockquote>
 <h4 id="问什么是事务">问：什么是事务？</h4>
 </blockquote>
@@ -437,14 +469,14 @@
 <h4 id="问mysql中各有什么机制保证以上四个属性">问：MySQL中，各有什么机制保证以上四个属性？</h4>
 </blockquote>
 <ul>
-<li>**原子性、一致性、持久性：**redo log、undo log；</li>
-<li>**隔离性：**锁、MVCC。</li>
+<li><strong>原子性、一致性、持久性</strong>：redo log、undo log；</li>
+<li><strong>隔离性</strong>：锁、MVCC。</li>
 </ul>
 <blockquote>
 <h4 id="问a-id25持久性是怎么保证的a">问：<a id="2.5">持久性是怎么保证的？</a></h4>
 </blockquote>
 <p>redo log。</p>
-<h4 id="12-并发事务">1.2 并发事务</h4>
+<h3 id="12-并发事务">1.2 并发事务</h3>
 <p>A、B同时对数据库进行事务操作时，会发生的问题。</p>
 <blockquote>
 <h4 id="问并发事务会带来哪些问题">问：并发事务会带来哪些问题？</h4>
@@ -456,10 +488,10 @@
 <li>丢失修改</li>
 <li>…</li>
 </ul>
-<p>**脏读：**一个事务读到了另一个事务还未<code>commit</code>的数据；</p>
-<p>**不可重复读：**一个事务中先后读取同一条数据，期间另一个事务修改了该数据，造成第一个事务先后读取到的数据不一致。<strong>即</strong>，一个事务中前后两次读到的数据不一致；</p>
-<p>**幻读：**一个事务查询某条数据时，发现没有对应行，但之后另一个事务插入了该条数据，当第一个事务准备插入该条数据时，又发现这行数据已存在。<strong>即</strong>，<strong>前后读取的记录数量不一致</strong>，就像出现了幻觉一样；</p>
-<p>**丢失修改：**第一个事务修改了某条数据，第二个事务随后又修改了某条数据，造成第一个事务的修改结果丢失。</p>
+<p><strong>脏读</strong>：一个事务读到了另一个事务还未<code>commit</code>的数据；</p>
+<p><strong>不可重复读</strong>：一个事务中先后读取同一条数据，期间另一个事务修改了该数据，造成第一个事务先后读取到的数据不一致。<strong>即</strong>，一个事务中前后两次读到的数据不一致；</p>
+<p><strong>幻读</strong>：一个事务查询某条数据时，发现没有对应行，但之后另一个事务插入了该条数据，当第一个事务准备插入该条数据时，又发现这行数据已存在。<strong>即</strong>，<strong>前后读取的记录数量不一致</strong>，就像出现了幻觉一样；</p>
+<p><strong>丢失修改</strong>：第一个事务修改了某条数据，第二个事务随后又修改了某条数据，造成第一个事务的修改结果丢失。</p>
 <blockquote>
 <h4 id="问不可重复读和幻读的区别">问：不可重复读和幻读的区别？</h4>
 </blockquote>
@@ -485,7 +517,7 @@
 <li>undo log：undo log 用于记录某行数据的多个版本的数据。</li>
 <li>read view 和 隐藏字段：用来判断当前版本数据的可见性。</li>
 </ul>
-<h4 id="13-事务隔离级别">1.3 事务隔离级别</h4>
+<h3 id="13-事务隔离级别">1.3 事务隔离级别</h3>
 <blockquote>
 <h4 id="问a-id21都有哪些事务隔离级别a">问：<a id="2.1">都有哪些事务隔离级别？</a></h4>
 </blockquote>
@@ -636,7 +668,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>然后再次查询 id = 5 的记录，事务 A 就能看到事务 B 插入的纪录了，且被自己更新过。<strong>这就产生了幻读。</strong></li>
+<li>然后再次查询 id = 5 的记录，事务 A 就能看到事务 B 插入的记录了，且被自己更新过。<strong>这就产生了幻读。</strong></li>
 </ul>
 <p><strong>整个过程的时序图：</strong></p>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230327144436448.png" alt="image-20230327144436448" style="zoom:33%;" />
@@ -670,7 +702,7 @@
 <p><strong>具体分析下这个过程：</strong></p>
 <ul>
 <li>事务 B 第一次读取时，发现该记录的<code>trx_id</code> &lt; 事务 B 的 Read View 中的<code>min_trx_id</code>，所以该记录的该版本<strong>可见</strong>；</li>
-<li>接着，事务 A 修改该记录(但还没提交事务)，此时MySQL会记录 undo log，以链表方式串联起来，形成<strong>版本链</strong>；</li>
+<li>接着，事务 A 修改该记录(但还没提交事务)，此时 MySQL 会记录 undo log，以链表方式串联起来，形成<strong>版本链</strong>；</li>
 </ul>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230327141730723.png" alt="image-20230327141730723" style="zoom:33%;" />
 <ul>
@@ -693,7 +725,7 @@
 <p><strong>区别就在于事务 B 第三次读取数据时，会新建 Read View：</strong></p>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230327143446679.png" alt="image-20230327143446679" style="zoom: 25%;" />
 <p>注意，此时<code>m_ids</code>中只有<code>52</code>了，事务 B 查询该记录时，<code>trx_id</code>=51，小于<code>min_trx_id</code>，所以该记录的该版本对事务 B <strong>可见</strong>。</p>
-<h3 id="二存储引擎">二、存储引擎</h3>
+<h2 id="二存储引擎">二、存储引擎</h2>
 <p>5.5.5 版本之后，InnoDB 是 MySQL 的默认存储引擎，且所有的存储引擎中只有 InnoDB 是事务性存储引擎，也就是说只有 InnoDB 支持事务。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -752,13 +784,13 @@
 <h4 id="问如何选择-myisam-和-innodbmemory">问：如何选择 MyISAM 和 InnoDB、MEMORY？</h4>
 </blockquote>
 <ul>
-<li>**InnoDB⭐：**如果应用对事务的完整性有较高的要求，在并发条件下要求数据的一致性，数据操作除了插入和查询外，还包含很多更新、删除的操作，那么选择 InnoDB。</li>
-<li>**MyISAM：**如果应用以插入和查询操作为主，很少更新和删除，并且对事务的完整性、并发性要求不高，也不需要崩溃后安全恢复的话，那么也凑合能用。(现在被 MongoDB 替代了)</li>
-<li>**MEMORY：**通常用于临时表及缓存，将所有数据保存在内存，访问速度快。缺点就是对表的大小有限制，且安全性无法保障。(现在被 Redis 替代了)</li>
+<li><strong>InnoDB⭐</strong>：如果应用对事务的完整性有较高的要求，在并发条件下要求数据的一致性，数据操作除了插入和查询外，还包含很多更新、删除的操作，那么选择 InnoDB。</li>
+<li><strong>MyISAM</strong>：如果应用以插入和查询操作为主，很少更新和删除，并且对事务的完整性、并发性要求不高，也不需要崩溃后安全恢复的话，那么也凑合能用。(现在被 MongoDB 替代了)</li>
+<li><strong>MEMORY</strong>：通常用于临时表及缓存，将所有数据保存在内存，访问速度快。缺点就是对表的大小有限制，且安全性无法保障。(现在被 Redis 替代了)</li>
 </ul>
 <p>绝大部分情况下选择 InnoDB 都是没有问题的。</p>
-<h3 id="三索引">三、索引⭐</h3>
-<h4 id="31-索引结构">3.1 索引结构</h4>
+<h2 id="三索引">三、索引⭐</h2>
+<h3 id="31-索引结构">3.1 索引结构</h3>
 <p><strong>索引</strong>是帮助 MySQL <strong>高效获取数据</strong>(<strong>快速查询和检索数据</strong>)的<strong>数据结构(有序)</strong>。</p>
 <p><a id="1.2"><strong>常见的索引结构</strong></a>有: <strong>B 树(也称 B- 树)</strong>，<strong>B+ 树</strong> 和 <strong>Hash</strong>、<strong>红黑树</strong>。在 MySQL 中，无论是 Innodb 还是 MyIsam，都使用了 <strong>B+ 树</strong> 作为索引结构。大部分都支持 <strong>B+ 树</strong> 索引。</p>
 <p><strong>InnoDB 的数据是按==「数据页」(16KB)==为单位来读写的</strong>，也就是说，当需要读一条记录的时候，并不是将这个记录本身从磁盘读出来，而是以页为单位，将其整体读入内存。</p>
@@ -766,7 +798,7 @@
 <h4 id="问a-id13b-树-和-b树-有何异同a">问：<a id="1.3">B-树 和 B+树 有何异同？</a></h4>
 </blockquote>
 <ul>
-<li>B-树 的<strong>所有节点</strong>既存放键(key) 也存放 数据(data)，而 B+树 <strong>只有叶子节点存放 key 和 data，其他节点只存放 key</strong>；</li>
+<li>B-树 的<strong>所有节点</strong>既存放键(key)也存放数据(data)，而 B+树 <strong>只有叶子节点存放 key 和 data，其他节点只存放 key</strong>；</li>
 <li>B-树 的叶子节点都是<strong>独立</strong>的；B+树 的<strong>叶子节点之间</strong>构成一个<strong>有序链表</strong>；</li>
 <li>B+树 的非叶子节点的索引也会同时<strong>存在在子节点</strong>中，并且是在子节点中所有索引的最大（或最小），这样虽然有大量的冗余节点，这样使得<strong>删除</strong>一个节点的时候，可以直接从叶子节点中删除，甚至可以不动非叶子节点。</li>
 <li>B-树 的检索可能还没有到达叶子节点，检索就结束了，<strong>查询波动比较大</strong>；而 B+树 的<strong>检索效率就很稳定</strong>了，任何查找都是从根节点到叶子节点的过程。</li>
@@ -828,7 +860,7 @@
 <p>如果一行记录的数据大小为 1k，那么单个叶子节点可以存的记录数 = 16k/1k = 16. 非叶子节点内存放多少指针呢？我们假设主键ID为 bigint 类型，长度为8字节(面试官问你int类型，一个int就是32位，4字节)，而指针大小在InnoDB源码中设置为6字节，所以就是 8+6 = 14 字节，16KB/14B = 16*1024B/14B = 1170</p>
 <p>因此，一棵高度为2的B+树，能存放1170 * 16=18720条这样的数据记录。同理一棵高度为 3 的 B+ 树，能存放 1170 *1170 * 16 = 21902400，大概可以存放<strong>两千万</strong>左右的记录。B+ 树高度一般为 1-3 层，如果 B+ 到了 4 层，查询的时候会多查磁盘的次数，SQL 就会变慢。</p>
 </blockquote>
-<h4 id="32-索引类型">3.2 索引类型</h4>
+<h3 id="32-索引类型">3.2 索引类型</h3>
 <table>
 <thead>
 <tr>
@@ -889,7 +921,7 @@
 </table>
 <p>比如：<code>select * from user where name='Tom'</code>，会先去查找二级索引<code>name</code>，找到对应的主键<code>id</code>值，然后<strong>回表查询</strong>通过<strong>聚集索引</strong>拿到对应的<strong>行数据</strong>。</p>
 <blockquote>
-<h3 id="思考以下-sql语句哪个执行效率高为什么">思考：以下 SQL语句，哪个执行效率高？为什么？</h3>
+<h4 id="思考以下-sql语句哪个执行效率高为什么">思考：以下 SQL语句，哪个执行效率高？为什么？</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -932,8 +964,8 @@
 <li>profiles详情</li>
 <li>explain性能分析，可以查看执行计划</li>
 </ol>
-<h4 id="33-索引使用">3.3 索引使用</h4>
-<h5 id="索引法则">索引法则</h5>
+<h3 id="33-索引使用">3.3 索引使用</h3>
+<h4 id="索引法则">索引法则</h4>
 <p>**单列索引：**一个索引值包含单个列</p>
 <p>**联合索引：**一个索引包含了多个列</p>
 <blockquote>
@@ -1066,7 +1098,7 @@
 <li>索引时，要避免索引失效。</li>
 </ol>
 <hr>
-<h5 id="覆盖索引回表查询">覆盖索引、回表查询⭐🚩</h5>
+<h4 id="覆盖索引回表查询">覆盖索引、回表查询⭐🚩</h4>
 <p><strong>如果一个索引覆盖所有需要查询的字段的值</strong>，就称之为**<code>覆盖索引</code>**。我们知道在 InnoDB 存储引擎中，如果不是主键索引，叶子节点存储的是主键+列值。最终还是要“回表”，也就是要通过主键再查找一次，这样就会比较慢。</p>
 <p>**覆盖索引，即需要查询的字段正好是索引中的字段，那么直接根据该索引，就可以查到数据了，而无需回表查询。**因此，尽量避免使用<code>select *</code>，除非你联合索引的条件很多很多。</p>
 <blockquote>
@@ -1103,7 +1135,7 @@
 </div></blockquote>
 <p>**需要建立索引：**针对 <code>username </code>和 <code>password </code>建立联合索引，这样的话，查到<code>username</code>=&lsquo;itcast&rsquo;时，val值为<code>id</code>，<code>username</code>和<code>password</code>也知道，直接返回即可，无需回表查询。</p>
 <hr>
-<h5 id="前缀索引">前缀索引</h5>
+<h4 id="前缀索引">前缀索引</h4>
 <blockquote>
 <h4 id="问a-id18前缀索引是什么a">问：<a id="1.8">前缀索引是什么？</a></h4>
 </blockquote>
@@ -1122,14 +1154,14 @@
 <li>order by、group by 无法使用前缀索引；</li>
 <li>由于只存储了部分前缀，所以也无法把前缀索引用作覆盖索引(覆盖索引需要全部的数据)。</li>
 </ul>
-<h5 id="索引下推">索引下推</h5>
+<h4 id="索引下推">索引下推</h4>
 <blockquote>
 <h4 id="问什么是索引下推">问：什么是索引下推？</h4>
 </blockquote>
 <p><strong>索引下推（Index Condition Pushdown）</strong> 是 <strong>MySQL 5.6</strong> 版本中提供的一项索引优化功能，可以在非聚簇索引遍历过程中，对索引中包含的字段在<strong>引擎层</strong>先做判断，过滤掉不符合条件的记录，<strong>减少回表次数</strong>。</p>
 <p>索引下推并不适用于所有查询，只有在查询条件中<strong>包含索引字段和非索引字段</strong>的情况下才能发挥作用。</p>
 <p>核心思想就是<strong>引擎层利用索引字段先过滤一次，然后判断非索引字段是否匹配</strong>，然后<strong>再返回给server层进行回表查询拿到整行数据</strong>。</p>
-<h5 id="索引设计原则">索引设计原则</h5>
+<h4 id="索引设计原则">索引设计原则</h4>
 <blockquote>
 <h4 id="问a-id15索引设计原则有哪些a">问：<a id="1.5">索引设计原则有哪些？</a></h4>
 </blockquote>
@@ -1181,9 +1213,9 @@
 <li>uuid 是无序的，导致插入新数据时，B+ 树调整的频次更多，插入效率就降低了；</li>
 <li>自增 id 是有序的，缺点就是容易泄露数据量，以及多个表合并时、分布式架构时，id 容易冲突。</li>
 </ul>
-<h3 id="四sql优化">四、SQL优化</h3>
+<h2 id="四sql优化">四、SQL优化</h2>
 <p>其实<code>2-7</code>都是跟索引相关。</p>
-<h4 id="41-插入数据">4.1 插入数据</h4>
+<h3 id="41-插入数据">4.1 插入数据</h3>
 <ul>
 <li><code>insert</code>优化：
 <ul>
@@ -1193,14 +1225,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="42-主键优化">4.2 主键优化</h4>
+<h3 id="42-主键优化">4.2 主键优化</h3>
 <ul>
 <li>尽量<strong>降低主键的长度</strong>；</li>
 <li>插入数据时，尽量选择<strong>顺序插入</strong>，选择使用<code>auto_increment</code>自增主键；</li>
 <li>尽量不要使用<code>UUID</code>做主键或是其他自然主键，如身份证号，因为这些主键不是顺序的，插入时相当于乱序，且这些主键较长；</li>
 <li>尽量避免对主键的修改。</li>
 </ul>
-<h4 id="43-order-by-优化">4.3 order by 优化</h4>
+<h3 id="43-order-by-优化">4.3 order by 优化</h3>
 <p><strong><code>using index</code>：直接通过索引返回数据</strong>，性能高；</p>
 <p><strong><code>using filesort</code>：<strong>需要将返回的结果在排序缓冲区</strong>重新排序</strong>。</p>
 <ul>
@@ -1208,16 +1240,16 @@
 <li>也要遵循最左前缀法则，尽量使用覆盖索引；</li>
 <li>不可避免出现<code>filesort</code>时，大数据排序时，可以适当增大排序缓冲区大小。</li>
 </ul>
-<h4 id="44-group-by-优化">4.4 group by 优化</h4>
+<h3 id="44-group-by-优化">4.4 group by 优化</h3>
 <ul>
 <li>对<code>group by</code>字段建立索引，避免<code>using temporary</code>；</li>
 <li>也要遵循最左前缀法则。</li>
 </ul>
-<h4 id="45-limit-优化">4.5 limit 优化</h4>
+<h3 id="45-limit-优化">4.5 limit 优化</h3>
 <ul>
 <li>覆盖索引+子查询</li>
 </ul>
-<h4 id="46-count-优化">4.6 count 优化</h4>
+<h3 id="46-count-优化">4.6 count 优化</h3>
 <p><code>MyISAM </code>是把count结果记录在磁盘上，需要的时候直接读取。</p>
 <p><code>InnoDB </code>需要一条一条读取数据，再累计计数，没有什么好的优化方法。</p>
 <p>用法：</p>
@@ -1266,12 +1298,12 @@
 <li><code>show table status</code> 估算；</li>
 <li>单独建个表，用来计数</li>
 </ul>
-<h4 id="47-update-优化">4.7 update 优化</h4>
+<h3 id="47-update-优化">4.7 update 优化</h3>
 <ul>
 <li>update 更新时，更新条件要按照<strong>索引</strong>，这样加的才是<strong>行锁</strong>，否则是<strong>表锁</strong>，会降低数据库的并行性能。</li>
 </ul>
-<h3 id="五视图--存储过程--触发器未">五、视图 &amp; 存储过程 &amp; 触发器（未）</h3>
-<h4 id="51-视图">5.1 视图</h4>
+<h2 id="五视图--存储过程--触发器未">五、视图 &amp; 存储过程 &amp; 触发器（未）</h2>
+<h3 id="51-视图">5.1 视图</h3>
 <p>视图是一种<strong>虚拟存在的表</strong>。视图<strong>只保存了查询的 SQL 逻辑</strong>，不保存查询结果。所以在创建视图的时候，主要工作就落在<strong>创建这条 SQL 查询语句</strong>上。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1295,7 +1327,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">stu_v_1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">local</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="k">option</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h5 id="视图的作用">视图的作用</h5>
+</div><h4 id="视图的作用">视图的作用</h4>
 <ul>
 <li>
 <p>**简化操作。**无需每次都指定全部条件。</p>
@@ -1307,8 +1339,8 @@
 <p>**数据独立。**屏蔽基表变化对业务的影响。</p>
 </li>
 </ul>
-<h4 id="52-存储过程">5.2 存储过程</h4>
-<h5 id="语法">语法</h5>
+<h3 id="52-存储过程">5.2 存储过程</h3>
+<h4 id="语法">语法</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1343,16 +1375,16 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">drop</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">过程名</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="53-存储函数">5.3 存储函数</h4>
+</div><h3 id="53-存储函数">5.3 存储函数</h3>
 <p>就是<strong>有返回值的存储过程</strong>。</p>
-<h3 id="六锁">六、锁</h3>
+<h2 id="六锁">六、锁</h2>
 <p><strong>锁</strong>是<strong>协调多个进程或线程并发访问某一资源的机制</strong>。</p>
 <ul>
 <li>**全局锁：**锁定数据库中的所有表；（粒度最大的锁）</li>
 <li>**表级锁：**每次操作锁住整张表；<strong>针对非索引字段</strong>；</li>
 <li>**行级锁：**每次操作锁住对应的行数据；<strong>针对索引字段</strong>；（粒度最小的锁）</li>
 </ul>
-<h4 id="61-全局锁">6.1 全局锁</h4>
+<h3 id="61-全局锁">6.1 全局锁</h3>
 <blockquote>
 <h4 id="问全局锁的应用场景">问：全局锁的应用场景？</h4>
 </blockquote>
@@ -1373,7 +1405,7 @@
 <li>若在<strong>从库</strong>上备份，那么备份期间从库不能执行主库同步，会导致<strong>主从延迟</strong>。</li>
 </ul>
 <p>在 InnoDB 上备份时，加上参数<code>–single-transaction</code>参数可以完成<strong>不加锁的一致性数据备份</strong>。这种方式实际上是通过<strong>快照</strong>实现的。</p>
-<h4 id="62-表级锁">6.2 表级锁</h4>
+<h3 id="62-表级锁">6.2 表级锁</h3>
 <ul>
 <li>**表共享锁(read lock)：**大家(包括自己)都可以读，但都不可以写</li>
 <li>**表排他锁(write lock)：**自己可以读写，别人不可以读写</li>
@@ -1464,7 +1496,7 @@
 <li><strong>共享锁（S 锁）</strong>：事务在<strong>读取</strong>时获得；<strong>允许多个事务同时获取</strong>（锁兼容）。</li>
 <li><strong>排他锁（X 锁）</strong>：事务在<strong>修改</strong>的时获得；<strong>不允许多个事务同时获取</strong>。如果一个记录已经被加了排他锁，那其他事务不能再对这条事务加任何类型的锁（锁不兼容）。<strong>只允许获得该锁的事务读写，不允许其他事务操作。</strong></li>
 </ul>
-<h4 id="63-行级锁">6.3 行级锁</h4>
+<h3 id="63-行级锁">6.3 行级锁</h3>
 <p>分类：</p>
 <ul>
 <li>**记录锁：**锁定单行记录的锁，<strong>防止其他事务对该行进行update和delete</strong>。在RC、RR隔离级别下都支持。</li>
@@ -1514,8 +1546,8 @@
 <li><strong>设置事务等待锁的超时时间</strong>。当一个事务的等待时间<strong>超时</strong>，就对这个事务进行<strong>回滚</strong>，于是锁就释放了，另一个事务就可以继续执行了。</li>
 <li><strong>开启主动死锁检测</strong>。主动死锁检测在发现死锁后，主动<strong>回滚</strong>死锁链条中的某一个事务，让其他事务得以继续执行。</li>
 </ul>
-<h3 id="七mvcc">七、MVCC</h3>
-<h4 id="71-概念">7.1 概念</h4>
+<h2 id="七mvcc">七、MVCC</h2>
+<h3 id="71-概念">7.1 概念</h3>
 <blockquote>
 <h4 id="问当前读和快照读有什么区别">问：当前读和快照读有什么区别？</h4>
 </blockquote>
@@ -1556,21 +1588,21 @@
 <h4 id="问什么是mvcc">问：什么是MVCC？</h4>
 </blockquote>
 <p>**多版本并发控制。**指维护一个数据的多个版本，使得读写操作没有冲突，快照读为实现MVCC提供了一个非阻塞读功能。</p>
-<h4 id="72-mvcc实现">7.2 MVCC实现</h4>
+<h3 id="72-mvcc实现">7.2 MVCC实现</h3>
 <p>MVCC的实现依赖于数据库中：<strong>三个隐藏字段</strong>、<strong>undo log日志</strong>、<strong>readView</strong>。</p>
-<h5 id="721-隐藏字段">7.2.1 隐藏字段</h5>
+<h4 id="721-隐藏字段">7.2.1 隐藏字段</h4>
 <ul>
 <li><code>DB_TRX_ID</code>：最后一次插入或更新改行的事务ID。</li>
 <li><code>DR_ROLL_PTR</code>：回滚指针，指向上个版本，即<code>undo log</code>。</li>
 <li><code>DB_ROW_ID</code>：隐藏主键。如果没有设置主键且没有唯一非空索引时，会使用该ID生成聚集索引。</li>
 </ul>
-<h5 id="722-undo-log">7.2.2 undo log</h5>
+<h4 id="722-undo-log">7.2.2 undo log</h4>
 <p><strong>回滚日志</strong>。在 <code>insert</code>、<code>update</code>、<code>delete</code>的时候产生的便于数据回滚的日志。</p>
 <ul>
 <li><strong><code>insert undo log</code>：</strong><code>insert</code>时产生的<code>undo log</code>。<strong>只在回滚时需要</strong>，事务提交后，可立即被删除。</li>
 <li><strong><code>update undo log</code>：</strong><code>update</code>/<code>delete</code>时产生的<code>undo log</code>。<strong>不仅在回滚时需要，在快照读时也需要</strong>，因此不会被立即删除。</li>
 </ul>
-<h5 id="723-readview">7.2.3 readview</h5>
+<h4 id="723-readview">7.2.3 readview</h4>
 <p><code>ReadView</code>(读视图)是<strong>快照读</strong> SQL 执行时 MVCC 提取数据的依据，记录并维护系统当前活跃的事务(未提交的)ID。</p>
 <p><strong>包含以下字段：</strong></p>
 <ul>
@@ -1649,29 +1681,29 @@
 <li>快照读时，通过只在第一次查询时生成Read View，来防止幻读；</li>
 <li>当前读时，通过加临键锁，拒绝数据插入，来防止幻读。</li>
 </ul>
-<h3 id="八数据类型">八、数据类型</h3>
+<h2 id="八数据类型">八、数据类型</h2>
 <p>这点之前没记，现在补充一下~</p>
-<h4 id="81-表空间的文件结构">8.1 表空间的文件结构</h4>
+<h3 id="81-表空间的文件结构">8.1 表空间的文件结构</h3>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230327150730574.png" alt="image-20230327150730574" style="zoom: 33%;" />
-<h5 id="行">行</h5>
+<h4 id="行">行</h4>
 <p>数据库表中的记录都是<strong>按行（row）进行存放</strong>的，每行记录根据不同的行格式，有不同的存储结构。</p>
-<h5 id="页">页</h5>
+<h4 id="页">页</h4>
 <p>InnoDB 的数据是按**「页」为单位<strong>来</strong>读写**，一次I/O操作读取一页，<strong>默认每个页的大小为 16KB</strong>，也就是最多能保证 16KB 的连续存储空间。<strong>页是 InnoDB 存储引擎磁盘管理的最小单元</strong>，意味着数据库每次读写都是以 16KB 为单位的，一次最少从磁盘中读取 16K 的内容到内存中，一次最少把内存中的 16K 内容刷新到磁盘中。</p>
-<h5 id="区">区</h5>
+<h4 id="区">区</h4>
 <p>数据量大的时候，为某个索引分配空间的时候就<strong>不再按照页为单位分配</strong>了，而是<strong>按照区（extent）为单位分配</strong>。每个区的大小为 1MB，对于 16KB 的页来说，<strong>连续的 64 个页会被划为一个区</strong>，这样就使得链表中相邻的页的物理位置也相邻，就能使用**顺序 I/O **了。</p>
-<h5 id="段">段</h5>
+<h4 id="段">段</h4>
 <p>表空间是由各个段（segment）组成的，段是由多个区（extent）组成的。段一般分为数据段、索引段和回滚段等。</p>
-<h4 id="82-行格式">8.2 行格式</h4>
+<h3 id="82-行格式">8.2 行格式</h3>
 <p>现在用的都是 <strong>Compact 行格式</strong>，一条完整的记录分为「记录的额外信息」和「记录的真实数据」两个部分。</p>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/COMPACT.drawio.png" alt="img" style="zoom: 33%;" />
-<h3 id="九日志">九、日志</h3>
+<h2 id="九日志">九、日志</h2>
 <p>更新语句的流程会涉及到 undo log（回滚日志）、redo log（重做日志） 、bin log（归档日志）这三种日志。</p>
 <ul>
 <li><strong>undo log（回滚日志）</strong>：是 Innodb 存储引擎层生成的日志，实现了事务中的<strong>原子性</strong>，主要<strong>用于事务回滚和 MVCC</strong>；</li>
 <li><strong>redo log（重做日志）</strong>：是 Innodb 存储引擎层生成的日志，实现了事务中的<strong>持久性</strong>，主要<strong>用于掉电等故障恢复</strong>；</li>
 <li><strong>bin log（归档日志）</strong>：是 Server 层生成的日志，主要<strong>用于数据备份和主从复制</strong>。</li>
 </ul>
-<h4 id="undo-log-和-redo-log">undo log 和 redo log</h4>
+<h3 id="undo-log-和-redo-log">undo log 和 redo log</h3>
 <blockquote>
 <h4 id="问a-id41undo-log-是啥有啥用a">问：<a id="4.1">undo log 是啥？有啥用？</a></h4>
 </blockquote>
@@ -1711,7 +1743,7 @@
 <h4 id="问redo-log-会满吗">问：redo log 会满吗？</h4>
 </blockquote>
 <p>会。redo log 类似 Redis 的 repl_backlog，也是个<strong>环形缓冲区</strong>，当写满了之后，就会触发 buffer pool 的刷盘操作，然后擦除旧的 redo log，就可以继续写入了~</p>
-<h4 id="bin-log">bin log</h4>
+<h3 id="bin-log">bin log</h3>
 <blockquote>
 <h4 id="问什么是-bin-log">问：什么是 bin log？</h4>
 </blockquote>
@@ -1821,8 +1853,8 @@
 <h4 id="问两阶段提交有啥缺点">问：两阶段提交有啥缺点？</h4>
 </blockquote>
 <p>I/O 操作次数多。这是因为每次事务提交都<strong>至少需要两次刷盘</strong>。</p>
-<h3 id="十内存">十、内存</h3>
-<h4 id="基础">基础</h4>
+<h2 id="十内存">十、内存</h2>
+<h3 id="基础">基础</h3>
 <blockquote>
 <h4 id="问为啥要有-buffer-pool">问：为啥要有 Buffer Pool？</h4>
 </blockquote>
@@ -1844,7 +1876,7 @@
 </blockquote>
 <p>No！查询记录时，通过索引找到磁盘上的页，然后会把整页加载，并存入 Buffer Pool。</p>
 <p>一方面是因为，<strong>索引只能定位到页</strong>；另一方面，若每次IO读入了整页，却只保留一条数据，也挺浪费的。。</p>
-<h4 id="管理">管理</h4>
+<h3 id="管理">管理</h3>
 <blockquote>
 <h4 id="问如何管理空闲页">问：如何管理空闲页？</h4>
 </blockquote>
@@ -1882,8 +1914,8 @@
 <li>MySQL 认为空闲时，后台线程会定期将适量的脏页刷入到磁盘；</li>
 <li>MySQL 正常关闭之前，会把所有的脏页刷入到磁盘。</li>
 </ul>
-<h3 id="十一集群架构">十一、集群架构</h3>
-<h4 id="主从复制">主从复制</h4>
+<h2 id="十一集群架构">十一、集群架构</h2>
+<h3 id="主从复制">主从复制</h3>
 <blockquote>
 <h4 id="问为什么要集群">问：为什么要集群？</h4>
 </blockquote>
@@ -1917,7 +1949,7 @@
 <li>**异步复制(默认)：**主库不用等 bin log 同步到从库就返回结果。缺点就是，主库宕机可能会丢失部分数据；</li>
 <li>**半同步复制：**主库等 bin log 复制到一部分从库再返回结果。兼顾上述方案，就算主库宕机了，也不会丢失数据。</li>
 </ul>
-<h4 id="分库分表">分库分表</h4>
+<h3 id="分库分表">分库分表</h3>
 <blockquote>
 <h4 id="问为什么要分库为什么要分表">问：为什么要分库？为什么要分表？</h4>
 </blockquote>
@@ -2019,13 +2051,13 @@
 <li><strong>取模分片</strong>：指定的字段值 % 节点数量，落到哪个节点就存到哪个；</li>
 <li><strong>一致性hash</strong>：增加节点或删除节点时，取模分片会导致大量数据迁移；一致性hash中，只会影响一小部分数据的迁移。</li>
 </ul>
-<h4 id="读写分离">读写分离</h4>
+<h3 id="读写分离">读写分离</h3>
 <p>就是，只有主节点负责写请求，其他节点负责读请求，可以降低单台服务器的压力。</p>
 <ul>
 <li>一主一从：一主负责写，一从负责读；</li>
 <li>双主双从：一主负责写，一主两从负责读。并且，每组主从间互为主备，一组挂了，另一组就会顶上，实现高可用。</li>
 </ul>
-<h4 id="分布式-id">分布式 ID</h4>
+<h3 id="分布式-id">分布式 ID</h3>
 <p>当分库分表之后，同一个逻辑表的数据被分布到多个库中，这时如果使用数据库自增字段作为主键，那么只能保证在这个库中是唯一的，<strong>无法保证全局的唯一性</strong>。那么假如设计用户系统的时候，使用自增 ID 作为用户 ID，就可能出现<strong>两个用户有两个相同的 ID</strong>，这是不可接受的，那么就需要<strong>生成全局唯一的 ID</strong>。</p>
 <ol>
 <li>UUID</li>
@@ -2056,7 +2088,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="十二面试题">十二、面试题</h3>
+<h2 id="十二面试题">十二、面试题</h2>
 <blockquote>
 <h4 id="问a-id71执行一条mysql语句非常慢可能的原因a">问：<a id="7.1">执行一条MySQL语句，非常慢，可能的原因？</a></h4>
 </blockquote>
@@ -2163,9 +2195,7 @@
                 <span>Updated on 2023-04-20</span>
             </div></div>
         <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/06-%E6%95%B0%E6%8D%AE%E5%BA%93/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
+            <div class="post-info-md"></div>
             <div class="post-info-share">
                 <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="数据库" data-hashtags="计算机基础"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" data-hashtag="计算机基础"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="数据库"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="数据库"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/" data-title="数据库"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
@@ -2203,5 +2233,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/valine/valine.min.css"><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/valine/Valine.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"valine":{"appId":"agUqGfsZRxSQL7fq0tYPH6Zp-MdYXbMMI","appKey":"2e9VDVO0nPzBiJqpzPN6kVPC","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@14.0.0/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":true,"highlight":true,"lang":"zh-CN","meta":["nick","mail","link"],"pageSize":10,"placeholder":"开始友好的交流吧~","recordIP":true,"serverURLs":"https://mukjinfv.api.lncldglobal.com","visitor":true}},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script></body>
 </html>

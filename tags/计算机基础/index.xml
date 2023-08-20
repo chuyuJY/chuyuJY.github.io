@@ -58,7 +58,7 @@
     <pubDate>Thu, 20 Apr 2023 20:13:28 &#43;0800</pubDate>
     <author>Chuyu</author>
     <guid>https://blog.seucy.me/06-%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
-    <description><![CDATA[[toc] 常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B+树和B-树的区别？G B+]]></description>
+    <description><![CDATA[常见面试题 用于自测，点击 G 即可跳转到相应答案~~ MySQL 索引(⭐⭐必问) 索引的类型有哪些？G 索引的数据结构有哪些？G B+树和B-树的区别？G B+树]]></description>
 </item>
 <item>
     <title>操作系统</title>
@@ -66,7 +66,7 @@
     <pubDate>Wed, 19 Apr 2023 20:13:28 &#43;0800</pubDate>
     <author>Chuyu</author>
     <guid>https://blog.seucy.me/05-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
-    <description><![CDATA[[toc] 一、进程、线程、协程 问：什么是系统调用？ 进程的运行分为两个级别： 用户态(user mode)：用户态运行的进程可以直接读取用户程序的数据。 系]]></description>
+    <description><![CDATA[一、进程、线程、协程 问：什么是系统调用？ 进程的运行分为两个级别： 用户态(user mode)：用户态运行的进程可以直接读取用户程序的数据。 系统]]></description>
 </item>
 <item>
     <title>计算机网络</title>

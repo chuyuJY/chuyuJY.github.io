@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/blog.seucy.me\/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C\/"
-        },"genre": "posts","keywords": "计算机基础","wordcount":  19437 ,
+        },"genre": "posts","keywords": "计算机基础","wordcount":  19432 ,
         "url": "https:\/\/blog.seucy.me\/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C\/","datePublished": "2023-04-18T20:13:28+08:00","dateModified": "2023-04-18T20:13:28+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -101,7 +101,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">计算机网络</h1><h2 class="single-subtitle">计算机网络</h2><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chuyu</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E9%9D%A2%E8%AF%95/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>面试</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-18">2023-04-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;19437 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-18">2023-04-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;19432 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;39 minutes&nbsp;<span id="/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="leancloud_visitors" data-flag-title="计算机网络">
                         <i class="far fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;views
                     </span>&nbsp;</div>
@@ -117,7 +117,7 @@
         <li>
           <ul>
             <li><a href="#问tcp-与-udp-的区别">问：TCP 与 UDP 的区别⭐</a></li>
-            <li><a href="#问什么时候选择-tcp什么时候选-udp">**问：**什么时候选择 TCP，什么时候选 UDP?</a></li>
+            <li><a href="#问什么时候选择-tcp什么时候选-udp">问：什么时候选择 TCP，什么时候选 UDP?</a></li>
             <li><a href="#问http-基于-tcp-还是-udp">问：HTTP 基于 TCP 还是 UDP？</a></li>
             <li><a href="#问基于-tcpudp-的协议">问：基于 TCP、UDP 的协议？</a></li>
             <li><a href="#问如何理解-tcp-是面向字节流的">问：如何理解 TCP 是面向字节流的？</a></li>
@@ -280,7 +280,7 @@
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230510154451229.png" alt="image-20230510154451229" style="zoom: 25%;" />
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230510154508784.png" alt="image-20230510154508784" style="zoom:25%;" />
 <blockquote>
-<h4 id="问什么时候选择-tcp什么时候选-udp">**问：**什么时候选择 TCP，什么时候选 UDP?</h4>
+<h4 id="问什么时候选择-tcp什么时候选-udp">问：什么时候选择 TCP，什么时候选 UDP?</h4>
 </blockquote>
 <p><strong>UDP 一般用于即时通信</strong>，比如：语音、视频、直播等等。这些场景对传输数据的准确性要求不是特别高，比如你看视频即使少个一两帧，实际给人的感觉区别也不大。</p>
 <p><strong>TCP 用于对传输准确性要求特别高的场景</strong>，比如文件传输、发送和接收邮件、远程登录等等。</p>
@@ -317,7 +317,7 @@
 <ol start="2">
 <li><strong>为什么 TCP 是面向字节流的？</strong></li>
 </ol>
-<p>当用户消息通过 TCP 协议传输时，<strong>消息可能会被操作系统分组成多个的 TCP 报文</strong>，也就是一个完整的用户消息被拆分成多个 TCP 报文进行传输。</p>
+<p>当用户消息通过 TCP 协议传输时，<strong>消息可能会被操作系统分组成多个 TCP 报文</strong>，也就是一个完整的用户消息被拆分成多个 TCP 报文进行传输。</p>
 <p>这时，接收方的程序如果不知道发送方发送的消息的长度，也就是不知道消息的边界时，是无法读出一个有效的用户消息的，因为用户消息被拆分成多个 TCP 报文后，并不能像 UDP 那样，一个 UDP 报文就能代表一个完整的用户消息。</p>
 <p>例如，发送方准备发送 「Hi.」和「I am Xiaolin」这两个消息。</p>
 <p>在发送端，当我们调用 send 函数完成数据“发送”以后，<strong>数据并没有被真正从网络上发送出去，只是从应用程序拷贝到了操作系统内核协议栈中</strong>。至于什么时候真正被发送，<strong>取决于发送窗口、拥塞窗口以及当前发送缓冲区的大小等条件</strong>。也就是说，我们不能认为每次 send 调用发送的数据，都会作为一个整体完整地消息被发送出去。</p>
@@ -369,12 +369,12 @@
 <li>服务端收到客户端的应答报文后，也进入 <code>ESTABLISHED</code> 状态。</li>
 </ol>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230226202943082.png" alt="image-20230226202943082" style="zoom: 25%;" />
-<p><strong>注意：</strong></p>
+<p><strong>注意</strong>：</p>
 <ul>
 <li>TCP 规定<strong>携带 <code>SYN</code> 的确认报文段</strong>不携带数据，但也要消耗序号；</li>
 <li>TCP 规定<strong>普通 TCP 确认报文段</strong>可以携带数据，若不携带数据，则不消耗序号。即上图传输的第一个数据报文段序号<code>seq=x+1</code>。即<strong>第三次握手是可以携带数据的，前两次握手是不可以携带数据的</strong>。</li>
 </ul>
-<p>==<strong>四报文挥手：</strong>==</p>
+<p>==<strong>四报文挥手</strong>：==</p>
 <img src="https://chuyu-typora.oss-cn-hangzhou.aliyuncs.com/image/image-20230226204232488.png" alt="image-20230226204232488" style="zoom:25%;" />
 <blockquote>
 <h4 id="问用什么数据结构管理半连接队列和全连接队列">问：用什么数据结构管理半连接队列和全连接队列？</h4>
