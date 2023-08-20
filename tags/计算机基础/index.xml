@@ -74,7 +74,7 @@
     <pubDate>Tue, 18 Apr 2023 20:13:28 &#43;0800</pubDate>
     <author>Chuyu</author>
     <guid>https://blog.seucy.me/04-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</guid>
-    <description><![CDATA[[toc] 一、TCP 与 UDP 问：TCP 与 UDP 的区别⭐ 是否面向连接：UDP 在传送数据之前不需要先建立连接；而 TCP 提供面向连接的服务，在传送数据之前必须先建立连]]></description>
+    <description><![CDATA[一、TCP 与 UDP 问：TCP 与 UDP 的区别⭐ 是否面向连接：UDP 在传送数据之前不需要先建立连接；而 TCP 提供面向连接的服务，在传送数据之前必须先建立连接]]></description>
 </item>
 <item>
     <title>爬虫</title>
