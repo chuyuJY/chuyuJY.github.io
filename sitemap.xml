@@ -2,16 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://blog.seucy.me/categories/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/tags/chatgpt/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/posts/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/tags/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/tags/%E5%AE%9E%E4%B9%A0/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/trlab/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/categories/%E9%9D%A2%E8%AF%95/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/tags/%E9%A1%B9%E7%9B%AE/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://blog.seucy.me/categories/%E9%A1%B9%E7%9B%AE/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://blog.seucy.me/categories/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/tags/chatgpt/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/posts/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/tags/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/tags/%E5%AE%9E%E4%B9%A0/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/trlab/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/categories/%E9%9D%A2%E8%AF%95/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/tags/%E9%A1%B9%E7%9B%AE/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://blog.seucy.me/categories/%E9%A1%B9%E7%9B%AE/</loc><lastmod>2023-08-01T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://blog.seucy.me/about/about/</loc><lastmod>2023-07-28T11:51:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://blog.seucy.me/about/</loc><lastmod>2023-07-28T11:51:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://blog.seucy.me/tags/%E5%85%B3%E4%BA%8E/</loc><lastmod>2023-07-28T11:51:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
@@ -61,7 +61,7 @@
             <loc>https://blog.seucy.me/tags/%E9%94%81/</loc><lastmod>2023-02-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.seucy.me/go%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</loc><lastmod>2023-01-10T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://blog.seucy.me/tags/%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</loc><lastmod>2023-01-10T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://blog.seucy.me/tags/python/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>https://blog.seucy.me/categories/python/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>https://blog.seucy.me/tags/%E7%88%AC%E8%99%AB/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>https://blog.seucy.me/%E7%88%AC%E8%99%AB/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url></urlset>
+            <loc>https://blog.seucy.me/tags/python/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.seucy.me/categories/python/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.seucy.me/tags/%E7%88%AC%E8%99%AB/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://blog.seucy.me/%E7%88%AC%E8%99%AB/</loc><lastmod>2023-07-18T20:13:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
